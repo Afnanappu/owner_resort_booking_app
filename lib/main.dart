@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
+import 'package:owner_resort_booking_app/routes/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 
@@ -12,12 +19,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     MyScreenSize.initialize(context);
     print(MyScreenSize());
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: routes,
     );
   }
 }

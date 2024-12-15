@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "938553968662",
+    "project_id": "stayscape-resort-booking-app",
+    "storage_bucket": "stayscape-resort-booking-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938553968662:android:e6026fe689050e8e918d37",
+        "android_client_info": {
+          "package_name": "com.example.owner_resort_booking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938553968662-j6fun9h0eam848n4jl861n1abg26q5o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbmWmvmvPmrN1sf8kvLTcgJIn6sSNnDEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938553968662-j6fun9h0eam848n4jl861n1abg26q5o4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "938553968662-lv2ban9kcv3c52ceqg9c3j2ncnu3rkf3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ownerResortBookingApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938553968662:android:1c263c9752ab5cd5918d37",
+        "android_client_info": {
+          "package_name": "com.example.user_resort_booking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938553968662-bq7fulk7i68cf9o2b8i8dll6ot5oajhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user_resort_booking_app",
+            "certificate_hash": "eae9b284a267d6fa1945b649e16c0132d2f47406"
+          }
+        },
+        {
+          "client_id": "938553968662-j6fun9h0eam848n4jl861n1abg26q5o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbmWmvmvPmrN1sf8kvLTcgJIn6sSNnDEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "938553968662-j6fun9h0eam848n4jl861n1abg26q5o4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "938553968662-lv2ban9kcv3c52ceqg9c3j2ncnu3rkf3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ownerResortBookingApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

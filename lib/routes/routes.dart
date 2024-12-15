@@ -2,7 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_login.dart';
+import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_sign_up.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
+
 final _navigatorKey = GlobalKey<NavigatorState>();
 
 final routes = GoRouter(
@@ -12,30 +16,18 @@ final routes = GoRouter(
     MyNavigatorObserver(),
   ],
   routes: [
-    // GoRoute(
-    //     name: 'onboarding',
-    //     path: '/',
-    //     pageBuilder: (context, state) =>
-    //         customTransitionPage(state, ScreenOnboarding())),
-    // GoRoute(
-    //   name: 'onboarding2',
-    //   path: '/${AppRoutes.onboarding2}',
-    //   pageBuilder: (context, state) =>
-    //       customTransitionPage(state, ScreenOnboarding2()),
-     
-    // ),
-    // GoRoute(
-    //   name: 'login',
-    //   path: '/${AppRoutes.login}',
-    //   pageBuilder: (context, state) =>
-    //       customTransitionPage(state, ScreenLogin()),
-    // ),
-    // GoRoute(
-    //   name: 'signup',
-    //   path: '/${AppRoutes.signUp}',
-    //   pageBuilder: (context, state) =>
-    //       customTransitionPage(state, ScreenSignUp()),
-    // ),
+    GoRoute(
+      name: 'login',
+      path: '/',
+      pageBuilder: (context, state) =>
+          customTransitionPage(state, ScreenLogin()),
+    ),
+    GoRoute(
+      name: 'signup',
+      path: '/${AppRoutes.signUp}',
+      pageBuilder: (context, state) =>
+          customTransitionPage(state, ScreenSignUp()),
+    ),
   ],
 );
 
