@@ -5,7 +5,6 @@ import 'package:owner_resort_booking_app/core/components/elevated_button_auth.da
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
-import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class RegisterButtonWidget extends StatelessWidget {
   const RegisterButtonWidget({

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
+import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 
 class CustomTextFormFieldAuth extends StatelessWidget {
@@ -34,7 +35,7 @@ class CustomTextFormFieldAuth extends StatelessWidget {
         controller: controller,
         cursorColor: MyColors.orangeLight,
         cursorHeight: 18,
-        cursorRadius: Radius.circular(10),
+        cursorRadius: Radius.circular(borderRad10),
         cursorOpacityAnimates: true,
         enableIMEPersonalizedLearning: true,
         enableInteractiveSelection: true,

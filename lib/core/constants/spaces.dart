@@ -19,6 +19,9 @@ class MySpaces {
   static const hSpace80 = SizedBox(
     height: 80,
   );
+  static const wSpace5 = SizedBox(
+    height: 5,
+  );
   static const wSpace10 = SizedBox(
     height: 10,
   );

@@ -26,13 +26,13 @@ class LoginTextFormFields extends StatelessWidget {
         ),
         MySpaces.hSpace20,
         Text(
-          'Password',
+          'Owner ID',
           style: MyTextStyles.titleLargeSemiBoldBlack,
         ),
         CustomTextFormFieldAuth(
           keyboardType: TextInputType.visiblePassword,
           prefixIcon: Icon(Icons.password_outlined),
-          hintText: 'password',
+          hintText: 'unique id',
           suffixIcon: Icon(
             FontAwesomeIcons.eyeSlash,
             size: 18,
@@ -54,7 +54,7 @@ class LoginTextFormFields extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Forgot Password',
+                  'Forgot Owner ID?',
                   style: TextStyle(
                     color: MyColors.orange,
                     fontWeight: FontWeight.bold,
