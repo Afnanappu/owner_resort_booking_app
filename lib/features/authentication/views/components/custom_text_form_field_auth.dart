@@ -18,7 +18,7 @@ class CustomTextFormFieldAuth extends StatelessWidget {
   });
 
   final TextEditingController? controller;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;
   final double vertical;

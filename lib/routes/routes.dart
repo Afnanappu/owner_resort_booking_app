@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_login.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_sign_up.dart';
+import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
+import 'package:owner_resort_booking_app/features/home/view/screens/screen_home.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
@@ -17,16 +19,28 @@ final routes = GoRouter(
   ],
   routes: [
     GoRoute(
-      name: 'login',
-      path: '/',
-      pageBuilder: (context, state) =>
-          customTransitionPage(state, ScreenLogin()),
-    ),
+        name: 'splash',
+        path: '/',
+        pageBuilder: (context, state) {
+          return customTransitionPage(state, ScreenSplash());
+        }),
+    GoRoute(
+        name: 'login',
+        path: '/${AppRoutes.login}',
+        pageBuilder: (context, state) {
+          return customTransitionPage(state, ScreenLogin());
+        }),
     GoRoute(
       name: 'signup',
       path: '/${AppRoutes.signUp}',
       pageBuilder: (context, state) =>
           customTransitionPage(state, ScreenSignUp()),
+    ),
+    GoRoute(
+      name: 'home',
+      path: '/${AppRoutes.home}',
+      pageBuilder: (context, state) =>
+          customTransitionPage(state, ScreenHome()),
     ),
   ],
 );

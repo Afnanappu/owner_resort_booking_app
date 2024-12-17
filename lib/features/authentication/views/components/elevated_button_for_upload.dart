@@ -24,6 +24,7 @@ class ElevatedButtonForUpload extends StatelessWidget {
         side: BorderSide(
           color: MyColors.orange,
         ),
+        backgroundColor: MyColors.scaffoldDefaultColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRad10),
         ),
