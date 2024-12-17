@@ -1,1 +1,28 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"stayscape-resort-booking-app","appId":"1:938553968662:android:e6026fe689050e8e918d37","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"stayscape-resort-booking-app","configurations":{"android":"1:938553968662:android:e6026fe689050e8e918d37","ios":"1:938553968662:ios:749b94fea32ff2ab918d37","macos":"1:938553968662:ios:749b94fea32ff2ab918d37","web":"1:938553968662:web:bd59e90eef9d774a918d37","windows":"1:938553968662:web:c4e158fe9d1d1409918d37"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "stayscape-resort-booking-app",
+          "appId": "1:938553968662:android:e6026fe689050e8e918d37",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "stayscape-resort-booking-app",
+          "configurations": {
+            "android": "1:938553968662:android:e6026fe689050e8e918d37",
+            "ios": "1:938553968662:ios:749b94fea32ff2ab918d37",
+            "macos": "1:938553968662:ios:749b94fea32ff2ab918d37",
+            "web": "1:938553968662:web:bd59e90eef9d774a918d37",
+            "windows": "1:938553968662:web:c4e158fe9d1d1409918d37"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "singleProjectMode": true
+  }
+}
