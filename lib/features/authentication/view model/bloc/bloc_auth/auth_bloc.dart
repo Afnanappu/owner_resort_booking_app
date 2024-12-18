@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final personalProof = event.user.personalProof;
       final license = event.user.license;
 
-      if (personalProof == null || license == null) {
+      if (personalProof == null || license.isEmpty) {
         if (personalProof == null) {
           emit(AuthState.error('Personal Proof is not added'));
         } else {
@@ -30,7 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final password = createOwnerId();
       try {
         final userCredential = await authRepository.register(email, password);
-        log(userCredential.user?.photoURL??"profile is null".toString());
+        log(userCredential.user?.photoURL ?? "profile is null".toString());
         event.user.ownerId = password;
         event.user.uid = userCredential.user?.uid;
         await authRepository.addOwnerToCollection(event.user);
@@ -38,6 +38,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         emit(AuthState.error(e.toString()));
       }
+    });
+
+    on<_LoginWithEmailAndId>((event, emit) async {
+      emit(AuthState.loading());
+      try {
+        final user = await authRepository.login(event.email, event.ownerId);
+        emit(AuthState.authenticated(user));
+      } catch (e) {
+        emit(AuthState.emailLoginFailed(e.toString()));
+      }
+      
     });
   }
 }

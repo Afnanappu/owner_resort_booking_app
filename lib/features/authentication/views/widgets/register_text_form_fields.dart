@@ -84,9 +84,13 @@ class RegisterTextFormFields extends StatelessWidget {
               ),
               Consumer<UploadedFileProvider>(
                 builder: (context, files, _) {
-                  return Text(
-                    files.personalProof?.fileName ?? "Not selected",
-                    style: TextStyle(fontSize: 12),
+                  return Expanded(
+                    child: Text(
+                      files.personalProof?.fileName ?? "Not selected",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(fontSize: 12),
+                    ),
                   );
                 },
               )
@@ -112,9 +116,13 @@ class RegisterTextFormFields extends StatelessWidget {
               ),
               Consumer<UploadedFileProvider>(
                 builder: (context, files, _) {
-                  return Text(
-                    "${files.license.firstOrNull?.fileName ?? "Not selected"} ${files.license.length > 1 ? "+${files.license.length}" : ''}",
-                    style: TextStyle(fontSize: 12),
+                  return Expanded(
+                    child: Text(
+                      "${files.license.firstOrNull?.fileName ?? "Not selected"} ${files.license.length > 1 ? "+${files.license.length - 1}" : ''}",
+                      style: TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
                   );
                 },
               )

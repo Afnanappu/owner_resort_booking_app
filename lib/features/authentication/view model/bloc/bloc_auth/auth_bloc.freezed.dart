@@ -18,21 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loginWithEmailAndId,
+    required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
     required TResult Function(UserModel user) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loginWithEmailAndId,
+    TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
     TResult? Function(UserModel user)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loginWithEmailAndId,
+    TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
     TResult Function(UserModel user)? register,
     required TResult orElse(),
@@ -87,6 +87,8 @@ abstract class _$$LoginWithEmailAndIdImplCopyWith<$Res> {
   factory _$$LoginWithEmailAndIdImplCopyWith(_$LoginWithEmailAndIdImpl value,
           $Res Function(_$LoginWithEmailAndIdImpl) then) =
       __$$LoginWithEmailAndIdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String ownerId});
 }
 
 /// @nodoc
@@ -99,58 +101,91 @@ class __$$LoginWithEmailAndIdImplCopyWithImpl<$Res>
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? ownerId = null,
+  }) {
+    return _then(_$LoginWithEmailAndIdImpl(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoginWithEmailAndIdImpl implements _LoginWithEmailAndId {
-  const _$LoginWithEmailAndIdImpl();
+  const _$LoginWithEmailAndIdImpl(this.email, this.ownerId);
+
+  @override
+  final String email;
+  @override
+  final String ownerId;
 
   @override
   String toString() {
-    return 'AuthEvent.loginWithEmailAndId()';
+    return 'AuthEvent.loginWithEmailAndId(email: $email, ownerId: $ownerId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginWithEmailAndIdImpl);
+            other is _$LoginWithEmailAndIdImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, ownerId);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginWithEmailAndIdImplCopyWith<_$LoginWithEmailAndIdImpl> get copyWith =>
+      __$$LoginWithEmailAndIdImplCopyWithImpl<_$LoginWithEmailAndIdImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loginWithEmailAndId,
+    required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
     required TResult Function(UserModel user) register,
   }) {
-    return loginWithEmailAndId();
+    return loginWithEmailAndId(email, ownerId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loginWithEmailAndId,
+    TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
     TResult? Function(UserModel user)? register,
   }) {
-    return loginWithEmailAndId?.call();
+    return loginWithEmailAndId?.call(email, ownerId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loginWithEmailAndId,
+    TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
     TResult Function(UserModel user)? register,
     required TResult orElse(),
   }) {
     if (loginWithEmailAndId != null) {
-      return loginWithEmailAndId();
+      return loginWithEmailAndId(email, ownerId);
     }
     return orElse();
   }
@@ -191,7 +226,17 @@ class _$LoginWithEmailAndIdImpl implements _LoginWithEmailAndId {
 }
 
 abstract class _LoginWithEmailAndId implements AuthEvent {
-  const factory _LoginWithEmailAndId() = _$LoginWithEmailAndIdImpl;
+  const factory _LoginWithEmailAndId(final String email, final String ownerId) =
+      _$LoginWithEmailAndIdImpl;
+
+  String get email;
+  String get ownerId;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoginWithEmailAndIdImplCopyWith<_$LoginWithEmailAndIdImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -235,7 +280,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loginWithEmailAndId,
+    required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
     required TResult Function(UserModel user) register,
   }) {
@@ -245,7 +290,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loginWithEmailAndId,
+    TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
     TResult? Function(UserModel user)? register,
   }) {
@@ -255,7 +300,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loginWithEmailAndId,
+    TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
     TResult Function(UserModel user)? register,
     required TResult orElse(),
@@ -373,7 +418,7 @@ class _$RegisterImpl implements _Register {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loginWithEmailAndId,
+    required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
     required TResult Function(UserModel user) register,
   }) {
@@ -383,7 +428,7 @@ class _$RegisterImpl implements _Register {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loginWithEmailAndId,
+    TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
     TResult? Function(UserModel user)? register,
   }) {
@@ -393,7 +438,7 @@ class _$RegisterImpl implements _Register {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loginWithEmailAndId,
+    TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
     TResult Function(UserModel user)? register,
     required TResult orElse(),

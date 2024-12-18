@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
@@ -82,7 +83,7 @@ class UserModel {
               map['personalProof'] as Map<String, dynamic>)
           : null,
       license: List<PickedFileModel?>.from(
-        (map['license'] as List<int>).map<PickedFileModel?>(
+        (map['license'] as List<dynamic>).map<PickedFileModel?>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),

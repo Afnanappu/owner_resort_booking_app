@@ -10,4 +10,9 @@ class UploadedFileProvider extends ChangeNotifier {
     if (license != null) this.license = license;
     notifyListeners();
   }
+
+  void clear() {
+    personalProof = null;
+    license.clear();
+  }
 }

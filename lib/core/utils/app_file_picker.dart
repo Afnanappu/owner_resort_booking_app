@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:owner_resort_booking_app/features/authentication/model/picked_file_model.dart';
 

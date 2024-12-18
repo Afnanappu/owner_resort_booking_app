@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
@@ -20,6 +21,15 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseFirestore.setLoggingEnabled(true);
+  if(kDebugMode){
+    try {
+      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+      log('Local firestore and auth is connected');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
   runApp(const MainApp());
 }
 
