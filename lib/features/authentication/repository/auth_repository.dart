@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:owner_resort_booking_app/core/models/user_model.dart';
+import 'package:owner_resort_booking_app/features/authentication/model/user_model.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 
 class AuthRepository {

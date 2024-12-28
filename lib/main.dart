@@ -2,17 +2,19 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:owner_resort_booking_app/core/constants/theme.dart';
+
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/authentication/repository/auth_repository.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/providers/uploaded_file_provider.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -20,11 +22,14 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseFirestore.setLoggingEnabled(true);
-  if(kDebugMode){
+
+  if (kDebugMode) {
     try {
-      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+      final deviceIp = '172.16.4.113';
+      // final deviceIp = '192.168.1.78';
+
+      await FirebaseAuth.instance.useAuthEmulator(deviceIp, 9099);
+      FirebaseFirestore.instance.useFirestoreEmulator(deviceIp, 8089);
       log('Local firestore and auth is connected');
     } catch (e) {
       log(e.toString());
@@ -60,21 +65,18 @@ class MainApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (context) => AuthBloc(context.read<AuthRepository>())),
-        ],
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => UploadedFileProvider(),
-            )
-          ],
-          child: MaterialApp.router(
-            title: 'StayScape',
-            debugShowCheckedModeBanner: false,
-            routerConfig: routes,
-            // darkTheme: ThemeData.dark(),
-            // theme: customTheme,
+            create: (context) => AuthBloc(context.read<AuthRepository>()),
           ),
+          BlocProvider(
+            create: (context) => UploadFileCubit(),
+          ),
+        ],
+        child: MaterialApp.router(
+          title: 'StayScape',
+          debugShowCheckedModeBanner: false,
+          routerConfig: routes,
+          // darkTheme: ThemeData.dark(),
+          theme: customTheme,
         ),
       ),
     );

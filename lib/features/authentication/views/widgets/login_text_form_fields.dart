@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
@@ -54,7 +53,7 @@ class LoginTextFormFields extends StatelessWidget {
               return null;
             },
             controller: ownerIdController,
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.number,
             prefixIcon: Icon(Icons.password_outlined),
             hintText: 'unique id',
             suffixIcon: Icon(
@@ -62,32 +61,6 @@ class LoginTextFormFields extends StatelessWidget {
               size: 18,
             ),
           ),
-          MySpaces.hSpace5,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FittedBox(
-                fit: BoxFit.contain,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: MyColors.orange,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    'Forgot Owner ID?',
-                    style: TextStyle(
-                      color: MyColors.orange,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          )
         ],
       ),
     );

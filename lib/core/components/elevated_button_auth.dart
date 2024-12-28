@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/components/custom_circular_progress_indicator.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
 
 class ElevatedButtonAuthentication extends StatelessWidget {
   const ElevatedButtonAuthentication({

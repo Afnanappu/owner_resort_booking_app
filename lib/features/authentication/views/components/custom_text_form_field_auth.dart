@@ -6,7 +6,7 @@ import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 class CustomTextFormFieldAuth extends StatelessWidget {
   const CustomTextFormFieldAuth({
     super.key,
-    this.controller,
+    required this.controller,
     this.validator,
     this.obscureText = false,
     this.keyboardType,
@@ -17,7 +17,7 @@ class CustomTextFormFieldAuth extends StatelessWidget {
     this.suffixIcon,
   });
 
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String? Function(String? value)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;

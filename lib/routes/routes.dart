@@ -2,32 +2,40 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:owner_resort_booking_app/core/navigation/view/screen_navigation.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_property.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_login.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_sign_up.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
-import 'package:owner_resort_booking_app/features/home/view/screens/screen_home.dart';
+import 'package:owner_resort_booking_app/features/booking/views/screens/screen_booking.dart';
+import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_dashboard.dart';
+import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_properties.dart';
+import 'package:owner_resort_booking_app/features/profile/views/screens/screen_profile.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
-final _navigatorKey = GlobalKey<NavigatorState>();
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final routes = GoRouter(
   initialLocation: '/',
-  navigatorKey: _navigatorKey,
+  navigatorKey: _rootNavigatorKey,
   observers: [
     MyNavigatorObserver(),
   ],
   routes: [
     GoRoute(
-        name: 'splash',
-        path: '/',
-        pageBuilder: (context, state) {
-          return customTransitionPage(state, ScreenSplash());
+        path: '/${AppRoutes.splash}',
+        pageBuilder: (_, state) {
+          return customTransitionPage(
+            state,
+            ScreenSplash(),
+          );
         }),
     GoRoute(
         name: 'login',
         path: '/${AppRoutes.login}',
-        pageBuilder: (context, state) {
+        pageBuilder: (_, state) {
           return customTransitionPage(state, ScreenLogin());
         }),
     GoRoute(
@@ -37,11 +45,74 @@ final routes = GoRouter(
           customTransitionPage(state, ScreenSignUp()),
     ),
     GoRoute(
-      name: 'home',
-      path: '/${AppRoutes.home}',
-      pageBuilder: (context, state) =>
-          customTransitionPage(state, ScreenHome()),
+      path: '/${AppRoutes.myProperties}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenMyProperties(),
+        );
+      },
     ),
+    GoRoute(
+      path: '/${AppRoutes.addProperties}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenAddProperty(),
+        );
+      },
+    ),
+    StatefulShellRoute.indexedStack(
+      pageBuilder: (_, state, navigationShell) => customTransitionPage(
+        state,
+        ScreenNavigation(
+          navigationShell: navigationShell,
+        ),
+      ),
+      branches: [
+        StatefulShellBranch(
+          initialLocation: '/${AppRoutes.dashboard}',
+          navigatorKey: _sectionNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/${AppRoutes.dashboard}',
+              pageBuilder: (_, state) {
+                return customTransitionPage(
+                  state,
+                  ScreenDashboard(),
+                );
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/${AppRoutes.booking}',
+              pageBuilder: (_, state) {
+                return customTransitionPage(
+                  state,
+                  ScreenBooking(),
+                );
+              },
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/${AppRoutes.profile}',
+              pageBuilder: (_, state) {
+                return customTransitionPage(
+                  state,
+                  ScreenProfile(),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    )
   ],
 );
 

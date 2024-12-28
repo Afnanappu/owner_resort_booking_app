@@ -8,13 +8,19 @@ class ScreenSplash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
-      if (userCurrentAuthState()) {
-        context.go("/${AppRoutes.home}");
-      } else {
-        context.go("/${AppRoutes.login}");
-      }
-    });
-    return Scaffold();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        if (userCurrentAuthState()) {
+          context.go("/${AppRoutes.dashboard}");
+        } else {
+          context.go("/${AppRoutes.login}");
+        }
+      },
+    );
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
   }
 }

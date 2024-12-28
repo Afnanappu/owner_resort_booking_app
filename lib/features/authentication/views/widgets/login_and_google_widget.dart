@@ -6,7 +6,7 @@ import 'package:owner_resort_booking_app/core/components/elevated_button_auth.da
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class SignInAndGoogleButtonWidget extends StatelessWidget {
@@ -38,16 +38,21 @@ class SignInAndGoogleButtonWidget extends StatelessWidget {
           },
         ),
         MySpaces.hSpace20,
-        Text(
-          'Or Sign in with',
-          style: MyTextStyles.bodySmallMediumGreyLight,
-        ),
-        MySpaces.hSpace20,
-        Image.asset(
-          'assets/google-icon.png',
-          width: 35,
-          fit: BoxFit.fitWidth,
-        ),
+        // Text(
+        //   'Or Sign in with',
+        //   style: MyTextStyles.bodySmallMediumGreyLight,
+        // ),
+        // MySpaces.hSpace20,
+        // InkWell(
+        //   onTap: () {
+        //     context.read<AuthBloc>().add(AuthEvent.loginWithGoogle());
+        //   },
+        //   child: Image.asset(
+        //     'assets/google-icon.png',
+        //     width: 35,
+        //     fit: BoxFit.fitWidth,
+        //   ),
+        // ),
         MySpaces.hSpace40,
         RichText(
           textAlign: TextAlign.center,

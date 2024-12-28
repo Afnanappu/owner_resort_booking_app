@@ -17,11 +17,34 @@ class MyTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w600,
   );
+  static final titleMediumSemiBoldBlack = TextStyle(
+    color: MyColors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+  );
+  static final titleSmallSemiBoldBlack = TextStyle(
+    color: MyColors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
   static final bodySmallMediumGreyLight = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 14,
     color: MyColors.greyLight,
   );
+  static final bodySmallMediumBlack = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: MyColors.black,
+  );
   static final textFieldNormalGreyLight = TextStyle(
-      color: MyColors.grey, fontWeight: FontWeight.w300, fontSize: 13);
+    color: MyColors.grey,
+    fontWeight: FontWeight.w300,
+    fontSize: 13,
+  );
+  static final textFieldMediumGreyLight = TextStyle(
+    color: MyColors.grey,
+    fontWeight: FontWeight.w400,
+    fontSize: 13,
+  );
 }

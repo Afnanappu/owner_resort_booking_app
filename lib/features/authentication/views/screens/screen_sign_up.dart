@@ -6,8 +6,8 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/providers/uploaded_file_provider.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/widgets/register_button_widget.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/widgets/register_text_form_fields.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
@@ -31,7 +31,7 @@ class ScreenSignUp extends StatelessWidget {
               message: 'Registration request sended successfully',
               bgColor: MyColors.success,
             );
-            context.read<UploadedFileProvider>().clear();
+            context.read<UploadFileCubit>().clear();
             context.go('/${AppRoutes.login}');
           },
           error: (message) {

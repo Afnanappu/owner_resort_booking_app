@@ -6,9 +6,9 @@ import 'package:owner_resort_booking_app/core/components/elevated_button_auth.da
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
-import 'package:owner_resort_booking_app/core/models/user_model.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view%20model/providers/uploaded_file_provider.dart';
+import 'package:owner_resort_booking_app/features/authentication/model/user_model.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class RegisterButtonWidget extends StatelessWidget {
@@ -34,12 +34,11 @@ class RegisterButtonWidget extends StatelessWidget {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            final proof = context.read<UploadedFileProvider>();
+            final proof = context.read<UploadFileCubit>().personalProof;
             final user = UserModel(
               name: nameController.text,
               email: emailController.text,
-              personalProof: proof.personalProof,
-              license: proof.license,
+              personalProof: proof,
             );
             context.read<AuthBloc>().add(AuthEvent.register(user));
           },

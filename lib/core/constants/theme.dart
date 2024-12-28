@@ -5,27 +5,26 @@ import 'my_colors.dart';
 
 final ThemeData customTheme = ThemeData(
   // Primary and Secondary Colors
-  colorScheme: ColorScheme.fromSwatch(
-    primarySwatch: Colors.deepOrange,
-    accentColor: MyColors.orangeLight,
-    backgroundColor: MyColors.orangeBackground,
-    errorColor: MyColors.error,
-  ).copyWith(
-    secondary: MyColors.orangeLight, // For accent
-  ),
+  // colorScheme: ColorScheme.fromSwatch(
+  //   primarySwatch: Colors.deepOrange,
+  //   accentColor: MyColors.orangeLight,
+  //   backgroundColor: MyColors.orangeBackground,
+  //   errorColor: MyColors.error,
+  // ).copyWith(
+  //   secondary: MyColors.orangeLight, // For accent
+  // ),
 
-  scaffoldBackgroundColor: MyColors.scaffoldDefaultColor,
+  // scaffoldBackgroundColor: MyColors.scaffoldDefaultColor,
 
   // Text Theme
-  textTheme: TextTheme(
-    bodyLarge: MyTextStyles.bodyLargeNormalWhite, // For large body text
-    bodyMedium: MyTextStyles.textFieldNormalGreyLight, // For medium body text
-    headlineSmall:
-        MyTextStyles.headlineSmallSemiBoldBlack, // For small headline
-    titleLarge: MyTextStyles.titleLargeSemiBoldBlack, // For title
-    labelSmall: MyTextStyles.bodySmallMediumGreyLight, // For captions
-  ),
-
+  // textTheme: TextTheme(
+  //   bodyLarge: MyTextStyles.bodyLargeNormalWhite, // For large body text
+  //   bodyMedium: MyTextStyles.textFieldNormalGreyLight, // For medium body text
+  //   headlineSmall:
+  //       MyTextStyles.headlineSmallSemiBoldBlack, // For small headline
+  //   titleLarge: MyTextStyles.titleLargeSemiBoldBlack, // For title
+  //   labelSmall: MyTextStyles.bodySmallMediumGreyLight, // For captions
+  // ),
   // Button Theme
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -55,21 +54,21 @@ final ThemeData customTheme = ThemeData(
   ),
 
   // Input Decoration Theme
-  inputDecorationTheme: InputDecorationTheme(
-    filled: true,
-    fillColor: MyColors.orangeBackground,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: MyColors.orange),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRad10),
-      borderSide: BorderSide(color: MyColors.orange, width: 1),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(borderRad10),
-      borderSide: BorderSide(color: MyColors.error, width: 1),
-    ),
-    hintStyle: MyTextStyles.textFieldNormalGreyLight, // TextField hint style
-  ),
+  // inputDecorationTheme: InputDecorationTheme(
+  //   filled: true,
+  //   fillColor: MyColors.orangeBackground,
+  //   border: OutlineInputBorder(
+  //     borderRadius: BorderRadius.circular(8.0),
+  //     borderSide: BorderSide(color: MyColors.orange),
+  //   ),
+  //   focusedBorder: OutlineInputBorder(
+  //     borderRadius: BorderRadius.circular(borderRad10),
+  //     borderSide: BorderSide(color: MyColors.orange, width: 1),
+  //   ),
+  //   errorBorder: OutlineInputBorder(
+  //     borderRadius: BorderRadius.circular(borderRad10),
+  //     borderSide: BorderSide(color: MyColors.error, width: 1),
+  //   ),
+  //   hintStyle: MyTextStyles.textFieldNormalGreyLight, // TextField hint style
+  // ),
 );
