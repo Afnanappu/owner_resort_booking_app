@@ -7,7 +7,7 @@ import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/widgets/register_button_widget.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/widgets/register_text_form_fields.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';

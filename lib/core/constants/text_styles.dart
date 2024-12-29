@@ -7,6 +7,12 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w400,
   );
+
+  static final bodyLargeMediumBlack = TextStyle(
+    color: MyColors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
   static final headlineSmallSemiBoldBlack = TextStyle(
     color: MyColors.black,
     fontSize: 26,
@@ -19,6 +25,11 @@ class MyTextStyles {
   );
   static final titleMediumSemiBoldBlack = TextStyle(
     color: MyColors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+  );
+  static final titleMediumSemiBoldWhite = TextStyle(
+    color: MyColors.white,
     fontSize: 18,
     fontWeight: FontWeight.w600,
   );

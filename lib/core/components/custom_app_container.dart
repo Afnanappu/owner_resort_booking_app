@@ -8,9 +8,11 @@ class CustomAppContainer extends StatelessWidget {
     this.height,
     this.width,
     required this.child,
+    this.thickness = .5,
   });
   final double? height;
   final double? width;
+  final double thickness;
   final Widget child;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class CustomAppContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRad10),
           border: Border.all(
             color: MyColors.greyLight,
-            width: .5,
+            width: thickness,
           )),
       child: child,
     );

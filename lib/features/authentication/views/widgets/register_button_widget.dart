@@ -8,7 +8,7 @@ import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/features/authentication/model/user_model.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class RegisterButtonWidget extends StatelessWidget {
@@ -34,7 +34,7 @@ class RegisterButtonWidget extends StatelessWidget {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            final proof = context.read<UploadFileCubit>().personalProof;
+            final proof = context.read<UploadFileCubit>().pickedFiles;
             final user = UserModel(
               name: nameController.text,
               email: emailController.text,

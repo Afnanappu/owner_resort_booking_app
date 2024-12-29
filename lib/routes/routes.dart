@@ -18,7 +18,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final routes = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/${AppRoutes.addProperties}',
   navigatorKey: _rootNavigatorKey,
   observers: [
     MyNavigatorObserver(),

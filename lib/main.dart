@@ -12,7 +12,7 @@ import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/authentication/repository/auth_repository.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/authentication/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
 
 import 'firebase_options.dart';

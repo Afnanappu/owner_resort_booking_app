@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:owner_resort_booking_app/features/authentication/model/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 
 class UserModel {
   String? uid;
