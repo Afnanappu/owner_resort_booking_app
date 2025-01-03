@@ -16,16 +16,20 @@ Future<PickedFileModel?> pickFileFromDevice() async {
   try {
     if (result != null) {
       final file = result.files.first;
+      if (file.size > 1024 * 1024) {
+        throw 'Picked file size must be less than 1MB';
+      }
       final fileName = file.name;
       final path = file.path!;
       final base64String = base64Encode(file.bytes!);
 
       //storing file
       return PickedFileModel(
-          file: base64String,
-          fileName: fileName,
-          filePath: path,
-          fileExtension: file.extension!);
+        base64file: base64String,
+        fileName: fileName,
+        filePath: path,
+        fileExtension: file.extension!,
+      );
     } else {
       return null;
     }
@@ -35,10 +39,15 @@ Future<PickedFileModel?> pickFileFromDevice() async {
   }
 }
 
-Future<List<PickedFileModel>> pickMultiFileFromDevice() async {
+Future<List<PickedFileModel>> pickMultiFileFromDevice(
+    {bool allowPdf = true}) async {
+  final allowedExtensions = ['jpg', 'jpeg', 'png'];
+  //allow pdf if true
+  if (allowPdf) allowedExtensions.add('pdf');
+
   final result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
-    allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+    allowedExtensions: allowedExtensions,
     withData: true,
     allowMultiple: true,
     allowCompression: true,
@@ -48,14 +57,19 @@ Future<List<PickedFileModel>> pickMultiFileFromDevice() async {
   try {
     final selectedFiles = <PickedFileModel>[];
     if (result != null) {
+      //If the file size is greater than 1MB throw an error
       for (var file in result.files) {
+        if (file.size > 1024 * 1024) {
+          throw 'Picked file size must be less than 1MB';
+        }
         final fileName = file.name;
         final base64String = base64Encode(file.bytes!);
+
         selectedFiles.add(
           PickedFileModel(
             fileName: fileName,
             filePath: file.path!,
-            file: base64String,
+            base64file: base64String,
             fileExtension: file.extension!,
           ),
         );
@@ -64,10 +78,10 @@ Future<List<PickedFileModel>> pickMultiFileFromDevice() async {
       //storing file
       return selectedFiles;
     } else {
-      return [];
+      throw 'Picking file failed';
     }
   } catch (e, stack) {
     log(e.toString(), stackTrace: stack);
-    return [];
+    rethrow;
   }
 }

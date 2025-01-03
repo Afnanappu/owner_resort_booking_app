@@ -34,7 +34,16 @@ class RegisterButtonWidget extends StatelessWidget {
             if (!_formKey.currentState!.validate()) {
               return;
             }
-            final proof = context.read<UploadFileCubit>().pickedFiles;
+            final proof = context.read<UploadFileCubit>().state.maybeWhen(
+                  initial: (pickedFiles) => pickedFiles,
+                  picked: (pickedFiles) => pickedFiles,
+                  orElse: () {
+                    return null;
+                  },
+                );
+            if (proof == null) {
+              return;
+            }
             final user = UserModel(
               name: nameController.text,
               email: emailController.text,

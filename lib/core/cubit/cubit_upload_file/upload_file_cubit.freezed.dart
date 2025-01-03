@@ -18,22 +18,22 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UploadFileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PickedFileModel> proof) initial,
-    required TResult Function(List<PickedFileModel> proof) picked,
+    required TResult Function(List<PickedFileModel> pickedFiles) initial,
+    required TResult Function(List<PickedFileModel> pickedFiles) picked,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PickedFileModel> proof)? initial,
-    TResult? Function(List<PickedFileModel> proof)? picked,
+    TResult? Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult? Function(List<PickedFileModel> pickedFiles)? picked,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PickedFileModel> proof)? initial,
-    TResult Function(List<PickedFileModel> proof)? picked,
+    TResult Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult Function(List<PickedFileModel> pickedFiles)? picked,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
@@ -89,7 +89,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
           _$InitialImpl value, $Res Function(_$InitialImpl) then) =
       __$$InitialImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PickedFileModel> proof});
+  $Res call({List<PickedFileModel> pickedFiles});
 }
 
 /// @nodoc
@@ -105,12 +105,12 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? proof = null,
+    Object? pickedFiles = null,
   }) {
     return _then(_$InitialImpl(
-      null == proof
-          ? _value._proof
-          : proof // ignore: cast_nullable_to_non_nullable
+      null == pickedFiles
+          ? _value._pickedFiles
+          : pickedFiles // ignore: cast_nullable_to_non_nullable
               as List<PickedFileModel>,
     ));
   }
@@ -119,19 +119,20 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl(final List<PickedFileModel> proof) : _proof = proof;
+  const _$InitialImpl(final List<PickedFileModel> pickedFiles)
+      : _pickedFiles = pickedFiles;
 
-  final List<PickedFileModel> _proof;
+  final List<PickedFileModel> _pickedFiles;
   @override
-  List<PickedFileModel> get proof {
-    if (_proof is EqualUnmodifiableListView) return _proof;
+  List<PickedFileModel> get pickedFiles {
+    if (_pickedFiles is EqualUnmodifiableListView) return _pickedFiles;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_proof);
+    return EqualUnmodifiableListView(_pickedFiles);
   }
 
   @override
   String toString() {
-    return 'UploadFileState.initial(proof: $proof)';
+    return 'UploadFileState.initial(pickedFiles: $pickedFiles)';
   }
 
   @override
@@ -139,12 +140,13 @@ class _$InitialImpl implements _Initial {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitialImpl &&
-            const DeepCollectionEquality().equals(other._proof, _proof));
+            const DeepCollectionEquality()
+                .equals(other._pickedFiles, _pickedFiles));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_proof));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_pickedFiles));
 
   /// Create a copy of UploadFileState
   /// with the given fields replaced by the non-null parameter values.
@@ -157,33 +159,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PickedFileModel> proof) initial,
-    required TResult Function(List<PickedFileModel> proof) picked,
+    required TResult Function(List<PickedFileModel> pickedFiles) initial,
+    required TResult Function(List<PickedFileModel> pickedFiles) picked,
     required TResult Function(String error) error,
   }) {
-    return initial(proof);
+    return initial(pickedFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PickedFileModel> proof)? initial,
-    TResult? Function(List<PickedFileModel> proof)? picked,
+    TResult? Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult? Function(List<PickedFileModel> pickedFiles)? picked,
     TResult? Function(String error)? error,
   }) {
-    return initial?.call(proof);
+    return initial?.call(pickedFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PickedFileModel> proof)? initial,
-    TResult Function(List<PickedFileModel> proof)? picked,
+    TResult Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult Function(List<PickedFileModel> pickedFiles)? picked,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(proof);
+      return initial(pickedFiles);
     }
     return orElse();
   }
@@ -224,9 +226,10 @@ class _$InitialImpl implements _Initial {
 }
 
 abstract class _Initial implements UploadFileState {
-  const factory _Initial(final List<PickedFileModel> proof) = _$InitialImpl;
+  const factory _Initial(final List<PickedFileModel> pickedFiles) =
+      _$InitialImpl;
 
-  List<PickedFileModel> get proof;
+  List<PickedFileModel> get pickedFiles;
 
   /// Create a copy of UploadFileState
   /// with the given fields replaced by the non-null parameter values.
@@ -241,7 +244,7 @@ abstract class _$$PickedImplCopyWith<$Res> {
           _$PickedImpl value, $Res Function(_$PickedImpl) then) =
       __$$PickedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<PickedFileModel> proof});
+  $Res call({List<PickedFileModel> pickedFiles});
 }
 
 /// @nodoc
@@ -257,12 +260,12 @@ class __$$PickedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? proof = null,
+    Object? pickedFiles = null,
   }) {
     return _then(_$PickedImpl(
-      null == proof
-          ? _value._proof
-          : proof // ignore: cast_nullable_to_non_nullable
+      null == pickedFiles
+          ? _value._pickedFiles
+          : pickedFiles // ignore: cast_nullable_to_non_nullable
               as List<PickedFileModel>,
     ));
   }
@@ -271,19 +274,20 @@ class __$$PickedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PickedImpl implements _Picked {
-  const _$PickedImpl(final List<PickedFileModel> proof) : _proof = proof;
+  const _$PickedImpl(final List<PickedFileModel> pickedFiles)
+      : _pickedFiles = pickedFiles;
 
-  final List<PickedFileModel> _proof;
+  final List<PickedFileModel> _pickedFiles;
   @override
-  List<PickedFileModel> get proof {
-    if (_proof is EqualUnmodifiableListView) return _proof;
+  List<PickedFileModel> get pickedFiles {
+    if (_pickedFiles is EqualUnmodifiableListView) return _pickedFiles;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_proof);
+    return EqualUnmodifiableListView(_pickedFiles);
   }
 
   @override
   String toString() {
-    return 'UploadFileState.picked(proof: $proof)';
+    return 'UploadFileState.picked(pickedFiles: $pickedFiles)';
   }
 
   @override
@@ -291,12 +295,13 @@ class _$PickedImpl implements _Picked {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PickedImpl &&
-            const DeepCollectionEquality().equals(other._proof, _proof));
+            const DeepCollectionEquality()
+                .equals(other._pickedFiles, _pickedFiles));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_proof));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_pickedFiles));
 
   /// Create a copy of UploadFileState
   /// with the given fields replaced by the non-null parameter values.
@@ -309,33 +314,33 @@ class _$PickedImpl implements _Picked {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PickedFileModel> proof) initial,
-    required TResult Function(List<PickedFileModel> proof) picked,
+    required TResult Function(List<PickedFileModel> pickedFiles) initial,
+    required TResult Function(List<PickedFileModel> pickedFiles) picked,
     required TResult Function(String error) error,
   }) {
-    return picked(proof);
+    return picked(pickedFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PickedFileModel> proof)? initial,
-    TResult? Function(List<PickedFileModel> proof)? picked,
+    TResult? Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult? Function(List<PickedFileModel> pickedFiles)? picked,
     TResult? Function(String error)? error,
   }) {
-    return picked?.call(proof);
+    return picked?.call(pickedFiles);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PickedFileModel> proof)? initial,
-    TResult Function(List<PickedFileModel> proof)? picked,
+    TResult Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult Function(List<PickedFileModel> pickedFiles)? picked,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
     if (picked != null) {
-      return picked(proof);
+      return picked(pickedFiles);
     }
     return orElse();
   }
@@ -376,9 +381,9 @@ class _$PickedImpl implements _Picked {
 }
 
 abstract class _Picked implements UploadFileState {
-  const factory _Picked(final List<PickedFileModel> proof) = _$PickedImpl;
+  const factory _Picked(final List<PickedFileModel> pickedFiles) = _$PickedImpl;
 
-  List<PickedFileModel> get proof;
+  List<PickedFileModel> get pickedFiles;
 
   /// Create a copy of UploadFileState
   /// with the given fields replaced by the non-null parameter values.
@@ -455,8 +460,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<PickedFileModel> proof) initial,
-    required TResult Function(List<PickedFileModel> proof) picked,
+    required TResult Function(List<PickedFileModel> pickedFiles) initial,
+    required TResult Function(List<PickedFileModel> pickedFiles) picked,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -465,8 +470,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<PickedFileModel> proof)? initial,
-    TResult? Function(List<PickedFileModel> proof)? picked,
+    TResult? Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult? Function(List<PickedFileModel> pickedFiles)? picked,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -475,8 +480,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<PickedFileModel> proof)? initial,
-    TResult Function(List<PickedFileModel> proof)? picked,
+    TResult Function(List<PickedFileModel> pickedFiles)? initial,
+    TResult Function(List<PickedFileModel> pickedFiles)? picked,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {

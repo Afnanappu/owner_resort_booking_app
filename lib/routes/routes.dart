@@ -3,7 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/navigation/view/screen_navigation.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_extra_details.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_property.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_sub_details.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_room.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_login.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_sign_up.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
@@ -18,7 +21,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final routes = GoRouter(
-  initialLocation: '/${AppRoutes.addProperties}',
+  initialLocation: '/',
   navigatorKey: _rootNavigatorKey,
   observers: [
     MyNavigatorObserver(),
@@ -62,6 +65,35 @@ final routes = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: '/${AppRoutes.addExtraDetails}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenAddExtraDetails(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.addExtraSubDetails}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenAddSubDetails(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.addRoom}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenAddRoom(),
+        );
+      },
+    ),
+
+    //Bottom navigation bar screens
     StatefulShellRoute.indexedStack(
       pageBuilder: (_, state, navigationShell) => customTransitionPage(
         state,

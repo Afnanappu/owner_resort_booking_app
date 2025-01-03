@@ -48,6 +48,16 @@ class MyTextStyles {
     fontSize: 14,
     color: MyColors.black,
   );
+  static final bodySmallNormalBlack = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+    color: MyColors.black,
+  );
+  static final bodySmallMediumBlue = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    color: MyColors.blue,
+  );
   static final textFieldNormalGreyLight = TextStyle(
     color: MyColors.grey,
     fontWeight: FontWeight.w300,

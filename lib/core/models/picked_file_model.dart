@@ -5,25 +5,25 @@ class PickedFileModel {
   String fileName;
   String fileExtension;
   String filePath;
-  String file;
+  String base64file;
   PickedFileModel({
     required this.fileName,
     required this.fileExtension,
     required this.filePath,
-    required this.file,
+    required this.base64file,
   });
 
   PickedFileModel copyWith({
     String? fileName,
     String? fileExtension,
     String? filePath,
-    String? file,
+    String? base64file,
   }) {
     return PickedFileModel(
       fileName: fileName ?? this.fileName,
       fileExtension: fileExtension ?? this.fileExtension,
       filePath: filePath ?? this.filePath,
-      file: file ?? this.file,
+      base64file: base64file ?? this.base64file,
     );
   }
 
@@ -32,7 +32,7 @@ class PickedFileModel {
       'fileName': fileName,
       'fileExtension': fileExtension,
       'filePath': filePath,
-      'file': file,
+      'base64file': base64file,
     };
   }
 
@@ -41,7 +41,7 @@ class PickedFileModel {
       fileName: map['fileName'] as String,
       fileExtension: map['fileExtension'] as String,
       filePath: map['filePath'] as String,
-      file: map['file'] as String,
+      base64file: map['base64file'] as String,
     );
   }
 
@@ -52,7 +52,7 @@ class PickedFileModel {
 
   @override
   String toString() {
-    return 'PickedFileModel(fileName: $fileName, fileExtension: $fileExtension, filePath: $filePath, file: $file)';
+    return 'PickedFileModel(fileName: $fileName, fileExtension: $fileExtension, filePath: $filePath)';
   }
 
   @override
@@ -63,7 +63,7 @@ class PickedFileModel {
       other.fileName == fileName &&
       other.fileExtension == fileExtension &&
       other.filePath == filePath &&
-      other.file == file;
+      other.base64file == base64file;
   }
 
   @override
@@ -71,6 +71,6 @@ class PickedFileModel {
     return fileName.hashCode ^
       fileExtension.hashCode ^
       filePath.hashCode ^
-      file.hashCode;
+      base64file.hashCode;
   }
 }

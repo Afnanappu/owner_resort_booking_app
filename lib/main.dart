@@ -9,6 +9,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/constants/theme.dart';
 
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
+import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
+import 'package:owner_resort_booking_app/features/add_property/services/add_property_services.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/bloc/bloc_add_property/add_property_bloc.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/amenities_add_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_bullet_point/bullet_point_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_category/category_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_room_image/upload_image_for_room_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_rules_details/rules_details_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_property_image/upload_image_for_property_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/room_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/authentication/repository/auth_repository.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
@@ -27,6 +39,7 @@ Future<void> main() async {
     try {
       final deviceIp = '172.16.4.113';
       // final deviceIp = '192.168.1.78';
+      // final deviceIp = '10.0.14.31';
 
       await FirebaseAuth.instance.useAuthEmulator(deviceIp, 9099);
       FirebaseFirestore.instance.useFirestoreEmulator(deviceIp, 8089);
@@ -60,7 +73,12 @@ class MainApp extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (context) => AuthRepository(AuthServices()),
-        )
+        ),
+        RepositoryProvider(
+          create: (context) => AddPropertyRepository(
+            addPropertyServices: AddPropertyServices(),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -69,6 +87,38 @@ class MainApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => UploadFileCubit(),
+          ),
+          BlocProvider(
+            create: (context) => UploadImageForPropertyCubit(),
+          ),
+          BlocProvider(
+            create: (context) => UploadImageForRoomCubit(),
+          ),
+          BlocProvider(
+            create: (context) => RoomAddCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AmenitiesAddCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                GetPropertyTypeCubit(context.read<AddPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                AddPropertyBloc(context.read<AddPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => BulletPointCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ExtraDetailsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => SubDetailsCubit(),
+          ),
+          BlocProvider(
+            create: (context) => RulesDetailsCubit(),
           ),
         ],
         child: MaterialApp.router(

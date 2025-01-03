@@ -12,15 +12,21 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
     this.suffixIcon,
     this.enabled = true,
     this.readOnly = false,
+    this.maxLines = 1,
+    this.onTapOutside, this.onTap,
   });
   final double? width;
   final String hintText;
   final TextEditingController controller;
   final TextInputType? keyboardType;
-  final String? Function(String?)? validator;
+  final String? Function(String? value)? validator;
   final Widget? suffixIcon;
   final bool enabled;
   final bool readOnly;
+  final int? maxLines;
+  final void Function()? onTapOutside;
+    final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,7 +36,13 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
         keyboardType: keyboardType,
         enabled: enabled,
         readOnly: readOnly,
-        onTapOutside: (event) {
+        minLines: 1,
+        maxLines: maxLines,
+        onTap: onTap,
+        onTapOutside: (_) {
+          if (onTapOutside != null) {
+            onTapOutside!();
+          }
           FocusScope.of(context).unfocus();
         },
         onEditingComplete: () {
@@ -66,7 +78,7 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
             borderSide: BorderSide(
               color: MyColors.error,
               style: BorderStyle.solid,
-              width: 5,
+              width: 2,
             ),
           ),
         ),

@@ -51,8 +51,12 @@ final ThemeData customTheme = ThemeData(
       backgroundColor: MyColors.orange,
       foregroundColor: MyColors.white,
     ),
+    dialogTheme: DialogTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRad10),
+      ),
+    )
 
-    
     // timePickerTheme: TimePickerThemeData(
     //   // dialHandColor: ,
     //   timeSelectorSeparatorColor:

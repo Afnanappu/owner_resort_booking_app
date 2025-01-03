@@ -8,4 +8,7 @@ class AppRoutes {
   static const profile = 'profile';
   static const myProperties = 'my-properties';
   static const addProperties = 'add-properties';
+  static const addExtraDetails = 'add-extra-details';
+  static const addExtraSubDetails = 'add-extra-sub-details';
+  static const addRoom = 'add-room';
 }
