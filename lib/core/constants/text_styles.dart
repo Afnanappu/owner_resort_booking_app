@@ -68,4 +68,30 @@ class MyTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 13,
   );
+
+  //=======================
+
+  static const TextStyle nameStyle = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: MyColors.black,
+  );
+
+  static const TextStyle locationStyle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: MyColors.grey,
+  );
+
+  static const TextStyle typeStyle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: MyColors.grey,
+  );
+
+  static const TextStyle ratingStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: MyColors.black, // Or a color matching your theme
+  );
 }

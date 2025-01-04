@@ -4,16 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
 import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
 import 'package:owner_resort_booking_app/core/components/custom_elevated_button.dart';
+import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/core/components/custom_add_details_for_all_widget.dart';
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/basic_details_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/extra_details_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/rules_details_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/sub_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/basic_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/rules_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/sub_details_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_rules_details/rules_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';
@@ -149,6 +150,10 @@ class _ScreenAddExtraDetailsState extends State<ScreenAddExtraDetails> {
                         context: context,
                         title: rulesController.text.trim(),
                         onPressed: () {
+                          if (!MyRegex.emptySpaceValidation(
+                              rulesController.text)) {
+                            return;
+                          }
                           final rule = ruleDetailsController.text.trim();
                           if (rule.isNotEmpty) {
                             context.read<RulesDetailsCubit>().addRules(rule);
@@ -189,28 +194,41 @@ class _ScreenAddExtraDetailsState extends State<ScreenAddExtraDetails> {
         text: 'Add',
         width: MyScreenSize.width * .55,
         onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            final basicDetailsModel = BasicDetailsModel(
-              title: basicDetailsController.text.trim(),
-              subDetails: context.read<SubDetailsCubit>().state,
-            );
-            final rulesModel = RulesDetailsModel(
-              title: rulesController.text.trim(),
-              rules: context.read<RulesDetailsCubit>().state,
-            );
-
-            //Return data from this screen to add property screen( previous screen )
-            context.read<ExtraDetailsCubit>().setExtraDetails(
-                  ExtraDetailsModel(
-                    basicDetailsModel: basicDetailsModel,
-                    rulesDetailsModel: rulesModel,
-                  ),
-                );
-            context.read<SubDetailsCubit>().clear();
-            context.read<RulesDetailsCubit>().clear();
-
-            context.pop();
+          if (!_formKey.currentState!.validate()) {
+            return;
           }
+          final basicDetails = context.read<SubDetailsCubit>().state;
+          if (basicDetails.isEmpty) {
+            showCustomSnackBar(
+                context: context, message: 'Add basic details to continue');
+            return;
+          }
+          final rules = context.read<RulesDetailsCubit>().state;
+          if (rules.isEmpty) {
+            showCustomSnackBar(
+                context: context, message: 'Add rules to continue');
+            return;
+          }
+          final basicDetailsModel = BasicDetailsModel(
+            title: basicDetailsController.text.trim(),
+            subDetails: basicDetails,
+          );
+          final rulesModel = RulesDetailsModel(
+            title: rulesController.text.trim(),
+            rules: rules,
+          );
+
+          //Return data from this screen to add property screen( previous screen )
+          context.read<ExtraDetailsCubit>().setExtraDetails(
+                ExtraDetailsModel(
+                  basicDetailsModel: basicDetailsModel,
+                  rulesDetailsModel: rulesModel,
+                ),
+              );
+          context.read<SubDetailsCubit>().clear();
+          context.read<RulesDetailsCubit>().clear();
+
+          context.pop();
         },
       ),
       resizeToAvoidBottomInset: false,

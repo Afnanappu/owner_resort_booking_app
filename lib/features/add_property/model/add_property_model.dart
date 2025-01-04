@@ -5,14 +5,15 @@ import 'package:flutter/foundation.dart';
 
 import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/model/add_room_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/extra_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
 
 class AddPropertyModel {
   String? id;
+  String ownerId;
   List<PickedFileModel> images;
   String type;
   String name;
-  String location;
+  String location; 
   String description;
   bool isVerified;
   List<PickedFileModel> licenses;
@@ -22,6 +23,7 @@ class AddPropertyModel {
   List<AddRoomModel> rooms;
   AddPropertyModel({
     this.id,
+    required this.ownerId,
     required this.images,
     required this.type,
     required this.name,
@@ -37,6 +39,7 @@ class AddPropertyModel {
 
   AddPropertyModel copyWith({
     String? id,
+    String? ownerId,
     List<PickedFileModel>? images,
     String? type,
     String? name,
@@ -51,6 +54,7 @@ class AddPropertyModel {
   }) {
     return AddPropertyModel(
       id: id ?? this.id,
+      ownerId: ownerId ?? this.ownerId,
       images: images ?? this.images,
       type: type ?? this.type,
       name: name ?? this.name,
@@ -68,6 +72,7 @@ class AddPropertyModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'ownerId': ownerId,
       'images': images.map((x) => x.toMap()).toList(),
       'type': type,
       'name': name,
@@ -85,6 +90,7 @@ class AddPropertyModel {
   factory AddPropertyModel.fromMap(Map<String, dynamic> map) {
     return AddPropertyModel(
       id: map['id'] != null ? map['id'] as String : null,
+      ownerId: map['ownerId'] as String,
       images: List<PickedFileModel>.from(
         (map['images'] as List<dynamic>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
@@ -119,7 +125,7 @@ class AddPropertyModel {
 
   @override
   String toString() {
-    return 'AddPropertyModel(id: $id, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, rooms: $rooms)';
+    return 'AddPropertyModel(id: $id, ownerId: $ownerId, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, rooms: $rooms)';
   }
 
   @override
@@ -127,6 +133,7 @@ class AddPropertyModel {
     if (identical(this, other)) return true;
 
     return other.id == id &&
+        other.ownerId == ownerId &&
         listEquals(other.images, images) &&
         other.type == type &&
         other.name == name &&
@@ -143,6 +150,7 @@ class AddPropertyModel {
   @override
   int get hashCode {
     return id.hashCode ^
+        ownerId.hashCode ^
         images.hashCode ^
         type.hashCode ^
         name.hashCode ^

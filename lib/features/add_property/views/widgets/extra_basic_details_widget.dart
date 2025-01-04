@@ -4,7 +4,7 @@ import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/basic_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/basic_details_model.dart';
 
 class ExtraBasicDetailsWidget extends StatelessWidget {
   const ExtraBasicDetailsWidget({

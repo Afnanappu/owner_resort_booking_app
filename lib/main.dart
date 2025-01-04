@@ -25,6 +25,10 @@ import 'package:owner_resort_booking_app/features/authentication/repository/auth
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
 import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/features/my_properties/repository/my_property_repository.dart';
+import 'package:owner_resort_booking_app/features/my_properties/services/my_property_services.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_list/my_property_list_bloc.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
 
 import 'firebase_options.dart';
@@ -79,6 +83,11 @@ class MainApp extends StatelessWidget {
             addPropertyServices: AddPropertyServices(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => MyPropertyRepository(
+            services: MyPropertyServices(),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -107,6 +116,14 @@ class MainApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 AddPropertyBloc(context.read<AddPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                MyPropertyListBloc(context.read<MyPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                PropertyDetailsBloc(context.read<MyPropertyRepository>()),
           ),
           BlocProvider(
             create: (context) => BulletPointCubit(),

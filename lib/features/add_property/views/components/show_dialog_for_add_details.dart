@@ -24,6 +24,7 @@ Future<dynamic> showDialogForAddDetails({
         content: CustomTextFormFieldForAddProperty(
           hintText: hintText ?? 'Type your point',
           controller: controller,
+          
           validator: (value) {
             if (!MyRegex.emptySpaceValidation(value)) {
               return 'Don\'t use empty space, user characters';

@@ -34,6 +34,7 @@ final ThemeData customTheme = ThemeData(
         textStyle: MyTextStyles.bodyLargeNormalWhite, // Button text style
       ),
     ),
+    indicatorColor: MyColors.orange,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: MyColors.orange, // Text color

@@ -29,6 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: MyTextStyles.titleLargeSemiBoldBlack,
           ),
+          actionsIconTheme: IconThemeData(size: 30),
           actions: actions,
         ),
         if (needUnderline) CustomDivider(horizontal: MyScreenSize.width * .08),

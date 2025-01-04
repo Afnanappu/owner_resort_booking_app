@@ -7,6 +7,7 @@ class MyColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color greyLight = Color(0xFFBDBDBD);
+  static const Color originalGrey = Colors.grey;
   static const Color grey = Color(0xFF8B8A8A);
   static const Color scaffoldDefaultColor = Color(0xFFfef7ff);
   static const Color blue = Color(0xFF0E72B9);

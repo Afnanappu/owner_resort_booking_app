@@ -13,20 +13,24 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
     this.onLongPressImage,
     this.onPageChanged,
     this.isError = false,
+    this.hasBorder = false,
   });
   final bool isError;
+  final bool hasBorder;
   final List<PickedFileModel> pickedImages;
   final void Function()? onTap;
   final void Function()? onLongPressImage;
   final dynamic Function(int index, CarouselPageChangedReason reason)?
       onPageChanged;
+
+  final double height = 220;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: isError
           ? CustomAppContainer(
-              height: 250,
+              height: height,
               thickness: 1,
               child: Center(
                 child: Text(
@@ -37,7 +41,8 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
             )
           : pickedImages.isNotEmpty
               ? CustomAppContainer(
-                  height: 250,
+                  hasBorder: hasBorder,
+                  // height: height,
                   thickness: 1,
                   child: Stack(
                     alignment: Alignment.bottomCenter,
@@ -98,7 +103,7 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
                   ),
                 )
               : CustomAppContainer(
-                  height: 250,
+                  height: height,
                   thickness: 1,
                   child: Center(
                     child: Column(

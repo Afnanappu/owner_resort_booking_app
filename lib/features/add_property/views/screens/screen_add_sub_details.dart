@@ -10,7 +10,7 @@ import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/core/components/custom_add_details_for_all_widget.dart';
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/sub_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/sub_details_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_bullet_point/bullet_point_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/show_dialog_for_add_details.dart';
@@ -53,6 +53,10 @@ class ScreenAddSubDetails extends StatelessWidget {
                     context: context,
                     title: subTitleController.text.trim(),
                     onPressed: () {
+                      if (!MyRegex.emptySpaceValidation(
+                          subTitleController.text)) {
+                        return;
+                      }
                       final detail = subDetailsController.text.trim();
                       if (detail.isNotEmpty) {
                         bulletPointCubit.addBulletPoint(detail);

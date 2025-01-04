@@ -29,7 +29,6 @@ class UploadImageForPropertyCubit extends Cubit<UploadImageForPropertyState> {
 
       emit(UploadImageForPropertyState.picked(pickedImages));
     } catch (e) {
-      
       final currentState = state;
 
       if (currentState is _Picked) {
@@ -47,5 +46,9 @@ class UploadImageForPropertyCubit extends Cubit<UploadImageForPropertyState> {
       updatedList.remove(image);
       emit(UploadImageForPropertyState.picked(updatedList));
     }
+  }
+
+  void clear() {
+    emit(UploadImageForPropertyState.initial());
   }
 }

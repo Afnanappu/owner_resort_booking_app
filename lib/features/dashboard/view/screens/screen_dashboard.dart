@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/components/app_bar_for_dashboard.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/components/custom_widget_for_dashboard.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/widgets/custom_grid_tile.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/widgets/total_booking_container_widget.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_list/my_property_list_bloc.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class ScreenDashboard extends StatelessWidget {
@@ -28,6 +30,10 @@ class ScreenDashboard extends StatelessWidget {
                 title: "My\nProperties",
                 onTap: () {
                   context.push('/${AppRoutes.myProperties}');
+                  final uid = FirebaseAuth.instance.currentUser!.uid;
+                  context
+                      .read<MyPropertyListBloc>()
+                      .add(MyPropertyListEvent.fetchProperties(uid: uid));
                 },
               ),
               CustomGridTile(

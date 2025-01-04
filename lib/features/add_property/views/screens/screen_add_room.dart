@@ -112,6 +112,8 @@ class ScreenAddRoom extends StatelessWidget {
                     ),
 
                     //Fields
+
+                    //TODO: fetch room type here and show as a suggestion
                     CustomTextFormFieldForAddProperty(
                       width: 160,
                       hintText: 'Room Type',
@@ -181,6 +183,8 @@ class ScreenAddRoom extends StatelessWidget {
                             return null;
                           },
                         ),
+
+                        //TODO: fetch bed type here and show as a suggestion
                         CustomTextFormFieldForAddProperty(
                           width: MyScreenSize.width * .4,
                           hintText: 'Bed Type',
@@ -209,6 +213,8 @@ class ScreenAddRoom extends StatelessWidget {
                     ),
 
                     //Add Amenities
+
+                    
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -220,6 +226,8 @@ class ScreenAddRoom extends StatelessWidget {
                         ),
 
                         //amenities
+
+                        //TODO: fetch amenities and pass as a list
                         AmenitiesWidgetForAddRoom()
                       ],
                     ),

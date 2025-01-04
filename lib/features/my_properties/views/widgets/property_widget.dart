@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_container.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
@@ -15,6 +17,7 @@ class PropertyWidget extends StatelessWidget {
     required this.reviews,
     required this.rooms,
     required this.price,
+    this.onTap,
   });
   final String image;
   final String propertyName;
@@ -23,45 +26,49 @@ class PropertyWidget extends StatelessWidget {
   final int reviews;
   final int rooms;
   final double price;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: CustomAppContainer(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(borderRad10),
-                topRight: Radius.circular(borderRad10),
+      child: GestureDetector(
+        onTap: onTap,
+        child: CustomAppContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(borderRad10),
+                  topRight: Radius.circular(borderRad10),
+                ),
+                child: Image.memory(
+                  base64Decode(image),
+                  fit: BoxFit.fitWidth,
+                ),
               ),
-              child: Image.asset(
-                image,
-                fit: BoxFit.fitWidth,
+              MySpaces.hSpace10,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 5,
+                  children: [
+                    Text(
+                      propertyName,
+                      style: MyTextStyles.titleMediumSemiBoldBlack,
+                    ),
+                    _locationAndReviewRow(),
+                    _totalRoomsAndPriceRow()
+                  ],
+                ),
               ),
-            ),
-            MySpaces.hSpace10,
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 5,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 5,
-                children: [
-                  Text(
-                    propertyName,
-                    style: MyTextStyles.titleMediumSemiBoldBlack,
-                  ),
-                  _locationAndReviewRow(),
-                  _totalRoomsAndPriceRow()
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
