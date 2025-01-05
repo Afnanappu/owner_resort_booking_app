@@ -13,7 +13,6 @@ import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_room_list/property_room_list_bloc.dart';
-import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_room_details/property_room_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_container_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_list_points_widget_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/widgets/about_the_resort_widget_for_property_details.dart';
@@ -208,12 +207,6 @@ class ScreenMyPropertyDetails extends StatelessWidget {
           context
               .read<PropertyRoomListBloc>()
               .add(PropertyRoomListEvent.fetchRooms(propertyId: id));
-          // context.read<PropertyRoomDetailsBloc>().add(
-          //       PropertyRoomDetailsEvent.fetchRoomDetails(
-          //         propertyId: 'VwjrXeUAzf7aMsdDaoqR',
-          //         roomId: 'RDSMkD1tFfJyatUNjgtX',
-          //       ),
-          //     );
           context.push('/${AppRoutes.myPropertyRooms}');
         },
       ),

@@ -54,12 +54,15 @@ class ScreenDashboard extends StatelessWidget {
             title: 'Total Booking',
             child: TotalBookingContainerWidget(),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              context.go('/${AppRoutes.login}');
-            },
-            child: Text('Log out'),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: ElevatedButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                context.go('/${AppRoutes.login}');
+              },
+              child: Text('Log out'),
+            ),
           ),
         ],
       ),

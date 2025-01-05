@@ -7,6 +7,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit/amenities_add_cubit.dart';
 
+// ignore: must_be_immutable
 class ShowDialogAmenities extends StatefulWidget {
   List<AmenitiesModel> selectedAmenities;
 
