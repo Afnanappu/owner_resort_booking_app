@@ -16,37 +16,46 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PropertyRoomDetailsEvent {
+  String get propertyId => throw _privateConstructorUsedError;
+  String get roomId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(String propertyId, String roomId)
+        fetchRoomDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(String propertyId, String roomId)? fetchRoomDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(String propertyId, String roomId)? fetchRoomDetails,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_FetchRoomDetails value) fetchRoomDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_FetchRoomDetails value)? fetchRoomDetails,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_FetchRoomDetails value)? fetchRoomDetails,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  /// Create a copy of PropertyRoomDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PropertyRoomDetailsEventCopyWith<PropertyRoomDetailsEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -55,6 +64,8 @@ abstract class $PropertyRoomDetailsEventCopyWith<$Res> {
   factory $PropertyRoomDetailsEventCopyWith(PropertyRoomDetailsEvent value,
           $Res Function(PropertyRoomDetailsEvent) then) =
       _$PropertyRoomDetailsEventCopyWithImpl<$Res, PropertyRoomDetailsEvent>;
+  @useResult
+  $Res call({String propertyId, String roomId});
 }
 
 /// @nodoc
@@ -70,70 +81,128 @@ class _$PropertyRoomDetailsEventCopyWithImpl<$Res,
 
   /// Create a copy of PropertyRoomDetailsEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? propertyId = null,
+    Object? roomId = null,
+  }) {
+    return _then(_value.copyWith(
+      propertyId: null == propertyId
+          ? _value.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as String,
+      roomId: null == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
-  factory _$$StartedImplCopyWith(
-          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
-      __$$StartedImplCopyWithImpl<$Res>;
+abstract class _$$FetchRoomDetailsImplCopyWith<$Res>
+    implements $PropertyRoomDetailsEventCopyWith<$Res> {
+  factory _$$FetchRoomDetailsImplCopyWith(_$FetchRoomDetailsImpl value,
+          $Res Function(_$FetchRoomDetailsImpl) then) =
+      __$$FetchRoomDetailsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String propertyId, String roomId});
 }
 
 /// @nodoc
-class __$$StartedImplCopyWithImpl<$Res>
-    extends _$PropertyRoomDetailsEventCopyWithImpl<$Res, _$StartedImpl>
-    implements _$$StartedImplCopyWith<$Res> {
-  __$$StartedImplCopyWithImpl(
-      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
+class __$$FetchRoomDetailsImplCopyWithImpl<$Res>
+    extends _$PropertyRoomDetailsEventCopyWithImpl<$Res, _$FetchRoomDetailsImpl>
+    implements _$$FetchRoomDetailsImplCopyWith<$Res> {
+  __$$FetchRoomDetailsImplCopyWithImpl(_$FetchRoomDetailsImpl _value,
+      $Res Function(_$FetchRoomDetailsImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of PropertyRoomDetailsEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? propertyId = null,
+    Object? roomId = null,
+  }) {
+    return _then(_$FetchRoomDetailsImpl(
+      propertyId: null == propertyId
+          ? _value.propertyId
+          : propertyId // ignore: cast_nullable_to_non_nullable
+              as String,
+      roomId: null == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+class _$FetchRoomDetailsImpl implements _FetchRoomDetails {
+  const _$FetchRoomDetailsImpl(
+      {required this.propertyId, required this.roomId});
+
+  @override
+  final String propertyId;
+  @override
+  final String roomId;
 
   @override
   String toString() {
-    return 'PropertyRoomDetailsEvent.started()';
+    return 'PropertyRoomDetailsEvent.fetchRoomDetails(propertyId: $propertyId, roomId: $roomId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$FetchRoomDetailsImpl &&
+            (identical(other.propertyId, propertyId) ||
+                other.propertyId == propertyId) &&
+            (identical(other.roomId, roomId) || other.roomId == roomId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, propertyId, roomId);
+
+  /// Create a copy of PropertyRoomDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FetchRoomDetailsImplCopyWith<_$FetchRoomDetailsImpl> get copyWith =>
+      __$$FetchRoomDetailsImplCopyWithImpl<_$FetchRoomDetailsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(String propertyId, String roomId)
+        fetchRoomDetails,
   }) {
-    return started();
+    return fetchRoomDetails(propertyId, roomId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(String propertyId, String roomId)? fetchRoomDetails,
   }) {
-    return started?.call();
+    return fetchRoomDetails?.call(propertyId, roomId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(String propertyId, String roomId)? fetchRoomDetails,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started();
+    if (fetchRoomDetails != null) {
+      return fetchRoomDetails(propertyId, roomId);
     }
     return orElse();
   }
@@ -141,34 +210,48 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_FetchRoomDetails value) fetchRoomDetails,
   }) {
-    return started(this);
+    return fetchRoomDetails(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_FetchRoomDetails value)? fetchRoomDetails,
   }) {
-    return started?.call(this);
+    return fetchRoomDetails?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_FetchRoomDetails value)? fetchRoomDetails,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started(this);
+    if (fetchRoomDetails != null) {
+      return fetchRoomDetails(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements PropertyRoomDetailsEvent {
-  const factory _Started() = _$StartedImpl;
+abstract class _FetchRoomDetails implements PropertyRoomDetailsEvent {
+  const factory _FetchRoomDetails(
+      {required final String propertyId,
+      required final String roomId}) = _$FetchRoomDetailsImpl;
+
+  @override
+  String get propertyId;
+  @override
+  String get roomId;
+
+  /// Create a copy of PropertyRoomDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FetchRoomDetailsImplCopyWith<_$FetchRoomDetailsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -177,8 +260,7 @@ mixin _$PropertyRoomDetailsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)
-        loaded,
+    required TResult Function(RoomModel roomModel) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +268,7 @@ mixin _$PropertyRoomDetailsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult? Function(RoomModel roomModel)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -194,7 +276,7 @@ mixin _$PropertyRoomDetailsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult Function(RoomModel roomModel)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -291,8 +373,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)
-        loaded,
+    required TResult Function(RoomModel roomModel) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -303,7 +384,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult? Function(RoomModel roomModel)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -314,7 +395,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult Function(RoomModel roomModel)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -409,8 +490,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)
-        loaded,
+    required TResult Function(RoomModel roomModel) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -421,7 +501,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult? Function(RoomModel roomModel)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -432,7 +512,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult Function(RoomModel roomModel)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -490,7 +570,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<MyPropertyRoomDetailsModel> roomModelList});
+  $Res call({RoomModel roomModel});
 }
 
 /// @nodoc
@@ -506,13 +586,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? roomModelList = null,
+    Object? roomModel = null,
   }) {
     return _then(_$LoadedImpl(
-      null == roomModelList
-          ? _value._roomModelList
-          : roomModelList // ignore: cast_nullable_to_non_nullable
-              as List<MyPropertyRoomDetailsModel>,
+      null == roomModel
+          ? _value.roomModel
+          : roomModel // ignore: cast_nullable_to_non_nullable
+              as RoomModel,
     ));
   }
 }
@@ -520,20 +600,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(final List<MyPropertyRoomDetailsModel> roomModelList)
-      : _roomModelList = roomModelList;
+  const _$LoadedImpl(this.roomModel);
 
-  final List<MyPropertyRoomDetailsModel> _roomModelList;
   @override
-  List<MyPropertyRoomDetailsModel> get roomModelList {
-    if (_roomModelList is EqualUnmodifiableListView) return _roomModelList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_roomModelList);
-  }
+  final RoomModel roomModel;
 
   @override
   String toString() {
-    return 'PropertyRoomDetailsState.loaded(roomModelList: $roomModelList)';
+    return 'PropertyRoomDetailsState.loaded(roomModel: $roomModel)';
   }
 
   @override
@@ -541,13 +615,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._roomModelList, _roomModelList));
+            (identical(other.roomModel, roomModel) ||
+                other.roomModel == roomModel));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_roomModelList));
+  int get hashCode => Object.hash(runtimeType, roomModel);
 
   /// Create a copy of PropertyRoomDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -562,11 +635,10 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)
-        loaded,
+    required TResult Function(RoomModel roomModel) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(roomModelList);
+    return loaded(roomModel);
   }
 
   @override
@@ -574,10 +646,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult? Function(RoomModel roomModel)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(roomModelList);
+    return loaded?.call(roomModel);
   }
 
   @override
@@ -585,12 +657,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult Function(RoomModel roomModel)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(roomModelList);
+      return loaded(roomModel);
     }
     return orElse();
   }
@@ -634,10 +706,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements PropertyRoomDetailsState {
-  const factory _Loaded(final List<MyPropertyRoomDetailsModel> roomModelList) =
-      _$LoadedImpl;
+  const factory _Loaded(final RoomModel roomModel) = _$LoadedImpl;
 
-  List<MyPropertyRoomDetailsModel> get roomModelList;
+  RoomModel get roomModel;
 
   /// Create a copy of PropertyRoomDetailsState
   /// with the given fields replaced by the non-null parameter values.
@@ -716,8 +787,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)
-        loaded,
+    required TResult Function(RoomModel roomModel) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -728,7 +798,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult? Function(RoomModel roomModel)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -739,7 +809,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MyPropertyRoomDetailsModel> roomModelList)? loaded,
+    TResult Function(RoomModel roomModel)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

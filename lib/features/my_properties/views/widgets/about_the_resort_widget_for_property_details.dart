@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:owner_resort_booking_app/core/components/custom_app_container.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/models/basic_details_model.dart';
-import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/my_properties/model/property_details_model.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_container_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/widgets/basic_details_widget_for_property_details.dart';

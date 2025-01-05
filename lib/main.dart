@@ -12,7 +12,7 @@ import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
 import 'package:owner_resort_booking_app/features/add_property/services/add_property_services.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/bloc/bloc_add_property/add_property_bloc.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/amenities_add_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit/amenities_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_bullet_point/bullet_point_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_category/category_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
@@ -27,6 +27,8 @@ import 'package:owner_resort_booking_app/features/authentication/view_model/bloc
 import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/features/my_properties/repository/my_property_repository.dart';
 import 'package:owner_resort_booking_app/features/my_properties/services/my_property_services.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_room_list/property_room_list_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_room_details/property_room_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_list/my_property_list_bloc.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
@@ -41,9 +43,7 @@ Future<void> main() async {
 
   if (kDebugMode) {
     try {
-      final deviceIp = '172.16.4.113';
-      // final deviceIp = '192.168.1.78';
-      // final deviceIp = '10.0.14.31';
+      final deviceIp = '10.0.14.31';
 
       await FirebaseAuth.instance.useAuthEmulator(deviceIp, 9099);
       FirebaseFirestore.instance.useFirestoreEmulator(deviceIp, 8089);
@@ -107,7 +107,8 @@ class MainApp extends StatelessWidget {
             create: (context) => RoomAddCubit(),
           ),
           BlocProvider(
-            create: (context) => AmenitiesAddCubit(),
+            create: (context) =>
+                AmenitiesAddCubit(context.read<AddPropertyRepository>()),
           ),
           BlocProvider(
             create: (context) =>
@@ -124,6 +125,14 @@ class MainApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 PropertyDetailsBloc(context.read<MyPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                PropertyRoomDetailsBloc(context.read<MyPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                PropertyRoomListBloc(context.read<MyPropertyRepository>()),
           ),
           BlocProvider(
             create: (context) => BulletPointCubit(),

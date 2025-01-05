@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/add_room_model.dart';
+import 'package:owner_resort_booking_app/core/models/room_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/amenity_container_widget.dart';
 
 class RoomDetailsCard extends StatelessWidget {
-  final AddRoomModel room;
+  final RoomModel room;
 
   const RoomDetailsCard({super.key, required this.room});
 

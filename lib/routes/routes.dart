@@ -14,6 +14,8 @@ import 'package:owner_resort_booking_app/features/booking/views/screens/screen_b
 import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_dashboard.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_properties.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_details.dart';
+import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_room_details.dart';
+import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_rooms.dart';
 import 'package:owner_resort_booking_app/features/profile/views/screens/screen_profile.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
@@ -99,6 +101,24 @@ final routes = GoRouter(
         return customTransitionPage(
           state,
           ScreenMyPropertyDetails(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.myPropertyRooms}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenMyPropertyRooms(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.myPropertyRoomDetails}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenMyPropertyRoomDetails(),
         );
       },
     ),

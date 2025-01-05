@@ -2,34 +2,35 @@
 import 'dart:convert';
 
 class AmenitiesModel {
+  
   String name;
-  String icon;
+  String? image;
   AmenitiesModel({
     required this.name,
-    required this.icon,
+    required this.image,
   });
 
   AmenitiesModel copyWith({
     String? name,
-    String? icon,
+    String? image,
   }) {
     return AmenitiesModel(
       name: name ?? this.name,
-      icon: icon ?? this.icon,
+      image: image ?? this.image,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      'icon': icon,
+      'image': image,
     };
   }
 
   factory AmenitiesModel.fromMap(Map<String, dynamic> map) {
     return AmenitiesModel(
       name: map['name'] as String,
-      icon: map['icon'] as String,
+      image: map['image'] != null ? map['image'] as String : null,
     );
   }
 
@@ -38,7 +39,7 @@ class AmenitiesModel {
   factory AmenitiesModel.fromJson(String source) => AmenitiesModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'AmenitiesModel(name: $name, icon: $icon)';
+  String toString() => 'AmenitiesModel(name: $name, image: $image)';
 
   @override
   bool operator ==(covariant AmenitiesModel other) {
@@ -46,9 +47,9 @@ class AmenitiesModel {
   
     return 
       other.name == name &&
-      other.icon == icon;
+      other.image == image;
   }
 
   @override
-  int get hashCode => name.hashCode ^ icon.hashCode;
+  int get hashCode => name.hashCode ^ image.hashCode;
 }

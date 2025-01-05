@@ -14,9 +14,11 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
     this.onPageChanged,
     this.isError = false,
     this.hasBorder = false,
+    this.horizontal = 8,
   });
   final bool isError;
   final bool hasBorder;
+  final double horizontal;
   final List<PickedFileModel> pickedImages;
   final void Function()? onTap;
   final void Function()? onLongPressImage;
@@ -53,8 +55,8 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
                             return GestureDetector(
                               onLongPress: onLongPressImage,
                               child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 8),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: horizontal),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
                                   boxShadow: [

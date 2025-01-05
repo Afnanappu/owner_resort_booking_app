@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/carousel_image_picked_show_widget.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
 import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
 import 'package:owner_resort_booking_app/core/components/custom_elevated_button.dart';
+import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_room_list/property_room_list_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_room_details/property_room_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_container_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_list_points_widget_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/widgets/about_the_resort_widget_for_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/widgets/main_details_widget_for_property_details.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class ScreenMyPropertyDetails extends StatelessWidget {
   const ScreenMyPropertyDetails({super.key});
@@ -193,7 +198,24 @@ class ScreenMyPropertyDetails extends StatelessWidget {
       floatingActionButton: CustomElevatedButton(
         width: MyScreenSize.width * .65,
         text: 'Show Rooms',
-        onPressed: () {},
+        onPressed: () {
+          final id = context.read<PropertyDetailsBloc>().getPropertyId();
+          if (id == null) {
+            showCustomSnackBar(
+                context: context, message: 'Id is null, can\'t show rooms');
+            return;
+          }
+          context
+              .read<PropertyRoomListBloc>()
+              .add(PropertyRoomListEvent.fetchRooms(propertyId: id));
+          // context.read<PropertyRoomDetailsBloc>().add(
+          //       PropertyRoomDetailsEvent.fetchRoomDetails(
+          //         propertyId: 'VwjrXeUAzf7aMsdDaoqR',
+          //         roomId: 'RDSMkD1tFfJyatUNjgtX',
+          //       ),
+          //     );
+          context.push('/${AppRoutes.myPropertyRooms}');
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

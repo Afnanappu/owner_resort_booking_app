@@ -6,6 +6,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
+import 'package:owner_resort_booking_app/features/my_properties/views/components/price_per_day_widget.dart';
 
 class PropertyWidget extends StatelessWidget {
   const PropertyWidget({
@@ -82,18 +83,11 @@ class PropertyWidget extends StatelessWidget {
           'Total Rooms: $rooms',
           style: MyTextStyles.bodySmallMediumBlack,
         ),
-        Text.rich(
-          style: MyTextStyles.bodySmallMediumBlack
+        PricePerDayWidget(
+          priceText: 'From ₹$price',
+          priceStyle: MyTextStyles.bodySmallMediumBlack
               .copyWith(fontWeight: FontWeight.w700),
-          TextSpan(
-            text: 'From ₹$price',
-            children: [
-              TextSpan(
-                text: '/day',
-                style: MyTextStyles.bodySmallMediumBlack,
-              ),
-            ],
-          ),
+          suffixStyle: MyTextStyles.bodySmallMediumBlack,
         ),
       ],
     );

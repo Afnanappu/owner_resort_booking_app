@@ -1,16 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/amenities_add_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit/amenities_add_cubit.dart';
 
 class ShowDialogAmenities extends StatefulWidget {
-  final List<AmenitiesModel> amenities;
+  List<AmenitiesModel> selectedAmenities;
 
-  const ShowDialogAmenities({
+  ShowDialogAmenities({
     super.key,
-    required this.amenities,
+    required this.selectedAmenities,
   });
 
   @override
@@ -18,20 +20,18 @@ class ShowDialogAmenities extends StatefulWidget {
 }
 
 class _AmenitiesDialogState extends State<ShowDialogAmenities> {
-  late List<AmenitiesModel> _selectedAmenities;
-
   @override
   void initState() {
     super.initState();
-    _selectedAmenities = context.read<AmenitiesAddCubit>().state;
+    context.read<AmenitiesAddCubit>().fetchAmenities();
   }
 
   void _onAmenityToggle(AmenitiesModel amenity) {
     setState(() {
-      if (_selectedAmenities.contains(amenity)) {
-        _selectedAmenities.remove(amenity);
+      if (widget.selectedAmenities.contains(amenity)) {
+        widget.selectedAmenities.remove(amenity);
       } else {
-        _selectedAmenities.add(amenity);
+        widget.selectedAmenities.add(amenity);
       }
     });
   }
@@ -45,24 +45,49 @@ class _AmenitiesDialogState extends State<ShowDialogAmenities> {
       ),
       content: SizedBox(
         width: double.maxFinite,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.amenities.length,
-          itemBuilder: (context, index) {
-            final amenity = widget.amenities[index];
-            return CheckboxListTile(
-              value: _selectedAmenities.contains(amenity),
-              onChanged: (value) => _onAmenityToggle(amenity),
-              title: Row(
-                children: [
-                  Text(
-                    amenity.name,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
+        child: BlocBuilder<AmenitiesAddCubit, AmenitiesAddState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              error: (error) => Center(
+                child: Text(error),
               ),
-              activeColor: MyColors.orange,
-              controlAffinity: ListTileControlAffinity.leading,
+              loading: () => Center(
+                child: Text('Loading...'),
+              ),
+              loaded: (amenities) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: amenities.length,
+                  itemBuilder: (context, index) {
+                    final amenity = amenities[index];
+                    return CheckboxListTile(
+                      value: widget.selectedAmenities.contains(amenity),
+                      onChanged: (value) => _onAmenityToggle(amenity),
+                      title: Row(
+                        children: [
+                          if (amenity.image != null)
+                            Image.memory(
+                              base64Decode(amenity.image!),
+                              height: 12,
+                            ),
+                          Text(
+                            amenity.name,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      activeColor: MyColors.orange,
+                      controlAffinity: ListTileControlAffinity.leading,
+                    );
+                  },
+                );
+              },
+              orElse: () {
+                return Center(
+                  child:
+                      Text('An unexpected error occurred, please try again!'),
+                );
+              },
             );
           },
         ),
@@ -79,7 +104,7 @@ class _AmenitiesDialogState extends State<ShowDialogAmenities> {
           onPressed: () {
             context
                 .read<AmenitiesAddCubit>()
-                .updateAmenities(_selectedAmenities);
+                .updateAmenities(widget.selectedAmenities);
             context.pop();
           },
           style: ElevatedButton.styleFrom(

@@ -13,19 +13,22 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
     this.enabled = true,
     this.readOnly = false,
     this.maxLines = 1,
-    this.onTapOutside, this.onTap,
+    this.onTapOutside,
+    this.onTap,
+    this.onChanged,
   });
   final double? width;
   final String hintText;
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? Function(String? value)? validator;
+  final void Function(String value)? onChanged;
   final Widget? suffixIcon;
   final bool enabled;
   final bool readOnly;
   final int? maxLines;
   final void Function()? onTapOutside;
-    final void Function()? onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,7 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
         enabled: enabled,
         readOnly: readOnly,
         minLines: 1,
+        onChanged: onChanged,
         maxLines: maxLines,
         onTap: onTap,
         onTapOutside: (_) {

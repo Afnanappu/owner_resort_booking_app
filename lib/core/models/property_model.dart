@@ -3,25 +3,25 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/add_room_model.dart';
 import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 
-class AddPropertyModel {
+class PropertyModel {
   String? id;
   String ownerId;
   List<PickedFileModel> images;
   String type;
   String name;
-  String location; 
+  String location;
   String description;
   bool isVerified;
   List<PickedFileModel> licenses;
   ExtraDetailsModel extraDetails;
   String checkInTime;
   String checkOutTime;
-  List<AddRoomModel> rooms;
-  AddPropertyModel({
+  int roomCount;
+  double roomPrice;
+  PropertyModel({
     this.id,
     required this.ownerId,
     required this.images,
@@ -34,10 +34,11 @@ class AddPropertyModel {
     required this.extraDetails,
     required this.checkInTime,
     required this.checkOutTime,
-    required this.rooms,
+    required this.roomCount,
+    required this.roomPrice,
   });
 
-  AddPropertyModel copyWith({
+  PropertyModel copyWith({
     String? id,
     String? ownerId,
     List<PickedFileModel>? images,
@@ -50,9 +51,10 @@ class AddPropertyModel {
     ExtraDetailsModel? extraDetails,
     String? checkInTime,
     String? checkOutTime,
-    List<AddRoomModel>? rooms,
+    int? roomCount,
+    double? roomPrice,
   }) {
-    return AddPropertyModel(
+    return PropertyModel(
       id: id ?? this.id,
       ownerId: ownerId ?? this.ownerId,
       images: images ?? this.images,
@@ -65,7 +67,8 @@ class AddPropertyModel {
       extraDetails: extraDetails ?? this.extraDetails,
       checkInTime: checkInTime ?? this.checkInTime,
       checkOutTime: checkOutTime ?? this.checkOutTime,
-      rooms: rooms ?? this.rooms,
+      roomCount: roomCount ?? this.roomCount,
+      roomPrice: roomPrice ?? this.roomPrice,
     );
   }
 
@@ -83,16 +86,17 @@ class AddPropertyModel {
       'extraDetails': extraDetails.toMap(),
       'checkInTime': checkInTime,
       'checkOutTime': checkOutTime,
-      'rooms': rooms.map((x) => x.toMap()).toList(),
+      'roomCount': roomCount,
+      'roomPrice': roomPrice,
     };
   }
 
-  factory AddPropertyModel.fromMap(Map<String, dynamic> map) {
-    return AddPropertyModel(
+  factory PropertyModel.fromMap(Map<String, dynamic> map) {
+    return PropertyModel(
       id: map['id'] != null ? map['id'] as String : null,
       ownerId: map['ownerId'] as String,
       images: List<PickedFileModel>.from(
-        (map['images'] as List<dynamic>).map<PickedFileModel>(
+        (map['images'] as List<int>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -102,7 +106,7 @@ class AddPropertyModel {
       description: map['description'] as String,
       isVerified: map['isVerified'] as bool,
       licenses: List<PickedFileModel>.from(
-        (map['licenses'] as List<dynamic>).map<PickedFileModel>(
+        (map['licenses'] as List<int>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -110,26 +114,23 @@ class AddPropertyModel {
           map['extraDetails'] as Map<String, dynamic>),
       checkInTime: map['checkInTime'] as String,
       checkOutTime: map['checkOutTime'] as String,
-      rooms: List<AddRoomModel>.from(
-        (map['rooms'] as List<dynamic>).map<AddRoomModel>(
-          (x) => AddRoomModel.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      roomCount: map['roomCount'] as int,
+      roomPrice: map['roomPrice'] as double,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory AddPropertyModel.fromJson(String source) =>
-      AddPropertyModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PropertyModel.fromJson(String source) =>
+      PropertyModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'AddPropertyModel(id: $id, ownerId: $ownerId, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, rooms: $rooms)';
+    return 'PropertyModel(id: $id, ownerId: $ownerId, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, roomCount: $roomCount, roomPrice: $roomPrice)';
   }
 
   @override
-  bool operator ==(covariant AddPropertyModel other) {
+  bool operator ==(covariant PropertyModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
@@ -144,7 +145,8 @@ class AddPropertyModel {
         other.extraDetails == extraDetails &&
         other.checkInTime == checkInTime &&
         other.checkOutTime == checkOutTime &&
-        listEquals(other.rooms, rooms);
+        other.roomCount == roomCount &&
+        other.roomPrice == roomPrice;
   }
 
   @override
@@ -161,6 +163,7 @@ class AddPropertyModel {
         extraDetails.hashCode ^
         checkInTime.hashCode ^
         checkOutTime.hashCode ^
-        rooms.hashCode;
+        roomCount.hashCode ^
+        roomPrice.hashCode;
   }
 }

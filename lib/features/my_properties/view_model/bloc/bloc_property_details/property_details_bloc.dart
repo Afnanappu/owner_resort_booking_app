@@ -27,4 +27,11 @@ class PropertyDetailsBloc
       }
     });
   }
+
+  String? getPropertyId() {
+    if (state is _Loaded) {
+      return (state as _Loaded).propertyDetails.id;
+    }
+    return null;
+  }
 }

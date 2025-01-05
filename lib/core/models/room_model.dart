@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
 import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 
-class AddRoomModel {
+class RoomModel {
   String? id;
   List<PickedFileModel> images;
   String roomType;
@@ -17,7 +17,7 @@ class AddRoomModel {
   String maxGustCount;
   String description;
   List<AmenitiesModel> amenities;
-  AddRoomModel({
+  RoomModel({
     this.id,
     required this.images,
     required this.roomType,
@@ -30,7 +30,7 @@ class AddRoomModel {
     required this.amenities,
   });
 
-  AddRoomModel copyWith({
+  RoomModel copyWith({
     String? id,
     List<PickedFileModel>? images,
     String? roomType,
@@ -42,7 +42,7 @@ class AddRoomModel {
     String? description,
     List<AmenitiesModel>? amenities,
   }) {
-    return AddRoomModel(
+    return RoomModel(
       id: id ?? this.id,
       images: images ?? this.images,
       roomType: roomType ?? this.roomType,
@@ -71,8 +71,8 @@ class AddRoomModel {
     };
   }
 
-  factory AddRoomModel.fromMap(Map<String, dynamic> map) {
-    return AddRoomModel(
+  factory RoomModel.fromMap(Map<String, dynamic> map) {
+    return RoomModel(
       id: map['id'] != null ? map['id'] as String : null,
       images: List<PickedFileModel>.from(
         (map['images'] as List<dynamic>).map<PickedFileModel>(
@@ -96,16 +96,16 @@ class AddRoomModel {
 
   String toJson() => json.encode(toMap());
 
-  factory AddRoomModel.fromJson(String source) =>
-      AddRoomModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory RoomModel.fromJson(String source) =>
+      RoomModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'AddRoomModel(id: $id, images: $images, roomType: $roomType, roomId: $roomId, price: $price, roomArea: $roomArea, bedType: $bedType, maxGustCount: $maxGustCount, description: $description, amenities: $amenities)';
+    return 'RoomModel(id: $id, images: $images, roomType: $roomType, roomId: $roomId, price: $price, roomArea: $roomArea, bedType: $bedType, maxGustCount: $maxGustCount, description: $description, amenities: $amenities)';
   }
 
   @override
-  bool operator ==(covariant AddRoomModel other) {
+  bool operator ==(covariant RoomModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

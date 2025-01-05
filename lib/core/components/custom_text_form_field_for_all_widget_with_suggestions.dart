@@ -9,8 +9,9 @@ class CustomTextFormFieldForAllWidgetWithSuggestion extends StatefulWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final List<String> suggestions;
-  // final void Function()? iconOnPressed;
   final String? Function(String? value)? validator;
+  final void Function(String value)? onChanged;
+  final void Function()? onTap;
 
   const CustomTextFormFieldForAllWidgetWithSuggestion({
     super.key,
@@ -20,19 +21,19 @@ class CustomTextFormFieldForAllWidgetWithSuggestion extends StatefulWidget {
     this.suffixIcon,
     required this.suggestions,
     this.validator,
-    // this.iconOnPressed,
+    this.onChanged, this.onTap,
   });
 
   @override
   State<CustomTextFormFieldForAllWidgetWithSuggestion> createState() =>
-      _CustomTextFormFieldForState();
+      _CustomTextFormFieldForAllWidgetWithSuggestion();
 }
 
-class _CustomTextFormFieldForState
+class _CustomTextFormFieldForAllWidgetWithSuggestion
     extends State<CustomTextFormFieldForAllWidgetWithSuggestion> {
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
   List<String> filteredSuggestions = [];
-
-  bool isSuggestionVisible = false;
 
   @override
   void initState() {
@@ -43,87 +44,100 @@ class _CustomTextFormFieldForState
   @override
   void dispose() {
     widget.controller.removeListener(_filterSuggestions);
+    _hideOverlay();
     super.dispose();
   }
 
   void _filterSuggestions() {
+    if (widget.suggestions.isEmpty) return;
     final query = widget.controller.text.toLowerCase();
     if (query.isNotEmpty) {
       filteredSuggestions = widget.suggestions
           .where((suggestion) => suggestion.toLowerCase().contains(query))
           .toList();
-      isSuggestionVisible = filteredSuggestions.isNotEmpty;
+      if (filteredSuggestions.isNotEmpty) {
+        _showOverlay();
+      } else {
+        _hideOverlay();
+      }
     } else {
-      filteredSuggestions = widget.suggestions;
-      isSuggestionVisible = false;
+      _hideOverlay();
     }
-    setState(() {});
+  }
+
+  void _showOverlay() {
+    _hideOverlay(); // Remove existing overlay if any
+    _overlayEntry = _createOverlay();
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  void _hideOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  OverlayEntry _createOverlay() {
+    return OverlayEntry(
+      builder: (context) {
+        final height = 60.0;
+
+        return Positioned(
+          width: widget.width,
+          child: CompositedTransformFollower(
+            link: _layerLink,
+            offset: Offset(0, height),
+            child: Material(
+              elevation: 6,
+              clipBehavior: Clip.hardEdge,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRad10),
+                side: BorderSide(
+                  color: MyColors.greyLight,
+                ),
+              ),
+              child: Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 200,
+                ),
+                child: ListView.builder(
+                  itemCount: filteredSuggestions.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(filteredSuggestions[index]),
+                      onTap: () {
+                        widget.controller.text = filteredSuggestions[index];
+                        _hideOverlay();
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        // Container(
-        //   width: widget.width,
-        //   child: TextFormField(
-        //     controller: widget.controller,
-        //     decoration: InputDecoration(
-        //       hintText: widget.hintText,
-        //       suffixIcon: widget.suffixIcon,
-        //       border: OutlineInputBorder(),
-        //     ),
-        //   ),
-        // ),
-
-        CustomTextFormFieldForAddProperty(
-          width: widget.width,
-          hintText: widget.hintText,
-          controller: widget.controller,
-          suffixIcon: IconButton(
-            onPressed: () {
-              filteredSuggestions = widget.suggestions;
-              isSuggestionVisible = true;
-              setState(() {});
-            },
-            icon: Icon(
-              Icons.arrow_drop_down,
-            ),
-          ),
-          validator: widget.validator,
+    return CompositedTransformTarget(
+      link: _layerLink,
+      child: CustomTextFormFieldForAddProperty(onTap:widget.onTap,
+        onChanged: widget.onChanged,
+        width: widget.width,
+        hintText: widget.hintText,
+        controller: widget.controller,
+        suffixIcon: IconButton(
+          onPressed: () {
+            filteredSuggestions = widget.suggestions;
+            _showOverlay();
+          },
+          icon: const Icon(Icons.arrow_drop_down),
         ),
-
-        if (isSuggestionVisible)
-          Container(
-            width: widget.width,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: MyColors.greyLight,
-              ),
-              borderRadius: BorderRadius.circular(borderRad10),
-            ),
-            // constraints: BoxConstraints(maxHeight: 150),
-            height: 150,
-            child: ListView.builder(
-              itemCount: filteredSuggestions.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  // tileColor: index.isEven
-                  //     ? const Color.fromARGB(255, 218, 218, 218)
-                  //     : MyColors.greyLight,
-                  title: Text(filteredSuggestions[index]),
-                  onTap: () {
-                    widget.controller.text = filteredSuggestions[index];
-                    isSuggestionVisible = false;
-                    setState(() {});
-                  },
-                );
-              },
-            ),
-          ),
-      ],
+        validator: widget.validator,
+      ),
     );
   }
 }

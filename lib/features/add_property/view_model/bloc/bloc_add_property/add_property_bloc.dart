@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/add_property_model.dart';
+import 'package:owner_resort_booking_app/core/models/property_model.dart';
+import 'package:owner_resort_booking_app/core/models/room_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
 
 part 'add_property_event.dart';
@@ -16,7 +17,7 @@ class AddPropertyBloc extends Bloc<AddPropertyEvent, AddPropertyState> {
 
       try {
         await _addPropertyRepository.addProperty(
-          propertyModel: event.propertyModel,
+          propertyModel: event.propertyModel, roomModelList: event.roomModelList,
         );
         emit(AddPropertyState.added());
       } catch (e) {

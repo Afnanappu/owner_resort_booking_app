@@ -1,25 +1,19 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:owner_resort_booking_app/core/components/carousel_image_picked_show_widget.dart';
 import 'package:owner_resort_booking_app/core/components/custom_add_details_for_all_widget.dart';
-import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
-import 'package:owner_resort_booking_app/core/components/custom_elevated_button.dart';
-import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
-import 'package:owner_resort_booking_app/features/add_property/model/add_room_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/amenities_add_cubit.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_room_image/upload_image_for_room_cubit.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/room_add_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit/amenities_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/show_dialog_amenities.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/add_room_floating_action_button.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/add_room_image_widget.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/amenities_widget_for_add_room.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/bed_type_text_form_field_for_add_room.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/room_type_text_form_field_for_add_room.dart';
 
 class ScreenAddRoom extends StatelessWidget {
   ScreenAddRoom({super.key});
@@ -57,75 +51,11 @@ class ScreenAddRoom extends StatelessWidget {
                   spacing: 25,
                   children: [
                     //image picker widget and carousel
-                    BlocBuilder<UploadImageForRoomCubit,
-                        UploadImageForRoomState>(
-                      builder: (context, state) {
-                        final List<PickedFileModel> pickedImages =
-                            state.maybeWhen(
-                          initial: () => [],
-                          picked: (images) => images,
-                          orElse: () => [],
-                        );
-
-                        final isError = state.maybeWhen(
-                          error: (_) => true,
-                          orElse: () => false,
-                        );
-
-                        return CarouselImagePickedShowWidget(
-                          isError: isError,
-                          pickedImages: pickedImages,
-                          onPageChanged: (index, _) {
-                            context
-                                .read<UploadImageForRoomCubit>()
-                                .updateCurrentIndex = index;
-                          },
-                          onLongPressImage: () {
-                            final index = context
-                                .read<UploadImageForRoomCubit>()
-                                .currentIndex;
-                            customAlertDialog(
-                              context: context,
-                              title: 'Remove image',
-                              content:
-                                  'Do you want to remove this from the list?',
-                              firstText: 'Yes',
-                              secondText: 'No',
-                              firstOnPressed: () {
-                                context
-                                    .read<UploadImageForRoomCubit>()
-                                    .removeImage(pickedImages[index]);
-                                context.pop();
-                              },
-                              secondOnPressed: () {
-                                context.pop();
-                              },
-                            );
-                          },
-                          onTap: () async {
-                            await context
-                                .read<UploadImageForRoomCubit>()
-                                .pickImage();
-                          },
-                        );
-                      },
-                    ),
+                    AddRoomImageWidget(),
 
                     //Fields
-
-                    //TODO: fetch room type here and show as a suggestion
-                    CustomTextFormFieldForAddProperty(
-                      width: 160,
-                      hintText: 'Room Type',
-                      controller: roomTypeController,
-                      suffixIcon: Icon(Icons.arrow_drop_down),
-                      validator: (value) {
-                        if (!MyRegex.emptySpaceValidation(value)) {
-                          return 'Empty space is not allowed';
-                        }
-                        return null;
-                      },
-                    ),
+                    RoomTypeTextFormFieldForAddRoom(
+                        roomTypeController: roomTypeController),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,20 +113,8 @@ class ScreenAddRoom extends StatelessWidget {
                             return null;
                           },
                         ),
-
-                        //TODO: fetch bed type here and show as a suggestion
-                        CustomTextFormFieldForAddProperty(
-                          width: MyScreenSize.width * .4,
-                          hintText: 'Bed Type',
-                          controller: bedTypeController,
-                          suffixIcon: Icon(Icons.arrow_drop_down),
-                          validator: (value) {
-                            if (!MyRegex.emptySpaceValidation(value)) {
-                              return 'Empty space is not allowed';
-                            }
-                            return null;
-                          },
-                        ),
+                        BedTypeTextFormFieldForAddRoom(
+                            bedTypeController: bedTypeController),
                       ],
                     ),
 
@@ -213,8 +131,6 @@ class ScreenAddRoom extends StatelessWidget {
                     ),
 
                     //Add Amenities
-
-                    
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -226,8 +142,6 @@ class ScreenAddRoom extends StatelessWidget {
                         ),
 
                         //amenities
-
-                        //TODO: fetch amenities and pass as a list
                         AmenitiesWidgetForAddRoom()
                       ],
                     ),
@@ -239,52 +153,15 @@ class ScreenAddRoom extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: CustomElevatedButton(
-        text: 'Add',
-        width: MyScreenSize.width * .70,
-        onPressed: () {
-          final roomImageState = context.read<UploadImageForRoomCubit>().state;
-          final List<PickedFileModel> roomImages = roomImageState.maybeWhen(
-            picked: (pickedImage) => pickedImage,
-            orElse: () => [],
-          );
-          if (roomImages.isEmpty) {
-            showCustomSnackBar(
-                context: context, message: 'Room image is not added');
-            return;
-          }
-          if (!formKey.currentState!.validate()) {
-            return;
-          }
-          final amenities = List<AmenitiesModel>.from(
-              context.read<AmenitiesAddCubit>().state);
-          if (amenities.isEmpty) {
-            showCustomSnackBar(
-                context: context,
-                message: 'Amenities is not added, try to add!');
-            return;
-          }
-
-          //Adding room to cubit
-          final roomModel = AddRoomModel(
-            images: roomImages,
-            roomType: roomTypeController.text.trim(),
-            roomId: roomIdController.text.trim(),
-            price: priceController.text.trim(),
-            roomArea: areaController.text.trim(),
-            bedType: bedTypeController.text.trim(),
-            maxGustCount: gustNumberController.text.trim(),
-            description: descriptionController.text.trim(),
-            amenities: amenities,
-          );
-
-          context.read<RoomAddCubit>().addRoom(roomModel);
-
-          //clearing the cubit data
-          context.read<AmenitiesAddCubit>().clearAmenities();
-          context.read<UploadImageForRoomCubit>().clear();
-          context.pop();
-        },
+      floatingActionButton: AddRoomFloatingActionButton(
+        formKey: formKey,
+        roomTypeController: roomTypeController,
+        roomIdController: roomIdController,
+        priceController: priceController,
+        areaController: areaController,
+        bedTypeController: bedTypeController,
+        gustNumberController: gustNumberController,
+        descriptionController: descriptionController,
       ),
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -292,32 +169,16 @@ class ScreenAddRoom extends StatelessWidget {
   }
 }
 
-
 void _showAmenitiesDialog(BuildContext context) async {
-  final List<String> am = [
-    "WiFi",
-    "Parking",
-    "Swimming Pool",
-    "Gym",
-    "Spa",
-    "Restaurant",
-    "Bar",
-    "Pet Friendly"
-  ];
+  var pickedAmenities = List<AmenitiesModel>.from(
+      context.read<AmenitiesAddCubit>().getPickedAmenities());
 
-  final amenities = List.generate(
-    am.length,
-    (index) => AmenitiesModel(
-      name: am[index],
-      icon:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaad8Tkz8i0CBvnweQWMqrhwbbTAwni6CN0Q&s",
-    ),
-  );
-
-  await showDialog<List<String>>(
+  await showDialog(
     context: context,
     builder: (context) {
-      return ShowDialogAmenities(amenities: amenities);
+      return ShowDialogAmenities(
+        selectedAmenities: pickedAmenities,
+      );
     },
   );
 }

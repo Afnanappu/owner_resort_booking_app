@@ -59,26 +59,16 @@ class PropertyCardModel {
   }
 
   factory PropertyCardModel.fromMap(Map<String, dynamic> map) {
-    final rooms = (map['rooms'] as List<dynamic>);
-    final price = rooms.fold(
-      double.parse(rooms[0]['price']),
-      (previousValue, element) => double.parse(element['price']) < previousValue
-          ? double.parse(element['price'])
-          : previousValue,
-    );
-
     return PropertyCardModel(
       id: map['id'] != null ? map['id'] as String : null,
       image: PickedFileModel.fromMap(
-          (map['images'] as List).first as Map<String, dynamic>),
+          (map['images'] as List<dynamic>).first as Map<String, dynamic>),
       name: map['name'] as String,
       location: map['location'] as String,
-
-      //for getting price smallest price from a list of room
-      price: price,
+      price: map['roomPrice'] as double,
       rating: map['rating'] != null ? map['rating'] as double : null,
       reviews: map['reviews'] != null ? map['reviews'] as int : null,
-      rooms: rooms.length,
+      rooms: map['roomCount'] as int,
     );
   }
 

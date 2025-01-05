@@ -92,15 +92,6 @@ class PropertyDetailsModel {
   }
 
   factory PropertyDetailsModel.fromMap(Map<String, dynamic> map) {
-    final rooms = (map['rooms'] as List<dynamic>);
-    final price = rooms.fold(
-      //setting the first value as an initial price
-      double.parse(rooms[0]['price']),
-      (previousValue, element) => double.parse(element['price']) < previousValue
-          ? double.parse(element['price'])
-          : previousValue,
-    );
-
     return PropertyDetailsModel(
       id: map['id'] != null ? map['id'] as String : null,
       ownerId: map['ownerId'] as String,
@@ -115,7 +106,7 @@ class PropertyDetailsModel {
       rating: map['rating'] != null ? map['rating'] as double : null,
       reviews: map['reviews'] != null ? map['reviews'] as int : null,
       description: map['description'] as String,
-      price: price,
+      price: map['roomPrice'] as double,
       licenses: List<PickedFileModel>.from(
         (map['licenses'] as List<dynamic>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
