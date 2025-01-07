@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
 
@@ -10,7 +12,11 @@ class AmenityContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Chip(
-      avatar: Icon(Icons.wifi),
+      avatar: amenity.image == null
+          ? null
+          : Image.memory(
+              base64Decode(amenity.image!),
+            ),
       label: Text(amenity.name),
     );
   }

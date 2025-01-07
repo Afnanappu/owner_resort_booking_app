@@ -1,13 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/room_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/amenity_container_widget.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class RoomDetailsCard extends StatelessWidget {
   final RoomModel room;
-
-  const RoomDetailsCard({super.key, required this.room});
+  final int index;
+  const RoomDetailsCard({super.key, required this.room, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +27,27 @@ class RoomDetailsCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Room Type and Room ID
-            Text(
-              room.roomType,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    room.roomType,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    context.read<RoomAddCubit>().setIndex = index;
+                    context.push('/${AppRoutes.addRoom}');
+                  },
+                  icon: Icon(
+                    Icons.edit,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
 

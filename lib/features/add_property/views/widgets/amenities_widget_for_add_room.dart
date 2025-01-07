@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
-import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit/amenities_add_cubit.dart';
+import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_amenities_add/amenities_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/amenity_container_widget.dart';
 
 class AmenitiesWidgetForAddRoom extends StatelessWidget {

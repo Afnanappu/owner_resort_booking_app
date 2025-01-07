@@ -1,25 +1,21 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
 import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
-import 'package:owner_resort_booking_app/core/components/custom_elevated_button.dart';
-import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
-import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
-import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
-import 'package:owner_resort_booking_app/core/components/custom_add_details_for_all_widget.dart';
-import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
-import 'package:owner_resort_booking_app/core/models/basic_details_model.dart';
-import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
-import 'package:owner_resort_booking_app/core/models/rules_details_model.dart';
 import 'package:owner_resort_booking_app/core/models/sub_details_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_rules_details/rules_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';
-import 'package:owner_resort_booking_app/features/add_property/views/components/show_dialog_for_add_details.dart';
-import 'package:owner_resort_booking_app/routes/route_names.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/add_extra_details_floating_action_button.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/basic_details_widget.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/widgets/rules_details_widget.dart';
 
 class ScreenAddExtraDetails extends StatefulWidget {
   const ScreenAddExtraDetails({super.key});
@@ -38,201 +34,125 @@ class _ScreenAddExtraDetailsState extends State<ScreenAddExtraDetails> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    if (context.read<ExtraDetailsCubit>().state == null) return;
+    final basicDetails = context.read<ExtraDetailsCubit>().getBasicDetails!;
+    final rulesDetails = context.read<ExtraDetailsCubit>().getRules!;
+    basicDetailsController.text = basicDetails.title;
+    rulesController.text = rulesDetails.title;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Add Extra Details',
-        needUnderline: false,
-        needSystemOverlayStyle: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 5,
+    List<SubDetailsModel> previousSubDetailsState =
+        context.read<SubDetailsCubit>().getPreviousSubDetailsState;
+
+    List<String> previousRulesDetailsState =
+        context.read<RulesDetailsCubit>().getPreviousRulesDetailsState;
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        _onPopInvokedWithResult(
+          didPop,
+          result,
+          previousSubDetailsState,
+          previousRulesDetailsState,
+        );
+      },
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: 'Add Extra Details',
+          needUnderline: false,
+          needSystemOverlayStyle: false,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                shrinkWrap: true,
                 children: [
-                  CustomAddDetailsForAllWidget(
-                    text: 'Basic Details',
-                    haveTrailing: false,
+                  BasicDetailsWidget(
+                    basicDetailsController: basicDetailsController,
                   ),
-                  CustomTextFormFieldForAddProperty(
-                    hintText: 'Title (eg. Food & Dining)',
-                    controller: basicDetailsController,
-                    validator: (value) {
-                      if (!MyRegex.emptySpaceValidation(value)) {
-                        return 'Don\'t use empty space, user characters';
-                      } else {
-                        return null;
-                      }
-                    },
+                  CustomDivider(
+                    horizontal: MyScreenSize.width * .15,
+                    vertical: 40,
                   ),
-                  MySpaces.hSpace20,
-                  CustomAddDetailsForAllWidget(
-                    text: 'Add Basic Sub Details',
-                    onPressed: () {
-                      context.push('/${AppRoutes.addExtraSubDetails}');
-                    },
+                  RulesDetailsWidget(
+                    rulesController: rulesController,
+                    ruleDetailsController: ruleDetailsController,
                   ),
-                  BlocBuilder<SubDetailsCubit, List<SubDetailsModel>>(
-                    builder: (context, detailList) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: detailList.length,
-                        itemBuilder: (context, index) {
-                          final model = detailList[index];
-                          return Card(
-                            elevation: .5,
-                            child: ExpansionTile(
-                              iconColor: MyColors.orange,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                              ),
-                              tilePadding: EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              childrenPadding: EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              controlAffinity: ListTileControlAffinity.platform,
-                              title: Text(model.title),
-                              children: model.details
-                                  .map(
-                                    (detail) => ListTile(
-                                      leading: Icon(
-                                        Icons.circle,
-                                        size: 15,
-                                      ),
-                                      title: Text(detail),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+                  MySpaces.hSpace60
                 ],
               ),
-              CustomDivider(
-                horizontal: MyScreenSize.width * .15,
-                vertical: 40,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 15,
-                children: [
-                  CustomAddDetailsForAllWidget(
-                    text: 'Rules',
-                    haveTrailing: false,
-                  ),
-                  CustomTextFormFieldForAddProperty(
-                    hintText: 'Title (eg. Must Read Rules)',
-                    controller: rulesController,
-                    validator: (value) {
-                      if (!MyRegex.emptySpaceValidation(value)) {
-                        return 'Don\'t use empty space, user characters';
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  CustomAddDetailsForAllWidget(
-                    text: 'Add Rules',
-                    onPressed: () {
-                      showDialogForAddDetails(
-                        context: context,
-                        title: rulesController.text.trim(),
-                        onPressed: () {
-                          if (!MyRegex.emptySpaceValidation(
-                              rulesController.text)) {
-                            return;
-                          }
-                          final rule = ruleDetailsController.text.trim();
-                          if (rule.isNotEmpty) {
-                            context.read<RulesDetailsCubit>().addRules(rule);
-                          }
-                          context.pop();
-                          ruleDetailsController.clear();
-                        },
-                        controller: ruleDetailsController,
-                      );
-                    },
-                  ),
-                  BlocBuilder<RulesDetailsCubit, List<String>>(
-                    builder: (context, rules) {
-                      return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: rules.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: Icon(
-                              Icons.circle,
-                              size: 15,
-                            ),
-                            title: Text(rules[index]),
-                          );
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
-              MySpaces.hSpace60
-            ],
+            ),
           ),
         ),
+        bottomNavigationBar: AddExtraDetailsFloatingActionButton(
+          formKey: _formKey,
+          basicDetailsController: basicDetailsController,
+          rulesController: rulesController,
+        ),
       ),
-      floatingActionButton: CustomElevatedButton(
-        text: 'Add',
-        width: MyScreenSize.width * .55,
-        onPressed: () {
-          if (!_formKey.currentState!.validate()) {
-            return;
-          }
-          final basicDetails = context.read<SubDetailsCubit>().state;
-          if (basicDetails.isEmpty) {
-            showCustomSnackBar(
-                context: context, message: 'Add basic details to continue');
-            return;
-          }
-          final rules = context.read<RulesDetailsCubit>().state;
-          if (rules.isEmpty) {
-            showCustomSnackBar(
-                context: context, message: 'Add rules to continue');
-            return;
-          }
-          final basicDetailsModel = BasicDetailsModel(
-            title: basicDetailsController.text.trim(),
-            subDetails: basicDetails,
-          );
-          final rulesModel = RulesDetailsModel(
-            title: rulesController.text.trim(),
-            rules: rules,
-          );
+    );
+  }
 
-          //Return data from this screen to add property screen( previous screen )
-          context.read<ExtraDetailsCubit>().setExtraDetails(
-                ExtraDetailsModel(
-                  basicDetailsModel: basicDetailsModel,
-                  rulesDetailsModel: rulesModel,
-                ),
-              );
+  // On pop invoke function
+  void _onPopInvokedWithResult(
+    bool didPop,
+    Object? result,
+    List<SubDetailsModel> previousSubDetailsState,
+    List<String> previousRulesDetailsState,
+  ) {
+    final currentSubDetailState = context.read<SubDetailsCubit>().state;
+    final currentRulesDetails = context.read<RulesDetailsCubit>().state;
+
+    final subList = listEquals(previousSubDetailsState, currentSubDetailState);
+    final rulesList =
+        listEquals(previousRulesDetailsState, currentRulesDetails);
+    log('$previousSubDetailsState == $currentSubDetailState : list equals = $subList');
+    log('$previousRulesDetailsState == $currentRulesDetails : list equals = $rulesList');
+
+    // final subTitle = context.read<ExtraDetailsCubit>().getBasicDetails!.title;
+    // final ruleTitle = context.read<ExtraDetailsCubit>().getRules!.title;
+
+    //check if any change made after last time
+// (subTitle == basicDetailsController.text.trim()) &&
+//         (ruleTitle == rulesController.text.trim())
+    if (rulesList && subList) {
+      log('Extra details screen have no changes');
+      context.pop();
+    }
+    log('Extra details screen have changes');
+
+    customAlertDialog(
+      context: context,
+      title: 'Discard changes',
+      content: 'Every changes you make wil be discarded!',
+      firstText: 'Yes',
+      secondText: 'No',
+      firstOnPressed: () {
+        if (context.read<ExtraDetailsCubit>().state == null) {
           context.read<SubDetailsCubit>().clear();
           context.read<RulesDetailsCubit>().clear();
-
-          context.pop();
-        },
-      ),
-      resizeToAvoidBottomInset: false,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        } else {
+          context
+              .read<RulesDetailsCubit>()
+              .setAllRules(previousRulesDetailsState);
+          context
+              .read<SubDetailsCubit>()
+              .setAllSubDetails(previousSubDetailsState);
+        }
+        context.pop();
+        context.pop();
+      },
+      secondOnPressed: () {
+        context.pop();
+      },
     );
   }
 }

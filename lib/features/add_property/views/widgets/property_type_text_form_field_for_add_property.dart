@@ -24,11 +24,13 @@ class PropertyTypeTextFormFieldForAddProperty extends StatelessWidget {
                 );
           },
           onChanged: (value) {
-            Debouncer(milliseconds: 500).call(() {
-              context.read<GetPropertyTypeCubit>().fetchAdditionalOptionsType(
-                    type: AdditionalOptionType.propertyCategories,
-                  );
-            });
+            Debouncer(milliseconds: 500).call(
+              () {
+                context.read<GetPropertyTypeCubit>().fetchAdditionalOptionsType(
+                      type: AdditionalOptionType.propertyCategories,
+                    );
+              },
+            );
           },
           width: 180,
           hintText: 'Property Type',

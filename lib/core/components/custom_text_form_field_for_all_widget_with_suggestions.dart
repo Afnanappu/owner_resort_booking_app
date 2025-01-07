@@ -12,7 +12,7 @@ class CustomTextFormFieldForAllWidgetWithSuggestion extends StatefulWidget {
   final String? Function(String? value)? validator;
   final void Function(String value)? onChanged;
   final void Function()? onTap;
-
+  final void Function()? onPressedIcon;
   const CustomTextFormFieldForAllWidgetWithSuggestion({
     super.key,
     required this.width,
@@ -21,7 +21,9 @@ class CustomTextFormFieldForAllWidgetWithSuggestion extends StatefulWidget {
     this.suffixIcon,
     required this.suggestions,
     this.validator,
-    this.onChanged, this.onTap,
+    this.onChanged,
+    this.onTap,
+    this.onPressedIcon,
   });
 
   @override
@@ -124,14 +126,17 @@ class _CustomTextFormFieldForAllWidgetWithSuggestion
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: _layerLink,
-      child: CustomTextFormFieldForAddProperty(onTap:widget.onTap,
+      child: CustomTextFormFieldForAddProperty(
+        onTap: widget.onTap,
         onChanged: widget.onChanged,
         width: widget.width,
         hintText: widget.hintText,
         controller: widget.controller,
         suffixIcon: IconButton(
           onPressed: () {
+            widget.onPressedIcon ?? ();
             filteredSuggestions = widget.suggestions;
+            if (filteredSuggestions.isEmpty) return;
             _showOverlay();
           },
           icon: const Icon(Icons.arrow_drop_down),

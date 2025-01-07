@@ -59,6 +59,7 @@ class ScreenDashboard extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
+                // ignore: use_build_context_synchronously
                 context.go('/${AppRoutes.login}');
               },
               child: Text('Log out'),

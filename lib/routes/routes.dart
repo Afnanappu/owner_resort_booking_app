@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:owner_resort_booking_app/core/navigation/view/screen_navigation.dart';
+import 'package:owner_resort_booking_app/core/navigation/screen_navigation.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_extra_details.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_property.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_add_sub_details.dart';

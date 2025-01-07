@@ -172,6 +172,7 @@ class ScreenMyProperties extends StatelessWidget {
           Icons.add,
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

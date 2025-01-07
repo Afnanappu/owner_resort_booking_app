@@ -8,8 +8,13 @@ class CustomAddDetailsForAllWidget extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.haveTrailing = true,
+    this.trailingText,
+    this.trailingIcon,
   });
   final String text;
+  final String? trailingText;
+  final IconData? trailingIcon;
+
   final void Function()? onPressed;
   final bool haveTrailing;
   @override
@@ -25,12 +30,12 @@ class CustomAddDetailsForAllWidget extends StatelessWidget {
           TextButton.icon(
             onPressed: onPressed,
             label: Text(
-              'Add',
+              trailingText == null ? 'Add' : trailingText!,
               style: MyTextStyles.titleMediumSemiBoldBlack
                   .copyWith(color: MyColors.orange),
             ),
             icon: Icon(
-              Icons.add,
+              trailingIcon == null ? Icons.add : trailingIcon!,
               color: MyColors.orange,
               size: 22,
             ),

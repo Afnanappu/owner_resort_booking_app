@@ -39,6 +39,10 @@ class UploadImageForRoomCubit extends Cubit<UploadImageForRoomState> {
     }
   }
 
+  setImage(List<PickedFileModel> images) {
+    emit(UploadImageForRoomState.picked(images));
+  }
+
   void removeImage(PickedFileModel image) {
     if (state is _Picked) {
       final currentState = state as _Picked;

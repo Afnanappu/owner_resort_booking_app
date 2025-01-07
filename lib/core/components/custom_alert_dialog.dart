@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 Future<dynamic> customAlertDialog({
   required BuildContext context,
   required String title,
   String? content,
-  String? firstText,
-  String? secondText,
+  String? firstText = 'Yes',
+  String? secondText = 'No',
   void Function()? firstOnPressed,
   void Function()? secondOnPressed,
 }) {
@@ -18,7 +19,12 @@ Future<dynamic> customAlertDialog({
         if (firstText != null)
           TextButton(onPressed: firstOnPressed, child: Text(firstText)),
         if (secondText != null)
-          TextButton(onPressed: secondOnPressed, child: Text(secondText)),
+          TextButton(
+              onPressed: secondOnPressed ??
+                  () {
+                    context.pop();
+                  },
+              child: Text(secondText)),
       ],
     ),
   );

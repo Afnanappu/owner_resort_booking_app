@@ -62,7 +62,10 @@ class AddRoomWidgetForAddProperty extends StatelessWidget {
                                   },
                                 );
                               },
-                              child: RoomDetailsCard(room: room),
+                              child: RoomDetailsCard(
+                                room: room,
+                                index: rooms.indexOf(room),
+                              ),
                             ),
                           );
                         },
