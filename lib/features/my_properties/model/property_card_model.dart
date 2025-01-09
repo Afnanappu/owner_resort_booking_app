@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:owner_resort_booking_app/core/models/location_model.dart';
 import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 
 class PropertyCardModel {
   String? id;
   PickedFileModel image;
   String name;
-  String location;
+  LocationModel location;
   double price;
   double? rating;
   int? reviews;
@@ -27,7 +28,7 @@ class PropertyCardModel {
     String? id,
     PickedFileModel? image,
     String? name,
-    String? location,
+    LocationModel? location,
     double? price,
     double? rating,
     int? reviews,
@@ -50,7 +51,7 @@ class PropertyCardModel {
       'id': id,
       'image': image.toMap(),
       'name': name,
-      'location': location,
+      'location': location.toMap(),
       'price': price,
       'rating': rating,
       'reviews': reviews,
@@ -61,14 +62,13 @@ class PropertyCardModel {
   factory PropertyCardModel.fromMap(Map<String, dynamic> map) {
     return PropertyCardModel(
       id: map['id'] != null ? map['id'] as String : null,
-      image: PickedFileModel.fromMap(
-          (map['images'] as List<dynamic>).first as Map<String, dynamic>),
+      image: PickedFileModel.fromMap(map['image'] as Map<String, dynamic>),
       name: map['name'] as String,
-      location: map['location'] as String,
-      price: map['roomPrice'] as double,
+      location: LocationModel.fromMap(map['location'] as Map<String, dynamic>),
+      price: map['price'] as double,
       rating: map['rating'] != null ? map['rating'] as double : null,
       reviews: map['reviews'] != null ? map['reviews'] as int : null,
-      rooms: map['roomCount'] as int,
+      rooms: map['rooms'] as int,
     );
   }
 

@@ -6,6 +6,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
+import 'package:owner_resort_booking_app/core/models/location_model.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/price_per_day_widget.dart';
 
 class PropertyWidget extends StatelessWidget {
@@ -22,7 +23,7 @@ class PropertyWidget extends StatelessWidget {
   });
   final String image;
   final String propertyName;
-  final String location;
+  final LocationModel location;
   final double rating;
   final int reviews;
   final int rooms;
@@ -107,7 +108,7 @@ class PropertyWidget extends StatelessWidget {
             ),
             MySpaces.wSpace5,
             Text(
-              location,
+              location.address,
               style: MyTextStyles.textFieldMediumGreyLight,
             ),
           ],

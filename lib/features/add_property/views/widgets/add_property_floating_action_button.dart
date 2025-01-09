@@ -13,6 +13,7 @@ import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_property_image/upload_image_for_property_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/room_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/unconstrained_bottom_floating_action.dart';
+import 'package:owner_resort_booking_app/features/google_map/view_model/bloc/google_map_bloc.dart';
 
 class AddPropertyFloatingActionButton extends StatelessWidget {
   const AddPropertyFloatingActionButton({
@@ -20,7 +21,6 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
     required GlobalKey<FormState> formKey,
     required this.typeController,
     required this.nameController,
-    required this.locationController,
     required this.descriptionController,
     required this.checkInTimeController,
     required this.checkOutTimeController,
@@ -29,7 +29,6 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
   final GlobalKey<FormState> _formKey;
   final TextEditingController typeController;
   final TextEditingController nameController;
-  final TextEditingController locationController;
   final TextEditingController descriptionController;
   final TextEditingController checkInTimeController;
   final TextEditingController checkOutTimeController;
@@ -54,6 +53,22 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
                     context: context,
                     message:
                         'Property image is not selected, please select and proceed');
+                return;
+              }
+
+              final locationModel = context
+                  .read<GoogleMapBloc>()
+                  .state
+                  .maybeWhen(
+                    locationConfirmed: (confirmedLocation) => confirmedLocation,
+                    orElse: () {},
+                  );
+              if (locationModel == null) {
+                showCustomSnackBar(
+                  context: context,
+                  message:
+                      'Location is not selected, please select and proceed',
+                );
                 return;
               }
 
@@ -103,7 +118,7 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
                 images: propertyImages,
                 type: typeController.text.trim(),
                 name: nameController.text.trim(),
-                location: locationController.text.trim(),
+                location: locationModel,
                 description: descriptionController.text.trim(),
                 licenses: files,
                 extraDetails: extraDetails,
@@ -111,6 +126,8 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
                 checkOutTime: checkOutTimeController.text.trim(),
                 roomCount: roomDetails.length,
                 roomPrice: roomPrice,
+                rating: 0,
+                reviews: [],
               );
               // log(propertyModel.toString());
               context.read<AddPropertyBloc>().add(

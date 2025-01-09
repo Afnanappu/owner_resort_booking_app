@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
+import 'dart:convert' show json;
 import 'package:flutter/foundation.dart';
 
 import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
@@ -17,7 +16,10 @@ class RoomModel {
   String maxGustCount;
   String description;
   List<AmenitiesModel> amenities;
+  List<String> bookedDays = [];
+
   RoomModel({
+    List<String>? bookedDays,
     this.id,
     required this.images,
     required this.roomType,
@@ -28,7 +30,11 @@ class RoomModel {
     required this.maxGustCount,
     required this.description,
     required this.amenities,
-  });
+  }) {
+    if (bookedDays != null) {
+      this.bookedDays = bookedDays;
+    }
+  }
 
   RoomModel copyWith({
     String? id,
@@ -41,6 +47,7 @@ class RoomModel {
     String? maxGustCount,
     String? description,
     List<AmenitiesModel>? amenities,
+    List<String>? bookedDays,
   }) {
     return RoomModel(
       id: id ?? this.id,
@@ -53,6 +60,7 @@ class RoomModel {
       maxGustCount: maxGustCount ?? this.maxGustCount,
       description: description ?? this.description,
       amenities: amenities ?? this.amenities,
+      bookedDays: bookedDays ?? this.bookedDays,
     );
   }
 
@@ -68,6 +76,7 @@ class RoomModel {
       'maxGustCount': maxGustCount,
       'description': description,
       'amenities': amenities.map((x) => x.toMap()).toList(),
+      'bookedDays': bookedDays,
     };
   }
 
@@ -75,7 +84,7 @@ class RoomModel {
     return RoomModel(
       id: map['id'] != null ? map['id'] as String : null,
       images: List<PickedFileModel>.from(
-        (map['images'] as List<dynamic>).map<PickedFileModel>(
+        (map['images'] as List<int>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -87,9 +96,12 @@ class RoomModel {
       maxGustCount: map['maxGustCount'] as String,
       description: map['description'] as String,
       amenities: List<AmenitiesModel>.from(
-        (map['amenities'] as List<dynamic>).map<AmenitiesModel>(
+        (map['amenities'] as List<int>).map<AmenitiesModel>(
           (x) => AmenitiesModel.fromMap(x as Map<String, dynamic>),
         ),
+      ),
+      bookedDays: List<String>.from(
+        (map['bookedDays'] as List<String>),
       ),
     );
   }
@@ -101,7 +113,7 @@ class RoomModel {
 
   @override
   String toString() {
-    return 'RoomModel(id: $id, images: $images, roomType: $roomType, roomId: $roomId, price: $price, roomArea: $roomArea, bedType: $bedType, maxGustCount: $maxGustCount, description: $description, amenities: $amenities)';
+    return 'RoomModel(id: $id, images: $images, roomType: $roomType, roomId: $roomId, price: $price, roomArea: $roomArea, bedType: $bedType, maxGustCount: $maxGustCount, description: $description, amenities: $amenities, bookedDays: $bookedDays)';
   }
 
   @override
@@ -117,7 +129,8 @@ class RoomModel {
         other.bedType == bedType &&
         other.maxGustCount == maxGustCount &&
         other.description == description &&
-        listEquals(other.amenities, amenities);
+        listEquals(other.amenities, amenities) &&
+        listEquals(other.bookedDays, bookedDays);
   }
 
   @override
@@ -131,6 +144,7 @@ class RoomModel {
         bedType.hashCode ^
         maxGustCount.hashCode ^
         description.hashCode ^
-        amenities.hashCode;
+        amenities.hashCode ^
+        bookedDays.hashCode;
   }
 }

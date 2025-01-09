@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:owner_resort_booking_app/core/models/room_model.dart';
-import 'package:owner_resort_booking_app/core/utils/custom_exceptions.dart';
+import 'package:owner_resort_booking_app/core/utils/exceptions/custom_exceptions.dart';
 import 'package:owner_resort_booking_app/core/models/property_model.dart';
 
 // final _propertyCollectionName =

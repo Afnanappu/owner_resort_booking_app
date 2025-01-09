@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:owner_resort_booking_app/features/authentication/model/user_model.dart';
-import 'package:owner_resort_booking_app/core/utils/custom_exceptions.dart';
+import 'package:owner_resort_booking_app/core/utils/exceptions/custom_exceptions.dart';
 
 class AuthServices {
   final ownerCollection = 'owners';

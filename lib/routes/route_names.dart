@@ -14,4 +14,5 @@ class AppRoutes {
   static const addExtraDetails = 'add-extra-details';
   static const addExtraSubDetails = 'add-extra-sub-details';
   static const addRoom = 'add-room';
+  static const googleMap = 'google-map';
 }

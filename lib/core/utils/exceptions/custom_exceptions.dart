@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:owner_resort_booking_app/core/utils/exceptions/google_map_exception.dart';
 
 class AppExceptionHandler {
   /// Handles FirebaseAuthException
@@ -85,6 +86,8 @@ class AppExceptionHandler {
         e is HttpException ||
         e is TimeoutException) {
       return handleNetworkException(e);
+    } else if (e is GoogleMapException) {
+      return e.message;
     } else {
       return 'An unexpected error occurred: ${e.toString()}';
     }

@@ -12,6 +12,7 @@ import 'package:owner_resort_booking_app/features/authentication/views/screens/s
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
 import 'package:owner_resort_booking_app/features/booking/views/screens/screen_booking.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_dashboard.dart';
+import 'package:owner_resort_booking_app/features/google_map/views/screens/screen_google_map.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_properties.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_room_details.dart';
@@ -110,6 +111,15 @@ final routes = GoRouter(
         return customTransitionPage(
           state,
           ScreenMyPropertyRooms(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.googleMap}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenGoogleMap(),
         );
       },
     ),

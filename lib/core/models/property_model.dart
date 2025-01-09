@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
+import 'package:owner_resort_booking_app/core/models/location_model.dart';
 import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
 
 class PropertyModel {
@@ -12,7 +13,7 @@ class PropertyModel {
   List<PickedFileModel> images;
   String type;
   String name;
-  String location;
+  LocationModel location;
   String description;
   bool isVerified;
   List<PickedFileModel> licenses;
@@ -21,6 +22,8 @@ class PropertyModel {
   String checkOutTime;
   int roomCount;
   double roomPrice;
+  double rating;
+  List<String> reviews;
   PropertyModel({
     this.id,
     required this.ownerId,
@@ -36,6 +39,8 @@ class PropertyModel {
     required this.checkOutTime,
     required this.roomCount,
     required this.roomPrice,
+    required this.rating,
+    required this.reviews,
   });
 
   PropertyModel copyWith({
@@ -44,7 +49,7 @@ class PropertyModel {
     List<PickedFileModel>? images,
     String? type,
     String? name,
-    String? location,
+    LocationModel? location,
     String? description,
     bool? isVerified,
     List<PickedFileModel>? licenses,
@@ -53,6 +58,8 @@ class PropertyModel {
     String? checkOutTime,
     int? roomCount,
     double? roomPrice,
+    double? rating,
+    List<String>? reviews,
   }) {
     return PropertyModel(
       id: id ?? this.id,
@@ -69,6 +76,8 @@ class PropertyModel {
       checkOutTime: checkOutTime ?? this.checkOutTime,
       roomCount: roomCount ?? this.roomCount,
       roomPrice: roomPrice ?? this.roomPrice,
+      rating: rating ?? this.rating,
+      reviews: reviews ?? this.reviews,
     );
   }
 
@@ -79,7 +88,7 @@ class PropertyModel {
       'images': images.map((x) => x.toMap()).toList(),
       'type': type,
       'name': name,
-      'location': location,
+      'location': location.toMap(),
       'description': description,
       'isVerified': isVerified,
       'licenses': licenses.map((x) => x.toMap()).toList(),
@@ -88,6 +97,8 @@ class PropertyModel {
       'checkOutTime': checkOutTime,
       'roomCount': roomCount,
       'roomPrice': roomPrice,
+      'rating': rating,
+      'reviews': reviews,
     };
   }
 
@@ -96,17 +107,17 @@ class PropertyModel {
       id: map['id'] != null ? map['id'] as String : null,
       ownerId: map['ownerId'] as String,
       images: List<PickedFileModel>.from(
-        (map['images'] as List<int>).map<PickedFileModel>(
+        (map['images'] as List<dynamic>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       type: map['type'] as String,
       name: map['name'] as String,
-      location: map['location'] as String,
+      location: LocationModel.fromMap(map['location'] as Map<String, dynamic>),
       description: map['description'] as String,
       isVerified: map['isVerified'] as bool,
       licenses: List<PickedFileModel>.from(
-        (map['licenses'] as List<int>).map<PickedFileModel>(
+        (map['licenses'] as List<dynamic>).map<PickedFileModel>(
           (x) => PickedFileModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -116,6 +127,10 @@ class PropertyModel {
       checkOutTime: map['checkOutTime'] as String,
       roomCount: map['roomCount'] as int,
       roomPrice: map['roomPrice'] as double,
+      rating: map['rating'] as double,
+      reviews: List<String>.from(
+        (map['reviews'] as List<String>),
+      ),
     );
   }
 
@@ -126,7 +141,7 @@ class PropertyModel {
 
   @override
   String toString() {
-    return 'PropertyModel(id: $id, ownerId: $ownerId, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, roomCount: $roomCount, roomPrice: $roomPrice)';
+    return 'PropertyModel(id: $id, ownerId: $ownerId, images: $images, type: $type, name: $name, location: $location, description: $description, isVerified: $isVerified, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime, roomCount: $roomCount, roomPrice: $roomPrice, rating: $rating, reviews: $reviews)';
   }
 
   @override
@@ -146,7 +161,9 @@ class PropertyModel {
         other.checkInTime == checkInTime &&
         other.checkOutTime == checkOutTime &&
         other.roomCount == roomCount &&
-        other.roomPrice == roomPrice;
+        other.roomPrice == roomPrice &&
+        other.rating == rating &&
+        listEquals(other.reviews, reviews);
   }
 
   @override
@@ -164,6 +181,8 @@ class PropertyModel {
         checkInTime.hashCode ^
         checkOutTime.hashCode ^
         roomCount.hashCode ^
-        roomPrice.hashCode;
+        roomPrice.hashCode ^
+        rating.hashCode ^
+        reviews.hashCode;
   }
 }

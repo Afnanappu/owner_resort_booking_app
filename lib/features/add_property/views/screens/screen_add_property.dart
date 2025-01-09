@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +11,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/models/location_model.dart';
 import 'package:owner_resort_booking_app/core/utils/check_text_form_field_are_used_or_not.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
@@ -24,6 +27,8 @@ import 'package:owner_resort_booking_app/features/add_property/views/widgets/add
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/check_time_widget_for_add_property.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/extra_details_widget.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/property_type_text_form_field_for_add_property.dart';
+import 'package:owner_resort_booking_app/features/google_map/view_model/bloc/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class ScreenAddProperty extends StatefulWidget {
   const ScreenAddProperty({super.key});
@@ -108,20 +113,38 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
                             }
                           },
                         ),
-                        CustomTextFormFieldForAddProperty(
-                          hintText: 'Location',
-                          controller: locationController,
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.my_location_rounded),
-                          ),
-                          validator: (value) {
-                            if (!MyRegex.emptySpaceValidation(value)) {
-                              return 'Don\'t use empty space, user characters';
-                            } else {
-                              return null;
+                        BlocListener<GoogleMapBloc, GoogleMapState>(
+                          listener: (context, state) {
+                            final locationModel = state.maybeWhen(
+                              locationConfirmed: (confirmedLocation) =>
+                                  confirmedLocation,
+                              orElse: () {},
+                            );
+
+                            if (locationModel == null) {
+                              log('address is null, so can\'t update the location field');
+                              return;
                             }
+                            locationController.text = locationModel.address;
                           },
+                          child: CustomTextFormFieldForAddProperty(
+                            hintText: 'Location',
+                            controller: locationController,
+                            suffixIcon: IconButton(
+                              onPressed: () async {
+                                await context.push('/${AppRoutes.googleMap}');
+                              },
+                              icon: Icon(Icons.my_location_rounded),
+                            ),
+                            readOnly: true,
+                            validator: (value) {
+                              if (!MyRegex.emptySpaceValidation(value)) {
+                                return 'Don\'t use empty space, user characters';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
                         ),
                         CustomTextFormFieldForAddProperty(
                           hintText: 'Description',
@@ -165,7 +188,6 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
           formKey: _formKey,
           typeController: typeController,
           nameController: nameController,
-          locationController: locationController,
           descriptionController: descriptionController,
           checkInTimeController: checkInTimeController,
           checkOutTimeController: checkOutTimeController,

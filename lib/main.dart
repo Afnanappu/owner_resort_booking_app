@@ -23,6 +23,7 @@ import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/
 import 'package:owner_resort_booking_app/features/authentication/repository/auth_repository.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
+import 'package:owner_resort_booking_app/features/google_map/view_model/bloc/google_map_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/repository/my_property_repository.dart';
 import 'package:owner_resort_booking_app/features/my_properties/services/my_property_services.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
@@ -73,14 +74,19 @@ class MainApp extends StatelessWidget {
 
     return MultiRepositoryProvider(
       providers: [
+        //Auth
         RepositoryProvider(
           create: (context) => AuthRepository(AuthServices()),
         ),
+
+        //Add Property
         RepositoryProvider(
           create: (context) => AddPropertyRepository(
             addPropertyServices: AddPropertyServices(),
           ),
         ),
+
+        //My Property
         RepositoryProvider(
           create: (context) => MyPropertyRepository(
             services: MyPropertyServices(),
@@ -89,58 +95,94 @@ class MainApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          //Auth
           BlocProvider(
             create: (context) => AuthBloc(context.read<AuthRepository>()),
           ),
+
+          //Common file upload
           BlocProvider(
             create: (context) => UploadFileCubit(),
           ),
+
+          //Property image
           BlocProvider(
             create: (context) => UploadImageForPropertyCubit(),
           ),
+
+          //Room image
           BlocProvider(
             create: (context) => UploadImageForRoomCubit(),
           ),
+
+          //Room add
           BlocProvider(
             create: (context) => RoomAddCubit(),
           ),
+
+          //google map
+          BlocProvider(
+            create: (context) => GoogleMapBloc(),
+          ),
+
+          //Amenities
           BlocProvider(
             create: (context) =>
                 AmenitiesAddCubit(context.read<AddPropertyRepository>()),
           ),
+
+          //Add Property Category
           BlocProvider(
             create: (context) =>
                 GetPropertyTypeCubit(context.read<AddPropertyRepository>()),
           ),
+
+          // Add Property
           BlocProvider(
             create: (context) =>
                 AddPropertyBloc(context.read<AddPropertyRepository>()),
           ),
+
+          // My Property
           BlocProvider(
             create: (context) =>
                 MyPropertyListBloc(context.read<MyPropertyRepository>()),
           ),
+
+          //Property Details
           BlocProvider(
             create: (context) =>
                 PropertyDetailsBloc(context.read<MyPropertyRepository>()),
           ),
+
+          //Room Details
           BlocProvider(
             create: (context) =>
                 PropertyRoomDetailsBloc(context.read<MyPropertyRepository>()),
           ),
+
+          //Room List
           BlocProvider(
             create: (context) =>
                 PropertyRoomListBloc(context.read<MyPropertyRepository>()),
           ),
+
+          //Bullet points for property
           BlocProvider(
             create: (context) => BulletPointCubit(),
           ),
+
+          //Add Property Extra details
           BlocProvider(
             create: (context) => ExtraDetailsCubit(),
           ),
+
+          //Add Property Sub Details
           BlocProvider(
             create: (context) => SubDetailsCubit(),
           ),
+
+          //Add Property Rules Details
           BlocProvider(
             create: (context) => RulesDetailsCubit(),
           ),
