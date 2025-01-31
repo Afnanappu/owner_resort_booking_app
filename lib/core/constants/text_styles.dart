@@ -13,6 +13,21 @@ class MyTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
+  static final bodyLargeBoldBlack = TextStyle(
+    color: MyColors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+  static final bodyLargeNormalGrey = TextStyle(
+    color: MyColors.grey,
+    fontSize: 15,
+    fontWeight: FontWeight.normal,
+  );
+  static final bodyExtraLargeBoldBlack = TextStyle(
+    color: MyColors.black,
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  );
   static final headlineSmallSemiBoldBlack = TextStyle(
     color: MyColors.black,
     fontSize: 26,
@@ -42,6 +57,11 @@ class MyTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 14,
     color: MyColors.greyLight,
+  );
+  static final bodySmallMediumGrey = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: MyColors.grey,
   );
   static final bodySmallMediumBlack = TextStyle(
     fontWeight: FontWeight.w600,

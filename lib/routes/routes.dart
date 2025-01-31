@@ -10,14 +10,15 @@ import 'package:owner_resort_booking_app/features/add_property/views/screens/scr
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_login.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_sign_up.dart';
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
-import 'package:owner_resort_booking_app/features/booking/views/screens/screen_booking.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_dashboard.dart';
-import 'package:owner_resort_booking_app/features/google_map/views/screens/screen_google_map.dart';
+import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_google_map.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/views/screens/screen_booked_property_details.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/views/screens/screen_my_bookings.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_properties.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_room_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_rooms.dart';
-import 'package:owner_resort_booking_app/features/profile/views/screens/screen_profile.dart';
+import 'package:owner_resort_booking_app/features/profile/views/screens/screen_payment_history.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
@@ -25,7 +26,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final routes = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/${AppRoutes.splash}',
   navigatorKey: _rootNavigatorKey,
   observers: [
     MyNavigatorObserver(),
@@ -115,6 +116,24 @@ final routes = GoRouter(
       },
     ),
     GoRoute(
+      path: '/${AppRoutes.bookedPropertyDetails}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenBookedPropertyDetails(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.paymentHistory}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenPaymentHistory(),
+        );
+      },
+    ),
+    GoRoute(
       path: '/${AppRoutes.googleMap}',
       pageBuilder: (context, state) {
         return customTransitionPage(
@@ -164,7 +183,7 @@ final routes = GoRouter(
               pageBuilder: (_, state) {
                 return customTransitionPage(
                   state,
-                  ScreenBooking(),
+                  ScreenMyBookings(),
                 );
               },
             ),
@@ -177,7 +196,8 @@ final routes = GoRouter(
               pageBuilder: (_, state) {
                 return customTransitionPage(
                   state,
-                  ScreenProfile(),
+                  //TODO: may need to change to normal
+                  ScreenPaymentHistory(),
                 );
               },
             ),

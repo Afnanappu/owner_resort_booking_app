@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owner_resort_booking_app/features/profile/views/components/profile_app_bar.dart';
 
 class ScreenProfile extends StatelessWidget {
   const ScreenProfile({super.key});
@@ -6,9 +7,11 @@ class ScreenProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Profile screen'),
-      ),
+      body: ListView(children: [
+        ProfileAppBar(
+          
+        ),
+      ]),
     );
   }
 }

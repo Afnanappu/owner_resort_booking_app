@@ -10,8 +10,7 @@ import 'package:owner_resort_booking_app/core/components/custom_upload_file_widg
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
-import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
-import 'package:owner_resort_booking_app/core/models/location_model.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/core/utils/check_text_form_field_are_used_or_not.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
@@ -27,7 +26,8 @@ import 'package:owner_resort_booking_app/features/add_property/views/widgets/add
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/check_time_widget_for_add_property.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/extra_details_widget.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/widgets/property_type_text_form_field_for_add_property.dart';
-import 'package:owner_resort_booking_app/features/google_map/view_model/bloc/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_map/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class ScreenAddProperty extends StatefulWidget {
@@ -51,12 +51,60 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
   final checkOutTimeController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    final isEdit = context.read<AddPropertyBloc>().isEdit;
+    if (!isEdit) {
+      return;
+    }
+    context.read<PropertyDetailsBloc>().state.maybeWhen(
+          loaded: (property) {
+            typeController.text = property.type;
+            nameController.text = property.name;
+            checkInTimeController.text = property.checkInTime;
+            checkOutTimeController.text = property.checkOutTime;
+            descriptionController.text = property.description;
+            locationController.text = property.location.address;
+            context.read<UploadImageForPropertyCubit>().setImages(
+                  property.images,
+                );
+            context
+                .read<ExtraDetailsCubit>()
+                .setExtraDetails(property.extraDetails);
+
+            context.read<SubDetailsCubit>().setAllSubDetails(
+                  property.extraDetails.basicDetailsModel.subDetails,
+                );
+            context.read<RulesDetailsCubit>().setAllRules(
+                  property.extraDetails.rulesDetailsModel.rules,
+                );
+
+            context.read<UploadFileCubit>().setFiles(files: property.licenses);
+
+            context
+                .read<GoogleMapBloc>()
+                .add(GoogleMapEvent.setLocation(property.location));
+
+            // final rooms =
+            //     context.read<PropertyRoomListBloc>().state.maybeWhen(
+            //           loaded: (roomList) => roomList,
+            //           orElse: () {},
+            //         );
+            // context.read<RoomAddCubit>().setRooms(rooms ?? []);
+            context.read<RoomAddCubit>().fetchRooms(property.id!);
+          },
+          orElse: () {},
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   context.read<GetPropertyTypeCubit>().fetchAdditionalOptionsType(
-    //       type: AdditionalOptionType.propertyCategories);
+
     // });
+    final isEdit = context.read<AddPropertyBloc>().isEdit;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: _onScreenCanPopWorked,
@@ -67,7 +115,8 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
               added: () {
                 showCustomSnackBar(
                   context: context,
-                  message: 'Property added successfully',
+                  message:
+                      'Property ${isEdit ? 'edited' : 'added'} successfully',
                   bgColor: MyColors.success,
                 );
               },
@@ -84,7 +133,7 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
               children: [
                 //App bar
                 CustomAppBar(
-                  title: 'Add Property',
+                  title: '${isEdit ? 'Edit' : 'Add'} Property',
                 ),
 
                 MySpaces.hSpace20,
@@ -162,6 +211,7 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
                         CustomUploadFileWidget(
                           title: 'Upload Licenses *',
                           style: MyTextStyles.titleMediumSemiBoldBlack,
+                          isEdit: isEdit,
                         ),
 
                         //Extra details

@@ -26,6 +26,19 @@ class PropertyDetailsBloc
         emit(PropertyDetailsState.error(e.toString()));
       }
     });
+
+    on<_PropertyDeleted>(
+      (event, emit) async {
+        emit(PropertyDetailsState.loading());
+
+        try {
+          await _repository.deleteProperty(event.id);
+          emit(PropertyDetailsState.propertyDeleted());
+        } catch (e) {
+          emit(PropertyDetailsState.error(e.toString()));
+        }
+      },
+    );
   }
 
   String? getPropertyId() {

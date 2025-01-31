@@ -17,19 +17,35 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MyPropertyListEvent {
   String get uid => throw _privateConstructorUsedError;
+  String? get search => throw _privateConstructorUsedError;
+  FilterOptions? get filterOptions => throw _privateConstructorUsedError;
+  String? get priceRange => throw _privateConstructorUsedError;
+  List<String>? get category => throw _privateConstructorUsedError;
+  int? get rating => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String uid) fetchProperties,
+    required TResult Function(
+            String uid,
+            String? search,
+            FilterOptions? filterOptions,
+            String? priceRange,
+            List<String>? category,
+            int? rating)
+        fetchProperties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String uid)? fetchProperties,
+    TResult? Function(String uid, String? search, FilterOptions? filterOptions,
+            String? priceRange, List<String>? category, int? rating)?
+        fetchProperties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String uid)? fetchProperties,
+    TResult Function(String uid, String? search, FilterOptions? filterOptions,
+            String? priceRange, List<String>? category, int? rating)?
+        fetchProperties,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +79,13 @@ abstract class $MyPropertyListEventCopyWith<$Res> {
           MyPropertyListEvent value, $Res Function(MyPropertyListEvent) then) =
       _$MyPropertyListEventCopyWithImpl<$Res, MyPropertyListEvent>;
   @useResult
-  $Res call({String uid});
+  $Res call(
+      {String uid,
+      String? search,
+      FilterOptions? filterOptions,
+      String? priceRange,
+      List<String>? category,
+      int? rating});
 }
 
 /// @nodoc
@@ -82,12 +104,37 @@ class _$MyPropertyListEventCopyWithImpl<$Res, $Val extends MyPropertyListEvent>
   @override
   $Res call({
     Object? uid = null,
+    Object? search = freezed,
+    Object? filterOptions = freezed,
+    Object? priceRange = freezed,
+    Object? category = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterOptions: freezed == filterOptions
+          ? _value.filterOptions
+          : filterOptions // ignore: cast_nullable_to_non_nullable
+              as FilterOptions?,
+      priceRange: freezed == priceRange
+          ? _value.priceRange
+          : priceRange // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -100,7 +147,13 @@ abstract class _$$FetchPropertiesImplCopyWith<$Res>
       __$$FetchPropertiesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uid});
+  $Res call(
+      {String uid,
+      String? search,
+      FilterOptions? filterOptions,
+      String? priceRange,
+      List<String>? category,
+      int? rating});
 }
 
 /// @nodoc
@@ -117,12 +170,37 @@ class __$$FetchPropertiesImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uid = null,
+    Object? search = freezed,
+    Object? filterOptions = freezed,
+    Object? priceRange = freezed,
+    Object? category = freezed,
+    Object? rating = freezed,
   }) {
     return _then(_$FetchPropertiesImpl(
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      search: freezed == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String?,
+      filterOptions: freezed == filterOptions
+          ? _value.filterOptions
+          : filterOptions // ignore: cast_nullable_to_non_nullable
+              as FilterOptions?,
+      priceRange: freezed == priceRange
+          ? _value.priceRange
+          : priceRange // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value._category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -130,14 +208,39 @@ class __$$FetchPropertiesImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FetchPropertiesImpl implements _FetchProperties {
-  const _$FetchPropertiesImpl({required this.uid});
+  const _$FetchPropertiesImpl(
+      {required this.uid,
+      this.search,
+      this.filterOptions,
+      this.priceRange,
+      final List<String>? category,
+      this.rating})
+      : _category = category;
 
   @override
   final String uid;
+  @override
+  final String? search;
+  @override
+  final FilterOptions? filterOptions;
+  @override
+  final String? priceRange;
+  final List<String>? _category;
+  @override
+  List<String>? get category {
+    final value = _category;
+    if (value == null) return null;
+    if (_category is EqualUnmodifiableListView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final int? rating;
 
   @override
   String toString() {
-    return 'MyPropertyListEvent.fetchProperties(uid: $uid)';
+    return 'MyPropertyListEvent.fetchProperties(uid: $uid, search: $search, filterOptions: $filterOptions, priceRange: $priceRange, category: $category, rating: $rating)';
   }
 
   @override
@@ -145,11 +248,19 @@ class _$FetchPropertiesImpl implements _FetchProperties {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FetchPropertiesImpl &&
-            (identical(other.uid, uid) || other.uid == uid));
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.filterOptions, filterOptions) ||
+                other.filterOptions == filterOptions) &&
+            (identical(other.priceRange, priceRange) ||
+                other.priceRange == priceRange) &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, uid);
+  int get hashCode => Object.hash(runtimeType, uid, search, filterOptions,
+      priceRange, const DeepCollectionEquality().hash(_category), rating);
 
   /// Create a copy of MyPropertyListEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -163,27 +274,41 @@ class _$FetchPropertiesImpl implements _FetchProperties {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String uid) fetchProperties,
+    required TResult Function(
+            String uid,
+            String? search,
+            FilterOptions? filterOptions,
+            String? priceRange,
+            List<String>? category,
+            int? rating)
+        fetchProperties,
   }) {
-    return fetchProperties(uid);
+    return fetchProperties(
+        uid, search, filterOptions, priceRange, category, rating);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String uid)? fetchProperties,
+    TResult? Function(String uid, String? search, FilterOptions? filterOptions,
+            String? priceRange, List<String>? category, int? rating)?
+        fetchProperties,
   }) {
-    return fetchProperties?.call(uid);
+    return fetchProperties?.call(
+        uid, search, filterOptions, priceRange, category, rating);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String uid)? fetchProperties,
+    TResult Function(String uid, String? search, FilterOptions? filterOptions,
+            String? priceRange, List<String>? category, int? rating)?
+        fetchProperties,
     required TResult orElse(),
   }) {
     if (fetchProperties != null) {
-      return fetchProperties(uid);
+      return fetchProperties(
+          uid, search, filterOptions, priceRange, category, rating);
     }
     return orElse();
   }
@@ -218,11 +343,26 @@ class _$FetchPropertiesImpl implements _FetchProperties {
 }
 
 abstract class _FetchProperties implements MyPropertyListEvent {
-  const factory _FetchProperties({required final String uid}) =
-      _$FetchPropertiesImpl;
+  const factory _FetchProperties(
+      {required final String uid,
+      final String? search,
+      final FilterOptions? filterOptions,
+      final String? priceRange,
+      final List<String>? category,
+      final int? rating}) = _$FetchPropertiesImpl;
 
   @override
   String get uid;
+  @override
+  String? get search;
+  @override
+  FilterOptions? get filterOptions;
+  @override
+  String? get priceRange;
+  @override
+  List<String>? get category;
+  @override
+  int? get rating;
 
   /// Create a copy of MyPropertyListEvent
   /// with the given fields replaced by the non-null parameter values.

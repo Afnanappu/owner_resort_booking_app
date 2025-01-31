@@ -23,13 +23,13 @@ class MySpaces {
     height: 80,
   );
   static const wSpace5 = SizedBox(
-    height: 5,
+    width: 5,
   );
   static const wSpace10 = SizedBox(
-    height: 10,
+    width: 10,
   );
   static const wSpace20 = SizedBox(
-    height: 20,
+    width: 20,
   );
   static const flex1 = Spacer(
     flex: 1,

@@ -6,7 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:owner_resort_booking_app/core/constants/theme.dart';
-import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/data/repository/owner_repository.dart';
+import 'package:owner_resort_booking_app/core/data/repository/user_repository.dart';
+import 'package:owner_resort_booking_app/core/data/services/notification_services.dart';
+import 'package:owner_resort_booking_app/core/data/services/owner_services.dart';
+import 'package:owner_resort_booking_app/core/data/services/transaction_services.dart';
+import 'package:owner_resort_booking_app/core/data/services/user_services.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_notification/notification_bloc.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/user_data_cubit.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
 import 'package:owner_resort_booking_app/features/add_property/services/add_property_services.dart';
@@ -23,13 +32,22 @@ import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/
 import 'package:owner_resort_booking_app/features/authentication/repository/auth_repository.dart';
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
-import 'package:owner_resort_booking_app/features/google_map/view_model/bloc/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_map/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/repository/my_booking_repository.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/services/my_booking_services.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/view_model/bloc/bloc_booked_property_details/booked_property_details_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_bookings/view_model/bloc/bloc_booked_property_list/booked_property_list_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/repository/my_property_repository.dart';
 import 'package:owner_resort_booking_app/features/my_properties/services/my_property_services.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_list/my_property_list_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_room_list/property_room_list_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_room_details/property_room_details_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/cubit/filter_data_cubit.dart';
+import 'package:owner_resort_booking_app/features/my_properties/view_model/cubit/property_type_cubit.dart';
+import 'package:owner_resort_booking_app/features/profile/repository/payment_history_repository.dart';
+import 'package:owner_resort_booking_app/features/profile/services/payment_history_services.dart';
+import 'package:owner_resort_booking_app/features/profile/view_model/bloc/payment_history_bloc.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
 
 import 'firebase_options.dart';
@@ -39,7 +57,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   // if (kDebugMode) {
   //   try {
   //     final deviceIp = '10.0.14.31';
@@ -51,32 +68,36 @@ Future<void> main() async {
   //     log(e.toString());
   //   }
   // }
-  runApp(const MainApp());
-}
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  NotificationServices().onBackgroundMessages();
 
-  @override
-  Widget build(BuildContext context) {
-    MyScreenSize.initialize(context);
-    print(MyScreenSize());
-
-    FirebaseAuth.instance.authStateChanges().listen(
-      (user) {
-        if (user == null) {
-          log('User is currently signed out!');
-        } else {
-          log('User is signed in!');
-        }
-      },
-    );
-
-    return MultiRepositoryProvider(
+  runApp(
+    MultiRepositoryProvider(
       providers: [
         //Auth
         RepositoryProvider(
           create: (context) => AuthRepository(AuthServices()),
+        ),
+        RepositoryProvider(
+          create: (context) => OwnerRepository(
+            services: OwnerServices(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => UserRepository(
+            services: UserServices(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => MyBookingRepository(
+            services: MyBookingServices(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => PaymentHistoryRepository(
+            paymentHistoryServices: PaymentHistoryServices(),
+            transactionServices: TransactionServices(),
+          ),
         ),
 
         //Add Property
@@ -95,6 +116,11 @@ class MainApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          //notification
+          BlocProvider(create: (context) {
+            return NotificationBloc(NotificationServices());
+          }),
+
           //Auth
           BlocProvider(
             create: (context) => AuthBloc(context.read<AuthRepository>()),
@@ -117,12 +143,26 @@ class MainApp extends StatelessWidget {
 
           //Room add
           BlocProvider(
-            create: (context) => RoomAddCubit(),
+            create: (context) =>
+                RoomAddCubit(context.read<AddPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                PaymentHistoryBloc(context.read<PaymentHistoryRepository>()),
           ),
 
           //google map
           BlocProvider(
             create: (context) => GoogleMapBloc(),
+          ),
+
+          //filter cubit
+          BlocProvider(
+            create: (context) => FilterDataCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                PropertyTypeCubit(context.read<MyPropertyRepository>()),
           ),
 
           //Amenities
@@ -142,6 +182,14 @@ class MainApp extends StatelessWidget {
             create: (context) =>
                 AddPropertyBloc(context.read<AddPropertyRepository>()),
           ),
+          BlocProvider(
+            create: (context) =>
+                BookedPropertyListBloc(context.read<MyBookingRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                OwnerDataCubit(context.read<OwnerRepository>()),
+          ),
 
           // My Property
           BlocProvider(
@@ -154,11 +202,18 @@ class MainApp extends StatelessWidget {
             create: (context) =>
                 PropertyDetailsBloc(context.read<MyPropertyRepository>()),
           ),
+          BlocProvider(
+            create: (context) => UserDataCubit(context.read<UserRepository>()),
+          ),
 
           //Room Details
           BlocProvider(
             create: (context) =>
                 PropertyRoomDetailsBloc(context.read<MyPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                BookedPropertyDetailsBloc(context.read<MyBookingRepository>()),
           ),
 
           //Room List
@@ -187,14 +242,39 @@ class MainApp extends StatelessWidget {
             create: (context) => RulesDetailsCubit(),
           ),
         ],
-        child: MaterialApp.router(
-          title: 'StayScape',
-          debugShowCheckedModeBanner: false,
-          routerConfig: routes,
-          // darkTheme: ThemeData.dark(),
-          theme: customTheme,
-        ),
+        child: const MainApp(),
       ),
+    ),
+  );
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    MyScreenSize.initialize(context);
+    print(MyScreenSize());
+    //initialize notification
+    context.read<NotificationBloc>().add(
+          NotificationEvent.initNotification(),
+        );
+    FirebaseAuth.instance.authStateChanges().listen(
+      (user) {
+        if (user == null) {
+          log('User is currently signed out!');
+        } else {
+          log('User is signed in!');
+        }
+      },
+    );
+
+    return MaterialApp.router(
+      title: 'StayScape',
+      debugShowCheckedModeBanner: false,
+      routerConfig: routes,
+      // darkTheme: ThemeData.dark(),
+      theme: customTheme,
     );
   }
 }

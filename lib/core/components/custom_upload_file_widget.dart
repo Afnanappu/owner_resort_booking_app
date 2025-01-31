@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dart';
 import 'package:owner_resort_booking_app/core/components/elevated_button_for_upload.dart';
-import 'package:owner_resort_booking_app/core/cubit/cubit_upload_file/upload_file_cubit.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 import 'package:owner_resort_booking_app/core/utils/app_file_picker.dart';
 
 class CustomUploadFileWidget extends StatelessWidget {
@@ -16,9 +17,11 @@ class CustomUploadFileWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.style,
+    this.isEdit = false,
   });
   final String title;
   final TextStyle style;
+  final bool isEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +105,15 @@ class CustomUploadFileWidget extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             child: file.fileExtension != 'pdf'
-                                ? Image.file(
-                                    File(file.filePath),
-                                    fit: BoxFit.contain,
-                                  )
+                                ? isEdit
+                                    ? Image.memory(
+                                        base64Decode(file.base64file),
+                                        fit: BoxFit.contain,
+                                      )
+                                    : Image.file(
+                                        File(file.filePath),
+                                        fit: BoxFit.contain,
+                                      )
                                 : SizedBox(
                                     width: 150,
                                     child: Column(

@@ -20,21 +20,21 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
-    required TResult Function(UserModel user) register,
+    required TResult Function(OwnerAuthModel user) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
-    TResult? Function(UserModel user)? register,
+    TResult? Function(OwnerAuthModel user)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
-    TResult Function(UserModel user)? register,
+    TResult Function(OwnerAuthModel user)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,7 +161,7 @@ class _$LoginWithEmailAndIdImpl implements _LoginWithEmailAndId {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
-    required TResult Function(UserModel user) register,
+    required TResult Function(OwnerAuthModel user) register,
   }) {
     return loginWithEmailAndId(email, ownerId);
   }
@@ -171,7 +171,7 @@ class _$LoginWithEmailAndIdImpl implements _LoginWithEmailAndId {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
-    TResult? Function(UserModel user)? register,
+    TResult? Function(OwnerAuthModel user)? register,
   }) {
     return loginWithEmailAndId?.call(email, ownerId);
   }
@@ -181,7 +181,7 @@ class _$LoginWithEmailAndIdImpl implements _LoginWithEmailAndId {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
-    TResult Function(UserModel user)? register,
+    TResult Function(OwnerAuthModel user)? register,
     required TResult orElse(),
   }) {
     if (loginWithEmailAndId != null) {
@@ -282,7 +282,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
-    required TResult Function(UserModel user) register,
+    required TResult Function(OwnerAuthModel user) register,
   }) {
     return loginWithGoogle();
   }
@@ -292,7 +292,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
-    TResult? Function(UserModel user)? register,
+    TResult? Function(OwnerAuthModel user)? register,
   }) {
     return loginWithGoogle?.call();
   }
@@ -302,7 +302,7 @@ class _$LoginWithGoogleImpl implements _LoginWithGoogle {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
-    TResult Function(UserModel user)? register,
+    TResult Function(OwnerAuthModel user)? register,
     required TResult orElse(),
   }) {
     if (loginWithGoogle != null) {
@@ -356,7 +356,7 @@ abstract class _$$RegisterImplCopyWith<$Res> {
           _$RegisterImpl value, $Res Function(_$RegisterImpl) then) =
       __$$RegisterImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserModel user});
+  $Res call({OwnerAuthModel user});
 }
 
 /// @nodoc
@@ -378,7 +378,7 @@ class __$$RegisterImplCopyWithImpl<$Res>
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as OwnerAuthModel,
     ));
   }
 }
@@ -389,7 +389,7 @@ class _$RegisterImpl implements _Register {
   const _$RegisterImpl(this.user);
 
   @override
-  final UserModel user;
+  final OwnerAuthModel user;
 
   @override
   String toString() {
@@ -420,7 +420,7 @@ class _$RegisterImpl implements _Register {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String ownerId) loginWithEmailAndId,
     required TResult Function() loginWithGoogle,
-    required TResult Function(UserModel user) register,
+    required TResult Function(OwnerAuthModel user) register,
   }) {
     return register(user);
   }
@@ -430,7 +430,7 @@ class _$RegisterImpl implements _Register {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String ownerId)? loginWithEmailAndId,
     TResult? Function()? loginWithGoogle,
-    TResult? Function(UserModel user)? register,
+    TResult? Function(OwnerAuthModel user)? register,
   }) {
     return register?.call(user);
   }
@@ -440,7 +440,7 @@ class _$RegisterImpl implements _Register {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String ownerId)? loginWithEmailAndId,
     TResult Function()? loginWithGoogle,
-    TResult Function(UserModel user)? register,
+    TResult Function(OwnerAuthModel user)? register,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -485,9 +485,9 @@ class _$RegisterImpl implements _Register {
 }
 
 abstract class _Register implements AuthEvent {
-  const factory _Register(final UserModel user) = _$RegisterImpl;
+  const factory _Register(final OwnerAuthModel user) = _$RegisterImpl;
 
-  UserModel get user;
+  OwnerAuthModel get user;
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -502,7 +502,7 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -512,7 +512,7 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -522,7 +522,7 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -625,7 +625,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -638,7 +638,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -651,7 +651,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -754,7 +754,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -767,7 +767,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -780,7 +780,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -846,7 +846,7 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserModel user});
+  $Res call({OwnerAuthModel user});
 }
 
 /// @nodoc
@@ -868,7 +868,7 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as OwnerAuthModel,
     ));
   }
 }
@@ -879,7 +879,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   const _$AuthenticatedImpl(this.user);
 
   @override
-  final UserModel user;
+  final OwnerAuthModel user;
 
   @override
   String toString() {
@@ -910,7 +910,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -923,7 +923,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -936,7 +936,7 @@ class _$AuthenticatedImpl implements _Authenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -993,9 +993,9 @@ class _$AuthenticatedImpl implements _Authenticated {
 }
 
 abstract class _Authenticated implements AuthState {
-  const factory _Authenticated(final UserModel user) = _$AuthenticatedImpl;
+  const factory _Authenticated(final OwnerAuthModel user) = _$AuthenticatedImpl;
 
-  UserModel get user;
+  OwnerAuthModel get user;
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1075,7 +1075,7 @@ class _$EmailLoginFailedImpl implements _EmailLoginFailed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -1088,7 +1088,7 @@ class _$EmailLoginFailedImpl implements _EmailLoginFailed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -1101,7 +1101,7 @@ class _$EmailLoginFailedImpl implements _EmailLoginFailed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -1241,7 +1241,7 @@ class _$GoogleLoginFailedImpl implements _GoogleLoginFailed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -1254,7 +1254,7 @@ class _$GoogleLoginFailedImpl implements _GoogleLoginFailed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -1267,7 +1267,7 @@ class _$GoogleLoginFailedImpl implements _GoogleLoginFailed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,
@@ -1406,7 +1406,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserModel user) authenticated,
+    required TResult Function(OwnerAuthModel user) authenticated,
     required TResult Function(String message) emailLoginFailed,
     required TResult Function(String message) googleLoginFailed,
     required TResult Function(String message) error,
@@ -1419,7 +1419,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserModel user)? authenticated,
+    TResult? Function(OwnerAuthModel user)? authenticated,
     TResult? Function(String message)? emailLoginFailed,
     TResult? Function(String message)? googleLoginFailed,
     TResult? Function(String message)? error,
@@ -1432,7 +1432,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserModel user)? authenticated,
+    TResult Function(OwnerAuthModel user)? authenticated,
     TResult Function(String message)? emailLoginFailed,
     TResult Function(String message)? googleLoginFailed,
     TResult Function(String message)? error,

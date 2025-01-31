@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_notification/notification_bloc.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/components/app_bar_for_dashboard.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/components/custom_widget_for_dashboard.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/widgets/custom_grid_tile.dart';
@@ -16,7 +17,7 @@ class ScreenDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarForHome(),
+      appBar: AppBarForDashboard(),
       body: ListView(
         shrinkWrap: true,
         children: [
@@ -58,9 +59,17 @@ class ScreenDashboard extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: ElevatedButton(
               onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                // ignore: use_build_context_synchronously
-                context.go('/${AppRoutes.login}');
+                context
+                    .read<NotificationBloc>()
+                    .add(NotificationEvent.sendNotification(
+                      uid: 'j35DaR0PS4ePgpOKdxkWpJXavYi2',
+                      title: "✅ New Booking Received",
+                      content:
+                          "📍 AFNAAN P has booked Ganga Resort from 10/01/25 to 16/01/25.",
+                    ));
+                // await FirebaseAuth.instance.signOut();
+                // // ignore: use_build_context_synchronously
+                // context.go('/${AppRoutes.login}');
               },
               child: Text('Log out'),
             ),

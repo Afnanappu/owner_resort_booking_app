@@ -25,7 +25,7 @@ class ScreenMyPropertyRoomDetails extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              //TODO: Add editing option here
+              // TODO: Add editing option here
             },
             icon: Icon(Icons.edit_note_outlined),
           ),
@@ -96,9 +96,7 @@ class ScreenMyPropertyRoomDetails extends StatelessWidget {
                               '${roomModel.roomArea} sqm • ${roomModel.roomType} • ${roomModel.bedType} • Max ${roomModel.maxGustCount} gust',
                               // style: MyTextStyles.,
                             ),
-
                             MySpaces.hSpace20,
-
                             CustomAppContainer(
                               width: MyScreenSize.width,
                               padding: EdgeInsets.all(15),
@@ -120,8 +118,8 @@ class ScreenMyPropertyRoomDetails extends StatelessWidget {
                                         padding:
                                             const EdgeInsets.only(left: 12),
                                         child: Text(
-                                          "If you're looking for Levi Ackerman wallpapers, you can find a wide variety on platforms like",
-                                          // roomModel.description,
+                                          // "If you're looking for Levi Ackerman wallpapers, you can find a wide variety on platforms like",
+                                          roomModel.description,
                                           style:
                                               MyTextStyles.bodySmallNormalBlack,
                                         ),
@@ -184,7 +182,6 @@ class ScreenMyPropertyRoomDetails extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: 15,
@@ -193,12 +190,21 @@ class ScreenMyPropertyRoomDetails extends StatelessWidget {
                                   'Availability',
                                   style: MyTextStyles.titleLargeSemiBoldBlack,
                                 ),
-                                CustomCalendarWidget(
-                                  selectedDates: [
-                                    DateTime(2025, 1, 5),
-                                    DateTime(2025, 1, 10),
-                                    DateTime(2025, 1, 15),
-                                  ],
+                                // CustomCalendarWidget(
+                                //   selectedDates: [
+                                //     DateTime(2025, 1, 5),
+                                //     DateTime(2025, 1, 10),
+                                //     DateTime(2025, 1, 15),
+                                //   ],
+                                // ),
+
+                                //Here we need to pass the booked dates that have a star
+                                BookingCalendar(
+                                  bookedPeriods: roomModel.bookedDays,
+                                  // [
+                                  // DateTime(2024, 1, 5),
+                                  // DateTime(2024, 1, 10)
+                                  // ],
                                 ),
                               ],
                             ),

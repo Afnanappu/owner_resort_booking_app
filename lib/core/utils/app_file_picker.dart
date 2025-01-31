@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 
 Future<PickedFileModel?> pickFileFromDevice() async {
   final result = await FilePicker.platform.pickFiles(

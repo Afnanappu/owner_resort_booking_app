@@ -32,7 +32,7 @@ class MainDetailsWidgetForPropertyDetails extends StatelessWidget {
                 size: 22,
               ),
               content: Text(
-                '${propertyModel.rating ?? 0}/5',
+                '${propertyModel.rating}/5',
                 style: MyTextStyles.ratingStyle,
               ),
             ),
@@ -44,9 +44,13 @@ class MainDetailsWidgetForPropertyDetails extends StatelessWidget {
             color: MyColors.grey,
             size: 22,
           ),
-          content: Text(
-            propertyModel.location,
-            style: MyTextStyles.locationStyle,
+          content: Expanded(
+            child: Text(
+              propertyModel.location.address,
+              style: MyTextStyles.locationStyle,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
         ),
         Text(

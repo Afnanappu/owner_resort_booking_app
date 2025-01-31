@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/amenities_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
 
 part 'amenities_add_state.dart';

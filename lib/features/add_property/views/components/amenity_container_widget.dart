@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/amenities_model.dart';
 
 class AmenityContainerWidget extends StatelessWidget {
   const AmenityContainerWidget({

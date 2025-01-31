@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
-import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/room_model.dart';
 
 class RoomListCard extends StatelessWidget {
   const RoomListCard({
@@ -122,21 +122,21 @@ class RoomListCard extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-                // Availability Button
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFB6E34),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    shadowColor: const Color(0x3F000000),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'Unavailable',
-                    style: MyTextStyles.titleMediumSemiBoldWhite,
-                  ),
-                ),
+                // // Availability Button
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: const Color(0xFFFB6E34),
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(6),
+                //     ),
+                //     shadowColor: const Color(0x3F000000),
+                //   ),
+                //   onPressed: () {},
+                //   child: Text(
+                //     'Unavailable',
+                //     style: MyTextStyles.titleMediumSemiBoldWhite,
+                //   ),
+                // ),
               ],
             ),
           ),

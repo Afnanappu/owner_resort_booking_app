@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 import 'package:owner_resort_booking_app/core/utils/app_file_picker.dart';
 
 part 'upload_image_for_room_state.dart';

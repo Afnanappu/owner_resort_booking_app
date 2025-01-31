@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/custom_add_details_for_all_widget.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
-import 'package:owner_resort_booking_app/core/models/extra_details_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/extra_details_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_rules_details/rules_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';

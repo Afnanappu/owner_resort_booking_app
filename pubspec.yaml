@@ -9,7 +9,6 @@ environment:
 dependencies:
   carousel_slider: ^5.0.0
   cloud_firestore: ^5.5.1
-  dio: ^5.7.0
   file_picker: 8.1.4
   firebase_auth: ^5.3.4
   firebase_core: ^3.8.1
@@ -22,10 +21,15 @@ dependencies:
   geocode: ^1.0.3
   go_router: ^14.6.2
   google_maps_flutter: ^2.10.0
+  http: ^1.3.0
+  intl: ^0.20.1
   location: ^6.0.2
+  shimmer: ^3.0.0
   permission_handler: ^11.3.1
-  syncfusion_flutter_datepicker: ^28.1.37
-
+  firebase_messaging: ^15.2.1
+  flutter_rating: ^2.0.2
+  flutter_local_notifications: ^18.0.1
+  table_calendar: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/custom_elevated_button.dart';
 import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
-import 'package:owner_resort_booking_app/core/models/amenities_model.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
-import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/amenities_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/room_model.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_amenities_add/amenities_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_room_image/upload_image_for_room_cubit.dart';
@@ -79,6 +79,7 @@ class AddRoomFloatingActionButton extends StatelessWidget {
             maxGustCount: gustNumberController.text.trim(),
             description: descriptionController.text.trim(),
             amenities: amenities,
+            bookedDays: [],
           );
 
           if (isEdit) {

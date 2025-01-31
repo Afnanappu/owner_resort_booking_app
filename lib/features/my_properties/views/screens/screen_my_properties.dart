@@ -1,28 +1,28 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
 import 'package:owner_resort_booking_app/core/components/custom_search_bar.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
+import 'package:owner_resort_booking_app/core/utils/debouncer.dart';
+import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_map/google_map_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_list/my_property_list_bloc.dart';
+import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_filter_widget.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/widgets/property_widget.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class ScreenMyProperties extends StatelessWidget {
   ScreenMyProperties({super.key});
   final searchController = SearchController();
-  final sortItems = [
-    'All'
-        'aA-zZ'
-        'zZ-aA'
-        'Low-to-High',
-    'High-to-Low',
-  ];
-
+  final height = MyScreenSize.height * .65;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +31,9 @@ class ScreenMyProperties extends StatelessWidget {
         child: RefreshIndicator.adaptive(
           onRefresh: () async {
             final uid = FirebaseAuth.instance.currentUser!.uid;
-            context
-                .read<MyPropertyListBloc>()
-                .add(MyPropertyListEvent.fetchProperties(uid: uid));
+            context.read<MyPropertyListBloc>().add(
+                  MyPropertyListEvent.fetchProperties(uid: uid),
+                );
           },
           edgeOffset: 170,
           child: ListView(
@@ -50,16 +50,7 @@ class ScreenMyProperties extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-                        builder: (context) => SizedBox(
-                            height: 300,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const <Widget>[
-                                  Text('Bottom Sheet'),
-                                ],
-                              ),
-                            )),
+                        builder: (context) => FilterBottomSheet(),
                       );
                     },
                     icon: Image.asset(
@@ -68,13 +59,28 @@ class ScreenMyProperties extends StatelessWidget {
                     ),
                   )
                 ],
+                onChanged: (value) {
+                  Debouncer().call(() {
+                    final uid = FirebaseAuth.instance.currentUser!.uid;
+                    context.read<MyPropertyListBloc>().add(
+                          MyPropertyListEvent.fetchProperties(
+                            uid: uid,
+                            search: value.trim(),
+                          ),
+                        );
+                  });
+                },
+                suggestionsBuilder:
+                    (BuildContext context, SearchController controller) {
+                  return [];
+                },
               ),
               MySpaces.hSpace20,
               BlocBuilder<MyPropertyListBloc, MyPropertyListState>(
                 builder: (context, state) {
                   return state.maybeWhen(
-                    initial: () => Align(
-                      alignment: Alignment(0, 0),
+                    initial: () => SizedBox(
+                      height: height,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -87,18 +93,23 @@ class ScreenMyProperties extends StatelessWidget {
                         ],
                       ),
                     ),
-                    error: (message) => Center(
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          color: MyColors.error,
+                    error: (message) => SizedBox(
+                      height: height,
+                      child: Center(
+                        child: Text(
+                          message,
+                          style: TextStyle(
+                            color: MyColors.error,
+                          ),
                         ),
                       ),
                     ),
-                    loading: () => Align(
-                      alignment: Alignment(0, 0),
-                      child: Text(
-                        'Loading...',
+                    loading: () => SizedBox(
+                      height: height,
+                      child: Center(
+                        child: Text(
+                          'Loading...',
+                        ),
                       ),
                     ),
                     loaded: (propertyList) {
@@ -128,7 +139,7 @@ class ScreenMyProperties extends StatelessWidget {
                                         propertyName: property.name,
                                         location: property.location,
                                         rating: property.rating ?? 0,
-                                        reviews: property.reviews ?? 0,
+                                        reviews: property.reviews,
                                         rooms: property.rooms,
                                         price: property.price,
                                         onTap: () {
@@ -142,6 +153,21 @@ class ScreenMyProperties extends StatelessWidget {
                                                 PropertyDetailsEvent
                                                     .fetchPropertyDetails(
                                                   id: property.id!,
+                                                ),
+                                              );
+
+                                          final latLng = LatLng(
+                                            property.location.latitude,
+                                            property.location.longitude,
+                                          );
+                                          context.read<GoogleMapBloc>().add(
+                                                GoogleMapEvent.mapInitialized(
+                                                  latLng,
+                                                ),
+                                              );
+                                          context.read<GoogleMapBloc>().add(
+                                                GoogleMapEvent.confirmLocation(
+                                                  latLng,
                                                 ),
                                               );
                                         },

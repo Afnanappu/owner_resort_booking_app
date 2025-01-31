@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
+import 'package:owner_resort_booking_app/core/data/models/owner_model.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
+import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 
-class AppBarForHome extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarForHome({super.key});
+class AppBarForDashboard extends StatelessWidget
+    implements PreferredSizeWidget {
+  const AppBarForDashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,29 +60,39 @@ class AppBarForHome extends StatelessWidget implements PreferredSizeWidget {
           Positioned(
             left: 23,
             top: 65,
-            child: Row(
-              children: [
-                Text(
-                  'Hello, Anshif',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w700,
+            right: 23,
+            child: SizedBox(
+              width: MyScreenSize.width - 46,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocBuilder<OwnerDataCubit, OwnerModel?>(
+                    builder: (context, state) {
+                      return Text(
+                        'Hello, ${state?.name ?? 'Sir'}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
                   ),
-                ),
-                SizedBox(
-                  width: 160,
-                ),
-                IconButton.filled(
-                  onPressed: () {
-                    //TODO: add function to notification
-                  },
-                  color: MyColors.orange,
-                  style: IconButton.styleFrom(backgroundColor: MyColors.white),
-                  icon: Icon(Icons.notifications_active_outlined),
-                ),
-              ],
+                  SizedBox(
+                    width: 160,
+                  ),
+                  IconButton.filled(
+                    onPressed: () {
+                      //TODO: add function to notification
+                    },
+                    color: MyColors.orange,
+                    style:
+                        IconButton.styleFrom(backgroundColor: MyColors.white),
+                    icon: Icon(Icons.notifications_active_outlined),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

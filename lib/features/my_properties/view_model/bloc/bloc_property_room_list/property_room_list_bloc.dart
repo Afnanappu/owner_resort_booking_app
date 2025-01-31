@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/room_model.dart';
 import 'package:owner_resort_booking_app/features/my_properties/repository/my_property_repository.dart';
 
 part 'property_room_list_event.dart';

@@ -6,6 +6,7 @@ import 'package:owner_resort_booking_app/core/components/elevated_button_auth.da
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
+import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
@@ -31,9 +32,13 @@ class SignInAndGoogleButtonWidget extends StatelessWidget {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               context.read<AuthBloc>().add(
-                    AuthEvent.loginWithEmailAndId(emailController.text.trim(),
-                        ownerIdController.text.trim()),
+                    AuthEvent.loginWithEmailAndId(
+                      emailController.text.trim(),
+                      ownerIdController.text.trim(),
+                    ),
                   );
+
+              context.read<OwnerDataCubit>().fetchOwnerData();
             }
           },
         ),

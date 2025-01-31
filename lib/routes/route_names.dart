@@ -15,4 +15,7 @@ class AppRoutes {
   static const addExtraSubDetails = 'add-extra-sub-details';
   static const addRoom = 'add-room';
   static const googleMap = 'google-map';
+  static const myBookings = 'my-bookings';
+  static const paymentHistory = 'payment-history';
+  static const bookedPropertyDetails = 'booked-property-details';
 }

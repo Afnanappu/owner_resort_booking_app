@@ -9,7 +9,7 @@ import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
 import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
-import 'package:owner_resort_booking_app/core/models/sub_details_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/sub_details_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_rules_details/rules_details_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_sub_details/sub_details_cubit.dart';

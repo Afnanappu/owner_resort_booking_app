@@ -2,17 +2,28 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:owner_resort_booking_app/features/authentication/model/user_model.dart';
+import 'package:owner_resort_booking_app/features/authentication/model/owner_auth_model.dart';
 import 'package:owner_resort_booking_app/core/utils/exceptions/custom_exceptions.dart';
 
 class AuthServices {
   final ownerCollection = 'owners';
 
-  Future<UserCredential> register(String email, String password) async {
+  Future<void> register({
+    required String email,
+    required String password,
+    required OwnerAuthModel user,
+  }) async {
     try {
-      return await FirebaseAuth.instance
+      final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      user.uid = credential.user!.uid;
+      await addOwnerToCollection(user);
     } on FirebaseAuthException catch (e, stack) {
+       // Rollback: Delete user from Firebase Auth if Firestore fails
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+      }
       log(e.toString(), stackTrace: stack);
       throw AppExceptionHandler.handleFirebaseAuthException(e);
     } catch (e, stack) {
@@ -21,7 +32,7 @@ class AuthServices {
     }
   }
 
-  Future<void> addOwnerToCollection(UserModel user) async {
+  Future<void> addOwnerToCollection(OwnerAuthModel user) async {
     final db = FirebaseFirestore.instance;
 
     final userData = user.toMap();

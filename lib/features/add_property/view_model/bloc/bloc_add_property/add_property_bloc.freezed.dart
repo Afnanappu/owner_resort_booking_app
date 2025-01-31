@@ -17,12 +17,15 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AddPropertyEvent {
   PropertyModel get propertyModel => throw _privateConstructorUsedError;
-  List<RoomModel> get roomModelList => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)
         addProperty,
+    required TResult Function(PropertyModel propertyModel) setProperty,
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        updateProperty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +33,10 @@ mixin _$AddPropertyEvent {
     TResult? Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)?
         addProperty,
+    TResult? Function(PropertyModel propertyModel)? setProperty,
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,22 +44,32 @@ mixin _$AddPropertyEvent {
     TResult Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)?
         addProperty,
+    TResult Function(PropertyModel propertyModel)? setProperty,
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddProperty value) addProperty,
+    required TResult Function(_SetProperty value) setProperty,
+    required TResult Function(_UpdateProperty value) updateProperty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddProperty value)? addProperty,
+    TResult? Function(_SetProperty value)? setProperty,
+    TResult? Function(_UpdateProperty value)? updateProperty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddProperty value)? addProperty,
+    TResult Function(_SetProperty value)? setProperty,
+    TResult Function(_UpdateProperty value)? updateProperty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -70,7 +87,7 @@ abstract class $AddPropertyEventCopyWith<$Res> {
           AddPropertyEvent value, $Res Function(AddPropertyEvent) then) =
       _$AddPropertyEventCopyWithImpl<$Res, AddPropertyEvent>;
   @useResult
-  $Res call({PropertyModel propertyModel, List<RoomModel> roomModelList});
+  $Res call({PropertyModel propertyModel});
 }
 
 /// @nodoc
@@ -89,17 +106,12 @@ class _$AddPropertyEventCopyWithImpl<$Res, $Val extends AddPropertyEvent>
   @override
   $Res call({
     Object? propertyModel = null,
-    Object? roomModelList = null,
   }) {
     return _then(_value.copyWith(
       propertyModel: null == propertyModel
           ? _value.propertyModel
           : propertyModel // ignore: cast_nullable_to_non_nullable
               as PropertyModel,
-      roomModelList: null == roomModelList
-          ? _value.roomModelList
-          : roomModelList // ignore: cast_nullable_to_non_nullable
-              as List<RoomModel>,
     ) as $Val);
   }
 }
@@ -196,6 +208,10 @@ class _$AddPropertyImpl implements _AddProperty {
     required TResult Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)
         addProperty,
+    required TResult Function(PropertyModel propertyModel) setProperty,
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        updateProperty,
   }) {
     return addProperty(propertyModel, roomModelList);
   }
@@ -206,6 +222,10 @@ class _$AddPropertyImpl implements _AddProperty {
     TResult? Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)?
         addProperty,
+    TResult? Function(PropertyModel propertyModel)? setProperty,
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
   }) {
     return addProperty?.call(propertyModel, roomModelList);
   }
@@ -216,6 +236,10 @@ class _$AddPropertyImpl implements _AddProperty {
     TResult Function(
             PropertyModel propertyModel, List<RoomModel> roomModelList)?
         addProperty,
+    TResult Function(PropertyModel propertyModel)? setProperty,
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
     required TResult orElse(),
   }) {
     if (addProperty != null) {
@@ -228,6 +252,8 @@ class _$AddPropertyImpl implements _AddProperty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddProperty value) addProperty,
+    required TResult Function(_SetProperty value) setProperty,
+    required TResult Function(_UpdateProperty value) updateProperty,
   }) {
     return addProperty(this);
   }
@@ -236,6 +262,8 @@ class _$AddPropertyImpl implements _AddProperty {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddProperty value)? addProperty,
+    TResult? Function(_SetProperty value)? setProperty,
+    TResult? Function(_UpdateProperty value)? updateProperty,
   }) {
     return addProperty?.call(this);
   }
@@ -244,6 +272,8 @@ class _$AddPropertyImpl implements _AddProperty {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddProperty value)? addProperty,
+    TResult Function(_SetProperty value)? setProperty,
+    TResult Function(_UpdateProperty value)? updateProperty,
     required TResult orElse(),
   }) {
     if (addProperty != null) {
@@ -260,7 +290,6 @@ abstract class _AddProperty implements AddPropertyEvent {
 
   @override
   PropertyModel get propertyModel;
-  @override
   List<RoomModel> get roomModelList;
 
   /// Create a copy of AddPropertyEvent
@@ -268,6 +297,355 @@ abstract class _AddProperty implements AddPropertyEvent {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddPropertyImplCopyWith<_$AddPropertyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SetPropertyImplCopyWith<$Res>
+    implements $AddPropertyEventCopyWith<$Res> {
+  factory _$$SetPropertyImplCopyWith(
+          _$SetPropertyImpl value, $Res Function(_$SetPropertyImpl) then) =
+      __$$SetPropertyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({PropertyModel propertyModel});
+}
+
+/// @nodoc
+class __$$SetPropertyImplCopyWithImpl<$Res>
+    extends _$AddPropertyEventCopyWithImpl<$Res, _$SetPropertyImpl>
+    implements _$$SetPropertyImplCopyWith<$Res> {
+  __$$SetPropertyImplCopyWithImpl(
+      _$SetPropertyImpl _value, $Res Function(_$SetPropertyImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? propertyModel = null,
+  }) {
+    return _then(_$SetPropertyImpl(
+      propertyModel: null == propertyModel
+          ? _value.propertyModel
+          : propertyModel // ignore: cast_nullable_to_non_nullable
+              as PropertyModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SetPropertyImpl implements _SetProperty {
+  const _$SetPropertyImpl({required this.propertyModel});
+
+  @override
+  final PropertyModel propertyModel;
+
+  @override
+  String toString() {
+    return 'AddPropertyEvent.setProperty(propertyModel: $propertyModel)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SetPropertyImpl &&
+            (identical(other.propertyModel, propertyModel) ||
+                other.propertyModel == propertyModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, propertyModel);
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SetPropertyImplCopyWith<_$SetPropertyImpl> get copyWith =>
+      __$$SetPropertyImplCopyWithImpl<_$SetPropertyImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        addProperty,
+    required TResult Function(PropertyModel propertyModel) setProperty,
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        updateProperty,
+  }) {
+    return setProperty(propertyModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        addProperty,
+    TResult? Function(PropertyModel propertyModel)? setProperty,
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
+  }) {
+    return setProperty?.call(propertyModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        addProperty,
+    TResult Function(PropertyModel propertyModel)? setProperty,
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
+    required TResult orElse(),
+  }) {
+    if (setProperty != null) {
+      return setProperty(propertyModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddProperty value) addProperty,
+    required TResult Function(_SetProperty value) setProperty,
+    required TResult Function(_UpdateProperty value) updateProperty,
+  }) {
+    return setProperty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddProperty value)? addProperty,
+    TResult? Function(_SetProperty value)? setProperty,
+    TResult? Function(_UpdateProperty value)? updateProperty,
+  }) {
+    return setProperty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddProperty value)? addProperty,
+    TResult Function(_SetProperty value)? setProperty,
+    TResult Function(_UpdateProperty value)? updateProperty,
+    required TResult orElse(),
+  }) {
+    if (setProperty != null) {
+      return setProperty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetProperty implements AddPropertyEvent {
+  const factory _SetProperty({required final PropertyModel propertyModel}) =
+      _$SetPropertyImpl;
+
+  @override
+  PropertyModel get propertyModel;
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SetPropertyImplCopyWith<_$SetPropertyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdatePropertyImplCopyWith<$Res>
+    implements $AddPropertyEventCopyWith<$Res> {
+  factory _$$UpdatePropertyImplCopyWith(_$UpdatePropertyImpl value,
+          $Res Function(_$UpdatePropertyImpl) then) =
+      __$$UpdatePropertyImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({PropertyModel propertyModel, List<RoomModel> roomModelList});
+}
+
+/// @nodoc
+class __$$UpdatePropertyImplCopyWithImpl<$Res>
+    extends _$AddPropertyEventCopyWithImpl<$Res, _$UpdatePropertyImpl>
+    implements _$$UpdatePropertyImplCopyWith<$Res> {
+  __$$UpdatePropertyImplCopyWithImpl(
+      _$UpdatePropertyImpl _value, $Res Function(_$UpdatePropertyImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? propertyModel = null,
+    Object? roomModelList = null,
+  }) {
+    return _then(_$UpdatePropertyImpl(
+      propertyModel: null == propertyModel
+          ? _value.propertyModel
+          : propertyModel // ignore: cast_nullable_to_non_nullable
+              as PropertyModel,
+      roomModelList: null == roomModelList
+          ? _value._roomModelList
+          : roomModelList // ignore: cast_nullable_to_non_nullable
+              as List<RoomModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdatePropertyImpl implements _UpdateProperty {
+  const _$UpdatePropertyImpl(
+      {required this.propertyModel,
+      required final List<RoomModel> roomModelList})
+      : _roomModelList = roomModelList;
+
+  @override
+  final PropertyModel propertyModel;
+  final List<RoomModel> _roomModelList;
+  @override
+  List<RoomModel> get roomModelList {
+    if (_roomModelList is EqualUnmodifiableListView) return _roomModelList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roomModelList);
+  }
+
+  @override
+  String toString() {
+    return 'AddPropertyEvent.updateProperty(propertyModel: $propertyModel, roomModelList: $roomModelList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdatePropertyImpl &&
+            (identical(other.propertyModel, propertyModel) ||
+                other.propertyModel == propertyModel) &&
+            const DeepCollectionEquality()
+                .equals(other._roomModelList, _roomModelList));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, propertyModel,
+      const DeepCollectionEquality().hash(_roomModelList));
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdatePropertyImplCopyWith<_$UpdatePropertyImpl> get copyWith =>
+      __$$UpdatePropertyImplCopyWithImpl<_$UpdatePropertyImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        addProperty,
+    required TResult Function(PropertyModel propertyModel) setProperty,
+    required TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)
+        updateProperty,
+  }) {
+    return updateProperty(propertyModel, roomModelList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        addProperty,
+    TResult? Function(PropertyModel propertyModel)? setProperty,
+    TResult? Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
+  }) {
+    return updateProperty?.call(propertyModel, roomModelList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        addProperty,
+    TResult Function(PropertyModel propertyModel)? setProperty,
+    TResult Function(
+            PropertyModel propertyModel, List<RoomModel> roomModelList)?
+        updateProperty,
+    required TResult orElse(),
+  }) {
+    if (updateProperty != null) {
+      return updateProperty(propertyModel, roomModelList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddProperty value) addProperty,
+    required TResult Function(_SetProperty value) setProperty,
+    required TResult Function(_UpdateProperty value) updateProperty,
+  }) {
+    return updateProperty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddProperty value)? addProperty,
+    TResult? Function(_SetProperty value)? setProperty,
+    TResult? Function(_UpdateProperty value)? updateProperty,
+  }) {
+    return updateProperty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddProperty value)? addProperty,
+    TResult Function(_SetProperty value)? setProperty,
+    TResult Function(_UpdateProperty value)? updateProperty,
+    required TResult orElse(),
+  }) {
+    if (updateProperty != null) {
+      return updateProperty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateProperty implements AddPropertyEvent {
+  const factory _UpdateProperty(
+      {required final PropertyModel propertyModel,
+      required final List<RoomModel> roomModelList}) = _$UpdatePropertyImpl;
+
+  @override
+  PropertyModel get propertyModel;
+  List<RoomModel> get roomModelList;
+
+  /// Create a copy of AddPropertyEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdatePropertyImplCopyWith<_$UpdatePropertyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

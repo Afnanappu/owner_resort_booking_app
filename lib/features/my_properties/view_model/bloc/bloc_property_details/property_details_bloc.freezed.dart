@@ -20,32 +20,38 @@ mixin _$PropertyDetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String id) fetchPropertyDetails,
+    required TResult Function(String id) propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? fetchPropertyDetails,
+    TResult? Function(String id)? propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? fetchPropertyDetails,
+    TResult Function(String id)? propertyDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchPropertyDetails value) fetchPropertyDetails,
+    required TResult Function(_PropertyDeleted value) propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult? Function(_PropertyDeleted value)? propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult Function(_PropertyDeleted value)? propertyDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,6 +172,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String id) fetchPropertyDetails,
+    required TResult Function(String id) propertyDeleted,
   }) {
     return fetchPropertyDetails(id);
   }
@@ -174,6 +181,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? fetchPropertyDetails,
+    TResult? Function(String id)? propertyDeleted,
   }) {
     return fetchPropertyDetails?.call(id);
   }
@@ -182,6 +190,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? fetchPropertyDetails,
+    TResult Function(String id)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (fetchPropertyDetails != null) {
@@ -194,6 +203,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchPropertyDetails value) fetchPropertyDetails,
+    required TResult Function(_PropertyDeleted value) propertyDeleted,
   }) {
     return fetchPropertyDetails(this);
   }
@@ -202,6 +212,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult? Function(_PropertyDeleted value)? propertyDeleted,
   }) {
     return fetchPropertyDetails?.call(this);
   }
@@ -210,6 +221,7 @@ class _$FetchPropertyDetailsImpl implements _FetchPropertyDetails {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult Function(_PropertyDeleted value)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (fetchPropertyDetails != null) {
@@ -235,6 +247,152 @@ abstract class _FetchPropertyDetails implements PropertyDetailsEvent {
 }
 
 /// @nodoc
+abstract class _$$PropertyDeletedImplCopyWith<$Res>
+    implements $PropertyDetailsEventCopyWith<$Res> {
+  factory _$$PropertyDeletedImplCopyWith(_$PropertyDeletedImpl value,
+          $Res Function(_$PropertyDeletedImpl) then) =
+      __$$PropertyDeletedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$PropertyDeletedImplCopyWithImpl<$Res>
+    extends _$PropertyDetailsEventCopyWithImpl<$Res, _$PropertyDeletedImpl>
+    implements _$$PropertyDeletedImplCopyWith<$Res> {
+  __$$PropertyDeletedImplCopyWithImpl(
+      _$PropertyDeletedImpl _value, $Res Function(_$PropertyDeletedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PropertyDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+  }) {
+    return _then(_$PropertyDeletedImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PropertyDeletedImpl implements _PropertyDeleted {
+  const _$PropertyDeletedImpl({required this.id});
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'PropertyDetailsEvent.propertyDeleted(id: $id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PropertyDeletedImpl &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id);
+
+  /// Create a copy of PropertyDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PropertyDeletedImplCopyWith<_$PropertyDeletedImpl> get copyWith =>
+      __$$PropertyDeletedImplCopyWithImpl<_$PropertyDeletedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) fetchPropertyDetails,
+    required TResult Function(String id) propertyDeleted,
+  }) {
+    return propertyDeleted(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? fetchPropertyDetails,
+    TResult? Function(String id)? propertyDeleted,
+  }) {
+    return propertyDeleted?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? fetchPropertyDetails,
+    TResult Function(String id)? propertyDeleted,
+    required TResult orElse(),
+  }) {
+    if (propertyDeleted != null) {
+      return propertyDeleted(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchPropertyDetails value) fetchPropertyDetails,
+    required TResult Function(_PropertyDeleted value) propertyDeleted,
+  }) {
+    return propertyDeleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult? Function(_PropertyDeleted value)? propertyDeleted,
+  }) {
+    return propertyDeleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchPropertyDetails value)? fetchPropertyDetails,
+    TResult Function(_PropertyDeleted value)? propertyDeleted,
+    required TResult orElse(),
+  }) {
+    if (propertyDeleted != null) {
+      return propertyDeleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PropertyDeleted implements PropertyDetailsEvent {
+  const factory _PropertyDeleted({required final String id}) =
+      _$PropertyDeletedImpl;
+
+  @override
+  String get id;
+
+  /// Create a copy of PropertyDetailsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PropertyDeletedImplCopyWith<_$PropertyDeletedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$PropertyDetailsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -242,6 +400,7 @@ mixin _$PropertyDetailsState {
     required TResult Function() loading,
     required TResult Function(PropertyDetailsModel propertyDetails) loaded,
     required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -250,6 +409,7 @@ mixin _$PropertyDetailsState {
     TResult? Function()? loading,
     TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -258,6 +418,7 @@ mixin _$PropertyDetailsState {
     TResult Function()? loading,
     TResult Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -267,6 +428,7 @@ mixin _$PropertyDetailsState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -275,6 +437,7 @@ mixin _$PropertyDetailsState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -283,6 +446,7 @@ mixin _$PropertyDetailsState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -355,6 +519,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() loading,
     required TResult Function(PropertyDetailsModel propertyDetails) loaded,
     required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
   }) {
     return initial();
   }
@@ -366,6 +531,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? loading,
     TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
   }) {
     return initial?.call();
   }
@@ -377,6 +543,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? loading,
     TResult Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -392,6 +559,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
   }) {
     return initial(this);
   }
@@ -403,6 +571,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
   }) {
     return initial?.call(this);
   }
@@ -414,6 +583,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -472,6 +642,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() loading,
     required TResult Function(PropertyDetailsModel propertyDetails) loaded,
     required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
   }) {
     return loading();
   }
@@ -483,6 +654,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? loading,
     TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
   }) {
     return loading?.call();
   }
@@ -494,6 +666,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? loading,
     TResult Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -509,6 +682,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
   }) {
     return loading(this);
   }
@@ -520,6 +694,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
   }) {
     return loading?.call(this);
   }
@@ -531,6 +706,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -617,6 +793,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() loading,
     required TResult Function(PropertyDetailsModel propertyDetails) loaded,
     required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
   }) {
     return loaded(propertyDetails);
   }
@@ -628,6 +805,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? loading,
     TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
   }) {
     return loaded?.call(propertyDetails);
   }
@@ -639,6 +817,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? loading,
     TResult Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -654,6 +833,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
   }) {
     return loaded(this);
   }
@@ -665,6 +845,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
   }) {
     return loaded?.call(this);
   }
@@ -676,6 +857,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -770,6 +952,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() loading,
     required TResult Function(PropertyDetailsModel propertyDetails) loaded,
     required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
   }) {
     return error(message);
   }
@@ -781,6 +964,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? loading,
     TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
   }) {
     return error?.call(message);
   }
@@ -792,6 +976,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? loading,
     TResult Function(PropertyDetailsModel propertyDetails)? loaded,
     TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -807,6 +992,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
   }) {
     return error(this);
   }
@@ -818,6 +1004,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
   }) {
     return error?.call(this);
   }
@@ -829,6 +1016,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -848,4 +1036,127 @@ abstract class _Error implements PropertyDetailsState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PropertyDeleteImplCopyWith<$Res> {
+  factory _$$PropertyDeleteImplCopyWith(_$PropertyDeleteImpl value,
+          $Res Function(_$PropertyDeleteImpl) then) =
+      __$$PropertyDeleteImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PropertyDeleteImplCopyWithImpl<$Res>
+    extends _$PropertyDetailsStateCopyWithImpl<$Res, _$PropertyDeleteImpl>
+    implements _$$PropertyDeleteImplCopyWith<$Res> {
+  __$$PropertyDeleteImplCopyWithImpl(
+      _$PropertyDeleteImpl _value, $Res Function(_$PropertyDeleteImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PropertyDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PropertyDeleteImpl implements _PropertyDelete {
+  const _$PropertyDeleteImpl();
+
+  @override
+  String toString() {
+    return 'PropertyDetailsState.propertyDeleted()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PropertyDeleteImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(PropertyDetailsModel propertyDetails) loaded,
+    required TResult Function(String message) error,
+    required TResult Function() propertyDeleted,
+  }) {
+    return propertyDeleted();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(PropertyDetailsModel propertyDetails)? loaded,
+    TResult? Function(String message)? error,
+    TResult? Function()? propertyDeleted,
+  }) {
+    return propertyDeleted?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(PropertyDetailsModel propertyDetails)? loaded,
+    TResult Function(String message)? error,
+    TResult Function()? propertyDeleted,
+    required TResult orElse(),
+  }) {
+    if (propertyDeleted != null) {
+      return propertyDeleted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Error value) error,
+    required TResult Function(_PropertyDelete value) propertyDeleted,
+  }) {
+    return propertyDeleted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_PropertyDelete value)? propertyDeleted,
+  }) {
+    return propertyDeleted?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+    TResult Function(_PropertyDelete value)? propertyDeleted,
+    required TResult orElse(),
+  }) {
+    if (propertyDeleted != null) {
+      return propertyDeleted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PropertyDelete implements PropertyDetailsState {
+  const factory _PropertyDelete() = _$PropertyDeleteImpl;
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/components/carousel_image_picked_show_widget.dart';
 import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_room_image/upload_image_for_room_cubit.dart';
 
 class AddRoomImageWidget extends StatelessWidget {

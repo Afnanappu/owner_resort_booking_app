@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_container.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 
 class CarouselImagePickedShowWidget extends StatelessWidget {
   const CarouselImagePickedShowWidget({
@@ -15,8 +16,10 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
     this.isError = false,
     this.hasBorder = false,
     this.horizontal = 8,
+    this.isFileImage = false,
   });
   final bool isError;
+  final bool isFileImage;
   final bool hasBorder;
   final double horizontal;
   final List<PickedFileModel> pickedImages;
@@ -68,11 +71,17 @@ class CarouselImagePickedShowWidget extends StatelessWidget {
                                   ],
                                 ),
                                 clipBehavior: Clip.hardEdge,
-                                child: Image.file(
-                                  File(image.filePath),
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
+                                child: isFileImage
+                                    ? Image.file(
+                                        File(image.filePath),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      )
+                                    : Image.memory(
+                                        base64Decode(image.base64file),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
                               ),
                             );
                           },

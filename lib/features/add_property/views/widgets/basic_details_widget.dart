@@ -6,7 +6,7 @@ import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dar
 import 'package:owner_resort_booking_app/core/components/custom_text_form_field_for_add_property.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
-import 'package:owner_resort_booking_app/core/models/sub_details_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/sub_details_model.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_regex.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_bullet_point/bullet_point_cubit.dart';

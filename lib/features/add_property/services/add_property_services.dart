@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/room_model.dart';
 import 'package:owner_resort_booking_app/core/utils/exceptions/custom_exceptions.dart';
-import 'package:owner_resort_booking_app/core/models/property_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/property_model.dart';
 
 // final _propertyCollectionName =
 
@@ -24,6 +24,43 @@ class AddPropertyServices {
 
       log('A new property is added to the firebase');
       return propertyModel.id!;
+    } on FirebaseException catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleFirestoreException(e);
+    } catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleGenericException(e);
+    }
+  }
+
+  Future<void> updateProperty(
+      {required PropertyModel propertyModel, required String id}) async {
+    try {
+      await _propertiesCollection.doc(id).update(propertyModel.toMap());
+      log('A property is updated to the firebase');
+    } on FirebaseException catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleFirestoreException(e);
+    } catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleGenericException(e);
+    }
+  }
+
+  Future<void> updateRooms(
+      {required String propertyId,
+      required List<RoomModel> roomModelList}) async {
+    try {
+      final docRef = _propertiesCollection.doc(propertyId);
+      final roomDocRef = docRef.collection(_roomCollectionName);
+      for (var roomModel in roomModelList) {
+        final roomDoc = roomDocRef.doc(roomModel.id);
+        final data = roomModel.toMap();
+        log(roomDoc.toString());
+        await roomDoc.update(data);
+      }
+
+      log('Rooms were updated to the property $propertyId');
     } on FirebaseException catch (e, stack) {
       log(e.toString(), stackTrace: stack);
       throw AppExceptionHandler.handleFirestoreException(e);
@@ -58,7 +95,29 @@ class AddPropertyServices {
     }
   }
 
-  Future<List<String>> fetchAdditionalOptionsTypes({required String collectionName}) async {
+  Future<List<Map<String, dynamic>>> fetchRooms(String propertyId) async {
+    try {
+      final data = await _propertiesCollection
+          .doc(propertyId)
+          .collection(_roomCollectionName)
+          .get();
+
+      return data.docs
+          .map(
+            (e) => e.data(),
+          )
+          .toList();
+    } on FirebaseException catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleFirestoreException(e);
+    } catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      throw AppExceptionHandler.handleGenericException(e);
+    }
+  }
+
+  Future<List<String>> fetchAdditionalOptionsTypes(
+      {required String collectionName}) async {
     try {
       final data = await _additionalOptionCollection
           .doc(collectionName)
@@ -80,16 +139,18 @@ class AddPropertyServices {
     }
   }
 
-  Future<List<Map<String, dynamic>>> fetchAmenities()async{
-     try {
+  Future<List<Map<String, dynamic>>> fetchAmenities() async {
+    try {
       final data = await _additionalOptionCollection
           .doc('Amenities')
           .collection('data')
           .get();
 
-      return data.docs.map(
-        (e) => e.data(),
-      ).toList();
+      return data.docs
+          .map(
+            (e) => e.data(),
+          )
+          .toList();
     } on FirebaseException catch (e, stack) {
       log(e.toString(), stackTrace: stack);
       throw AppExceptionHandler.handleFirestoreException(e);

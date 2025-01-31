@@ -1,9 +1,8 @@
-import 'dart:io';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:owner_resort_booking_app/core/models/room_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/room_model.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/room_add_cubit.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/components/amenity_container_widget.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
@@ -11,7 +10,11 @@ import 'package:owner_resort_booking_app/routes/route_names.dart';
 class RoomDetailsCard extends StatelessWidget {
   final RoomModel room;
   final int index;
-  const RoomDetailsCard({super.key, required this.room, required this.index});
+  const RoomDetailsCard({
+    super.key,
+    required this.room,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +159,8 @@ class RoomDetailsCard extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.file(
-                        File(room.images[index].filePath),
+                      child: Image.memory(
+                        base64Decode(room.images[index].base64file),
                         width: 80,
                         height: 80,
                         fit: BoxFit.cover,

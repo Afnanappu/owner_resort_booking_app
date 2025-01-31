@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:owner_resort_booking_app/core/models/location_model.dart';
-import 'package:owner_resort_booking_app/core/models/picked_file_model.dart';
+import 'package:flutter/foundation.dart';
+
+import 'package:owner_resort_booking_app/core/data/models/location_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
 
 class PropertyCardModel {
   String? id;
@@ -11,7 +13,7 @@ class PropertyCardModel {
   LocationModel location;
   double price;
   double? rating;
-  int? reviews;
+  List<String> reviews;
   int rooms;
   PropertyCardModel({
     this.id,
@@ -31,7 +33,7 @@ class PropertyCardModel {
     LocationModel? location,
     double? price,
     double? rating,
-    int? reviews,
+    List<String>? reviews,
     int? rooms,
   }) {
     return PropertyCardModel(
@@ -62,13 +64,14 @@ class PropertyCardModel {
   factory PropertyCardModel.fromMap(Map<String, dynamic> map) {
     return PropertyCardModel(
       id: map['id'] != null ? map['id'] as String : null,
-      image: PickedFileModel.fromMap(map['image'] as Map<String, dynamic>),
+      image: PickedFileModel.fromMap(
+          (map['images'] as List<dynamic>).first as Map<String, dynamic>),
       name: map['name'] as String,
       location: LocationModel.fromMap(map['location'] as Map<String, dynamic>),
-      price: map['price'] as double,
-      rating: map['rating'] != null ? map['rating'] as double : null,
-      reviews: map['reviews'] != null ? map['reviews'] as int : null,
-      rooms: map['rooms'] as int,
+      price: (map['roomPrice'] as num).toDouble(),
+      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null,
+      reviews: List<String>.from((map['reviews'] as List<dynamic>)),
+      rooms: map['roomCount'] as int,
     );
   }
 
@@ -92,7 +95,7 @@ class PropertyCardModel {
         other.location == location &&
         other.price == price &&
         other.rating == rating &&
-        other.reviews == reviews &&
+        listEquals(other.reviews, reviews) &&
         other.rooms == rooms;
   }
 

@@ -7,4 +7,5 @@ class PropertyDetailsState with _$PropertyDetailsState {
   const factory PropertyDetailsState.loaded(
       PropertyDetailsModel propertyDetails) = _Loaded;
   const factory PropertyDetailsState.error(String message) = _Error;
+  const factory PropertyDetailsState.propertyDeleted() = _PropertyDelete;
 }
