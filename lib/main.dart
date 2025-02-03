@@ -10,6 +10,7 @@ import 'package:owner_resort_booking_app/core/data/repository/owner_repository.d
 import 'package:owner_resort_booking_app/core/data/repository/user_repository.dart';
 import 'package:owner_resort_booking_app/core/data/services/notification_services.dart';
 import 'package:owner_resort_booking_app/core/data/services/owner_services.dart';
+import 'package:owner_resort_booking_app/core/data/services/review_services.dart';
 import 'package:owner_resort_booking_app/core/data/services/transaction_services.dart';
 import 'package:owner_resort_booking_app/core/data/services/user_services.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_notification/notification_bloc.dart';
@@ -33,6 +34,9 @@ import 'package:owner_resort_booking_app/features/authentication/repository/auth
 import 'package:owner_resort_booking_app/features/authentication/services/auth_services.dart';
 import 'package:owner_resort_booking_app/features/authentication/view_model/bloc/bloc_auth/auth_bloc.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_map/google_map_bloc.dart';
+import 'package:owner_resort_booking_app/features/dashboard/repository/dashboard_repository.dart';
+import 'package:owner_resort_booking_app/features/dashboard/services/dashboard_service.dart';
+import 'package:owner_resort_booking_app/features/dashboard/view_model/bloc/bloc_dashboard/dashboard_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/repository/my_booking_repository.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/services/my_booking_services.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/view_model/bloc/bloc_booked_property_details/booked_property_details_bloc.dart';
@@ -106,11 +110,16 @@ Future<void> main() async {
             addPropertyServices: AddPropertyServices(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => DashboardRepository(
+            DashboardService(),
+          ),
+        ),
 
         //My Property
         RepositoryProvider(
           create: (context) => MyPropertyRepository(
-            services: MyPropertyServices(),
+            services: MyPropertyServices(ReviewServices()),
           ),
         ),
       ],
@@ -169,6 +178,10 @@ Future<void> main() async {
           BlocProvider(
             create: (context) =>
                 AmenitiesAddCubit(context.read<AddPropertyRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                DashboardBloc(context.read<DashboardRepository>()),
           ),
 
           //Add Property Category

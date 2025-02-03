@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:owner_resort_booking_app/core/data/services/notification_services.dart';
+import 'package:owner_resort_booking_app/features/dashboard/models/notification_model.dart';
 import 'package:owner_resort_booking_app/features/profile/views/screens/screen_profile.dart';
 
 part 'notification_event.dart';
@@ -58,8 +59,16 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       },
     );
 
+    on<_FetchNotification>(
+      (event, emit) async {
+        emit(NotificationState.loading());
+        final data = await _notificationServices.fetchNotification();
+        emit(NotificationState.onNotification(data));
+      },
+    );
+
     on<_ShowNotification>((event, emit) {
-      emit(NotificationState.onNotification(event.notification));
+      // emit(NotificationState.onNotification(event.notifications));
     });
 
     on<_UpdateNotification>((event, emit) async {

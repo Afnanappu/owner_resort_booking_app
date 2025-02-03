@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +9,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/utils/debouncer.dart';
+import 'package:owner_resort_booking_app/core/utils/math_functions.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_map/google_map_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_properties/view_model/bloc/bloc_property_details/property_details_bloc.dart';
@@ -131,6 +130,13 @@ class ScreenMyProperties extends StatelessWidget {
                                   itemCount: propertyList.length,
                                   itemBuilder: (context, index) {
                                     final property = propertyList[index];
+                                    final ratingAvg = getAverage(
+                                      property.reviews
+                                          .map(
+                                            (e) => e.rating,
+                                          )
+                                          .toList(),
+                                    );
                                     return Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 10),
@@ -138,8 +144,12 @@ class ScreenMyProperties extends StatelessWidget {
                                         image: property.image.base64file,
                                         propertyName: property.name,
                                         location: property.location,
-                                        rating: property.rating ?? 0,
-                                        reviews: property.reviews,
+                                        rating: ratingAvg,
+                                        reviews: property.reviews.map(
+                                          (e) {
+                                            return e.feedback;
+                                          },
+                                        ).toList(),
                                         rooms: property.rooms,
                                         price: property.price,
                                         onTap: () {

@@ -68,7 +68,6 @@ class TransactionServices {
           .collection(_transactionCollectionName)
           .get();
 
-      //TODO: maybe wanted to change 'data.docChanges' to  'data.docs'
       return data.docChanges
           .map(
             (e) => e.doc.data(),

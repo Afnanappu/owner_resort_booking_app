@@ -5,6 +5,9 @@ import 'package:intl/intl.dart';
 ///Eg: Sat, 18 Oct
 String customDateFormat(DateTime date) => DateFormat('E, d MMM').format(date);
 
+
+
+
 ///Eg: Jan 20, 3:15 PM
 ///
 ///Eg: Aug 2, 6:29 PM
@@ -17,6 +20,12 @@ String customDateFormat3(DateTime date) =>
 String customDateFormat2(DateTime date) =>
     DateFormat("dd/MM/yyyy").format(date);
 
+///Eg: Feb 15, 2024
+///
+///Eg: Dec 29, 2029
+String customDateFormat4(DateTime date) =>
+    DateFormat('MMM dd, yyyy').format(date);
+
 //Eg: ₹15,600.00
 String customCurrencyFormat(num price, [int? decimal]) => NumberFormat.currency(
       locale: 'en_IN',
@@ -24,6 +33,7 @@ String customCurrencyFormat(num price, [int? decimal]) => NumberFormat.currency(
       decimalDigits: decimal,
     ).format(price);
 
+
+
 ///Eg: Jan 22, 2025 - 03:45 PM
-String customDateFormatWithTime(DateTime date) =>
-    DateFormat('MMM dd, yyyy - hh:mm a').format(date);
+ String customDateFormatWithTime(DateTime date) => DateFormat('MMM dd, yyyy - hh:mm a').format(date);

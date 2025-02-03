@@ -16,6 +16,7 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
     this.onTapOutside,
     this.onTap,
     this.onChanged,
+    this.prefix,
   });
   final double? width;
   final String hintText;
@@ -24,6 +25,7 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
   final String? Function(String? value)? validator;
   final void Function(String value)? onChanged;
   final Widget? suffixIcon;
+  final Widget? prefix;
   final bool enabled;
   final bool readOnly;
   final int? maxLines;
@@ -56,6 +58,7 @@ class CustomTextFormFieldForAddProperty extends StatelessWidget {
         cursorColor: MyColors.grey,
         decoration: InputDecoration(
           hintText: hintText,
+          prefixIcon: prefix,
           suffixIcon: suffixIcon,
           border: UnderlineInputBorder(
             borderSide: BorderSide(

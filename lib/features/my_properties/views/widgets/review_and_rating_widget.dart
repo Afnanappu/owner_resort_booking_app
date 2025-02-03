@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:owner_resort_booking_app/core/components/custom_divider.dart';
-import 'package:owner_resort_booking_app/core/components/review_component_widget.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/my_constants.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
+import 'package:owner_resort_booking_app/core/data/models/review_component_widget.dart';
 import 'package:owner_resort_booking_app/core/data/models/review_model.dart';
 import 'package:owner_resort_booking_app/core/utils/math_functions.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_container_for_property_details.dart';
@@ -88,26 +88,25 @@ class ReviewAndRatingWidget extends StatelessWidget {
 
         MySpaces.hSpace20,
 
-        if (reviews.isNotEmpty)
-          CustomContainerForPropertyDetails(
-            title: 'Your Review',
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: reviews.length > 4 ? 4 : reviews.length,
-              separatorBuilder: (context, index) {
-                return CustomDivider(
-                  vertical: 10,
-                );
-              },
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: ReviewWidget(review: reviews[index]),
-                );
-              },
-            ),
+       if(reviews.isNotEmpty) CustomContainerForPropertyDetails(
+          title: 'Your Review',
+          child: ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: reviews.length > 4 ? 4 : reviews.length,
+            separatorBuilder: (context, index) {
+              return CustomDivider(
+                vertical: 10,
+              );
+            },
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ReviewWidget(review: reviews[index]),
+              );
+            },
           ),
+        ),
       ],
     );
   }

@@ -21,7 +21,6 @@ class ScreenSplash extends StatelessWidget {
         } else {
           context.go("/${AppRoutes.login}");
         }
-        context.read<OwnerDataCubit>().fetchOwnerData();
       },
     );
     return Scaffold(

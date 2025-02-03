@@ -6,8 +6,13 @@ class CustomContainer extends StatelessWidget {
   const CustomContainer({
     super.key,
     required this.child,
+    this.paddingVertical = 10,
+    this.paddingHorizontal = 20,
   });
   final Widget child;
+
+  final double paddingVertical;
+  final double paddingHorizontal;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +23,10 @@ class CustomContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRad10),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          vertical: paddingVertical,
+          horizontal: paddingHorizontal,
+        ),
         child: child,
       ),
     );

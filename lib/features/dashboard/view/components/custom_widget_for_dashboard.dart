@@ -8,14 +8,21 @@ class CustomWidgetForHome extends StatelessWidget {
     super.key,
     required this.title,
     required this.child,
+    this.paddingVertical = 20,
+    this.paddingHorizontal = 20,
   });
 
   final String title;
   final Widget child;
+  final double paddingVertical;
+  final double paddingHorizontal;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 20,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,6 +33,8 @@ class CustomWidgetForHome extends StatelessWidget {
           ),
           MySpaces.hSpace20,
           CustomContainer(
+            paddingHorizontal: paddingHorizontal,
+            paddingVertical: paddingVertical,
             child: child,
           ),
         ],

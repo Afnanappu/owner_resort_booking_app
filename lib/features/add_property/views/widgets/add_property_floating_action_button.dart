@@ -9,6 +9,7 @@ import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/cubit/cubit_upload_file/upload_file_cubit.dart';
 import 'package:owner_resort_booking_app/core/data/models/property_model.dart';
+import 'package:owner_resort_booking_app/core/utils/math_functions.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/bloc/bloc_add_property/add_property_bloc.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/cubit/cubit_extra_details/extra_details_cubit.dart';
@@ -148,8 +149,20 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
                 checkOutTime: checkOutTimeController.text.trim(),
                 roomCount: roomDetails.length,
                 roomPrice: roomPrice,
-                rating: property?.rating ?? 0,
-                reviews: property?.reviews ?? [],
+                rating: getAverage(
+                  property?.reviews
+                          .map(
+                            (e) => e.rating,
+                          )
+                          .toList() ??
+                      [],
+                ),
+                reviews: property?.reviews
+                        .map(
+                          (e) => e.feedback,
+                        )
+                        .toList() ??
+                    [],
               );
               // log(propertyModel.toString());
 

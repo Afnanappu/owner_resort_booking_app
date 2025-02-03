@@ -6,7 +6,7 @@ class OwnerDataCubit extends Cubit<OwnerModel?> {
   final OwnerRepository _repository;
   OwnerDataCubit(this._repository) : super(null);
 
-  void fetchOwnerData() async {
+  Future<void> fetchOwnerData() async {
     final user = await _repository.fetchOwnerData();
     emit(user);
   }

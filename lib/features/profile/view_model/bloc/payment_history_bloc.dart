@@ -10,7 +10,7 @@ part 'payment_history_bloc.freezed.dart';
 class PaymentHistoryBloc
     extends Bloc<PaymentHistoryEvent, PaymentHistoryState> {
   final PaymentHistoryRepository _repository;
-  PaymentHistoryBloc(this._repository) : super(_Initial()) {
+  PaymentHistoryBloc(this._repository) : super(_Loading()) {
     on<_FetchPaymentHistory>((event, emit) async {
       emit(PaymentHistoryState.loading());
 

@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:owner_resort_booking_app/core/data/services/review_services.dart';
 import 'package:owner_resort_booking_app/core/utils/exceptions/custom_exceptions.dart';
 
 enum FilterOptions {
@@ -11,6 +14,10 @@ enum FilterOptions {
 }
 
 class MyPropertyServices {
+  final ReviewServices _reviewServices;
+  MyPropertyServices(
+    this._reviewServices,
+  );
   final _additionalOptionCollection =
       FirebaseFirestore.instance.collection('additional_options');
   final _propertiesCollection =
@@ -84,11 +91,22 @@ class MyPropertyServices {
       }
 
       final data = await query.get();
-      return data.docs
+
+      final modelList = data.docs
           .map(
             (e) => e.data(),
           )
           .toList();
+      log(data.size.toString());
+      for (var property in modelList) {
+        final propertyId = property['id'];
+        final reviews = await _reviewServices.fetchReviews(propertyId);
+        property['reviews'] = reviews;
+        final rooms = await fetchPropertyRooms(propertyId: propertyId);
+        property['rooms'] = rooms;
+      }
+
+      return modelList;
     } on FirebaseException catch (e, stack) {
       log(e.toString(), stackTrace: stack);
       throw AppExceptionHandler.handleFirestoreException(e);
@@ -103,7 +121,11 @@ class MyPropertyServices {
       {required String id}) async {
     try {
       final data = await _propertiesCollection.doc(id).get();
-      return data.data()!;
+      final property = data.data()!;
+      final propertyId = property['id'];
+      final reviews = await _reviewServices.fetchReviews(propertyId);
+      property['reviews'] = reviews;
+      return property;
     } on FirebaseException catch (e, stack) {
       log(e.toString(), stackTrace: stack);
       throw AppExceptionHandler.handleFirestoreException(e);

@@ -12,7 +12,7 @@ part 'booked_property_list_bloc.freezed.dart';
 class BookedPropertyListBloc
     extends Bloc<BookedPropertyListEvent, BookedPropertyListState> {
   final MyBookingRepository _repository;
-  BookedPropertyListBloc(this._repository) : super(_Initial()) {
+  BookedPropertyListBloc(this._repository) : super(_Loading()) {
     on<_FetchMyBookings>((event, emit) async {
       emit(BookedPropertyListState.loading());
 

@@ -53,7 +53,6 @@ class ScreenMyPropertyRooms extends StatelessWidget {
                 );
               },
               loaded: (roomList) {
-                //TODO: changed to list view
                 return ListView(
                   children: [
                     //TODO: property sorting is need to be added

@@ -6,6 +6,9 @@ class AppRoutes {
   static const dashboard = 'dashboard';
   static const booking = 'booking';
   static const profile = 'profile';
+  static const settings = 'settings';
+  static const notification = 'notification';
+  static const about = 'about';
   static const myProperties = 'my-properties';
   static const myPropertyDetails = 'my-property-details';
   static const myPropertyRooms = 'my-property-rooms';

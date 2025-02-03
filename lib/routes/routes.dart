@@ -12,13 +12,17 @@ import 'package:owner_resort_booking_app/features/authentication/views/screens/s
 import 'package:owner_resort_booking_app/features/authentication/views/screens/screen_splash.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_dashboard.dart';
 import 'package:owner_resort_booking_app/features/add_property/views/screens/screen_google_map.dart';
+import 'package:owner_resort_booking_app/features/dashboard/view/screens/screen_notification.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/views/screens/screen_booked_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/views/screens/screen_my_bookings.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_properties.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_room_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/screens/screen_my_property_rooms.dart';
+import 'package:owner_resort_booking_app/features/profile/views/screens/screen_about.dart';
 import 'package:owner_resort_booking_app/features/profile/views/screens/screen_payment_history.dart';
+import 'package:owner_resort_booking_app/features/profile/views/screens/screen_profile.dart';
+import 'package:owner_resort_booking_app/features/profile/views/screens/screen_settings.dart';
 import 'package:owner_resort_booking_app/routes/custom_route_transition.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
@@ -94,6 +98,33 @@ final routes = GoRouter(
         return customTransitionPage(
           state,
           ScreenAddRoom(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.settings}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenSettings(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.notification}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenNotification(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/${AppRoutes.about}',
+      pageBuilder: (context, state) {
+        return customTransitionPage(
+          state,
+          ScreenAbout(),
         );
       },
     ),
@@ -196,8 +227,7 @@ final routes = GoRouter(
               pageBuilder: (_, state) {
                 return customTransitionPage(
                   state,
-                  //TODO: may need to change to normal
-                  ScreenPaymentHistory(),
+                  ScreenProfile(),
                 );
               },
             ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/data/models/owner_model.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
 
 class AppBarForDashboard extends StatelessWidget
     implements PreferredSizeWidget {
@@ -84,7 +86,7 @@ class AppBarForDashboard extends StatelessWidget
                   ),
                   IconButton.filled(
                     onPressed: () {
-                      //TODO: add function to notification
+                      context.push('/${AppRoutes.notification}');
                     },
                     color: MyColors.orange,
                     style:

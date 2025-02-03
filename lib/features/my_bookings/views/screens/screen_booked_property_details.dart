@@ -11,6 +11,7 @@ import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/constants/spaces.dart';
 import 'package:owner_resort_booking_app/core/data/models/picked_date_range_model.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_date_formats.dart';
+import 'package:owner_resort_booking_app/core/utils/math_functions.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/view_model/bloc/bloc_booked_property_details/booked_property_details_bloc.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/views/widgets/your_booking_details_widget_for_booked_details.dart';
 import 'package:owner_resort_booking_app/features/my_properties/views/components/custom_container_for_property_details.dart';
@@ -78,14 +79,23 @@ class ScreenBookedPropertyDetails extends StatelessWidget {
                       bookingDetails.startDate,
                     )
                     .inDays;
+                final ratingAvg = getAverage(property.reviews
+                    .map(
+                      (e) => e.rating,
+                    )
+                    .toList());
                 return ListView(
                   children: [
                     PropertySimpleCardComponent(
                       image: property.images.first.base64file,
                       propertyName: property.name,
                       location: property.location,
-                      rating: property.rating,
-                      reviews: property.reviews,
+                      rating: ratingAvg,
+                      reviews: property.reviews
+                          .map(
+                            (e) => e.feedback,
+                          )
+                          .toList(),
                       price: property.price,
                     ),
 
@@ -134,9 +144,6 @@ class ScreenBookedPropertyDetails extends StatelessWidget {
                         child: Column(
                           spacing: 8,
                           children: [
-                            // 'Cancel at least 3 days (72 hours) before check-in for a full refund.',
-                            // 'Cancellations made between 24 to 72 hours before check-in will be eligible for a 50% refund.',
-                            // 'Cancellations within 24 hours of check-in or no-shows will not be refunded.'
                             '100% Refund for cancellations made within 2 hours of booking.',
                             '100% Refund if cancelled more than 72 hours before check-in',
                             '70% Refund for cancellations made between 24 to 72 hours before check-in.',
@@ -162,81 +169,8 @@ class ScreenBookedPropertyDetails extends StatelessWidget {
               },
             ),
           ),
-          // bottomNavigationBar: state.maybeWhen(
-          //   loaded: (bookedPropertyDetails) {
-          //     return bookedPropertyDetails.bookingDetails.status
-          //                 .toLowerCase() ==
-          //             'cancelled'
-          //         ? null
-          //         : BottomNavigationBarForBookedPropertyDetails(
-          //             state: state,
-          //           );
-          //   },
-          //   orElse: () {
-          //     return null;
-          //   },
-          // ),
         );
       },
     );
   }
 }
-
-// class BottomNavigationBarForBookedPropertyDetails extends StatelessWidget {
-//   const BottomNavigationBarForBookedPropertyDetails({
-//     super.key,
-//     required this.state,
-//   });
-//   final BookedPropertyDetailsState state;
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomBottomNavigationBarForBooking(
-//       left: Expanded(
-//         child: Text(
-//           'Cancellation may be subject to charges or refund rules',
-//           style: MyTextStyles.bodySmallMediumGreyLight.copyWith(fontSize: 13),
-//         ),
-//       ),
-//       right: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 10),
-//         child: CustomElevatedButton(
-//           style: MyTextStyles.titleMediumSemiBoldWhite.copyWith(fontSize: 16),
-//           text: 'Cancel',
-//           onPressed: () {
-//             final bookedDetails = state.maybeWhen(
-//               loaded: (bookedPropertyDetails) => bookedPropertyDetails,
-//               orElse: () {},
-//             );
-
-//             if (bookedDetails == null) {
-//               // showCustomSnackBar(context: context, message: '');
-//               return;
-//             }
-
-//             customAlertDialog(
-//               context: context,
-//               title: 'Cancel Booking',
-//               content:
-//                   'Read the cancellation policy before cancelling the booking!',
-//               firstText: 'Yes',
-//               secondText: 'Cancel',
-//               secondOnPressed: () {
-//                 context.pop();
-//               },
-//               firstOnPressed: () {
-//                 // final transacitonModel = bookedDetails.bookingDetails.
-//                 // final cancelledBookedDetails = bookedDetails.copyWith()
-//                 // context
-//                 //     .read<BookedPropertyDetailsBloc>()
-//                 //     .add(BookedPropertyDetailsEvent.cancelBooking(
-//                 //       bookedPropertyDetailsModel: bookedDetails,
-//                 //     ));
-//                 context.pop();
-//               },
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }

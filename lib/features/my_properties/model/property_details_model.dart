@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:owner_resort_booking_app/core/data/models/extra_details_model.dart';
 import 'package:owner_resort_booking_app/core/data/models/location_model.dart';
 import 'package:owner_resort_booking_app/core/data/models/picked_file_model.dart';
+import 'package:owner_resort_booking_app/core/data/models/review_model.dart';
 
 class PropertyDetailsModel {
   String? id;
@@ -14,8 +15,7 @@ class PropertyDetailsModel {
   String name;
   LocationModel location;
   String type;
-  double rating;
-  List<String> reviews;
+  List<ReviewModel> reviews;
   String description;
   double price;
   List<PickedFileModel> licenses;
@@ -29,7 +29,6 @@ class PropertyDetailsModel {
     required this.name,
     required this.location,
     required this.type,
-    required this.rating,
     required this.reviews,
     required this.description,
     required this.price,
@@ -46,8 +45,7 @@ class PropertyDetailsModel {
     String? name,
     LocationModel? location,
     String? type,
-    double? rating,
-    List<String>? reviews,
+    List<ReviewModel>? reviews,
     String? description,
     double? price,
     List<PickedFileModel>? licenses,
@@ -62,7 +60,6 @@ class PropertyDetailsModel {
       name: name ?? this.name,
       location: location ?? this.location,
       type: type ?? this.type,
-      rating: rating ?? this.rating,
       reviews: reviews ?? this.reviews,
       description: description ?? this.description,
       price: price ?? this.price,
@@ -81,8 +78,7 @@ class PropertyDetailsModel {
       'name': name,
       'location': location.toMap(),
       'type': type,
-      'rating': rating,
-      'reviews': reviews,
+      'reviews': reviews.map((x) => x.toMap()).toList(),
       'description': description,
       'price': price,
       'licenses': licenses.map((x) => x.toMap()).toList(),
@@ -104,8 +100,11 @@ class PropertyDetailsModel {
       name: map['name'] as String,
       location: LocationModel.fromMap(map['location'] as Map<String, dynamic>),
       type: map['type'] as String,
-      rating: (map['rating'] as num).toDouble(),
-      reviews: List<String>.from((map['reviews'] as List<dynamic>)),
+      reviews: List<ReviewModel>.from(
+        (map['reviews'] as List<dynamic>).map<ReviewModel>(
+          (x) => ReviewModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
       description: map['description'] as String,
       price: (map['roomPrice'] as num).toDouble(),
       licenses: List<PickedFileModel>.from(
@@ -127,7 +126,7 @@ class PropertyDetailsModel {
 
   @override
   String toString() {
-    return 'PropertyDetailsModel(id: $id, ownerId: $ownerId, images: $images, name: $name, location: $location, type: $type, rating: $rating, reviews: $reviews, description: $description, price: $price, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime)';
+    return 'PropertyDetailsModel(id: $id, ownerId: $ownerId, images: $images, name: $name, location: $location, type: $type, reviews: $reviews, description: $description, price: $price, licenses: $licenses, extraDetails: $extraDetails, checkInTime: $checkInTime, checkOutTime: $checkOutTime)';
   }
 
   @override
@@ -140,7 +139,6 @@ class PropertyDetailsModel {
         other.name == name &&
         other.location == location &&
         other.type == type &&
-        other.rating == rating &&
         listEquals(other.reviews, reviews) &&
         other.description == description &&
         other.price == price &&
@@ -158,7 +156,6 @@ class PropertyDetailsModel {
         name.hashCode ^
         location.hashCode ^
         type.hashCode ^
-        rating.hashCode ^
         reviews.hashCode ^
         description.hashCode ^
         price.hashCode ^

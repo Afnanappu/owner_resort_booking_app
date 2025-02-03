@@ -1,20 +1,35 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class OwnerModel {
   String? uid;
-  String name;
-  String email;
-  String? profilePicture;
-  String? phone;
+
+  final String name;
+
+  final String email;
+
+  final String? profilePicture;
+
+  final String? fcmToken;
+
+  final String? phone;
+
+  final DateTime? createdAt;
+
+  final DateTime? updatedAt;
 
   OwnerModel({
     this.uid,
     required this.name,
     required this.email,
     this.profilePicture,
+    this.fcmToken,
     this.phone,
+    this.createdAt,
+    this.updatedAt,
   });
 
   OwnerModel copyWith({
@@ -22,14 +37,20 @@ class OwnerModel {
     String? name,
     String? email,
     String? profilePicture,
+    String? fcmToken,
     String? phone,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return OwnerModel(
       uid: uid ?? this.uid,
       name: name ?? this.name,
       email: email ?? this.email,
       profilePicture: profilePicture ?? this.profilePicture,
+      fcmToken: fcmToken ?? this.fcmToken,
       phone: phone ?? this.phone,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -39,7 +60,10 @@ class OwnerModel {
       'name': name,
       'email': email,
       'profilePicture': profilePicture,
+      'fcmToken': fcmToken,
       'phone': phone,
+      'createdAt': createdAt != null ? Timestamp.fromDate(createdAt!) : null,
+      'updatedAt': updatedAt != null ? Timestamp.fromDate(updatedAt!) : null,
     };
   }
 
@@ -51,7 +75,10 @@ class OwnerModel {
       profilePicture: map['profilePicture'] != null
           ? map['profilePicture'] as String
           : null,
+      fcmToken: map['fcmToken'] != null ? map['fcmToken'] as String : null,
       phone: map['phone'] != null ? map['phone'] as String : null,
+      createdAt: (map['createdAt'] as Timestamp?)?.toDate(),
+      updatedAt: (map['updatedAt'] as Timestamp?)?.toDate(),
     );
   }
 
@@ -62,7 +89,7 @@ class OwnerModel {
 
   @override
   String toString() {
-    return 'OwnerModel(uid: $uid, name: $name, email: $email, profilePicture: $profilePicture, phone: $phone)';
+    return 'OwnerModel(uid: $uid, name: $name, email: $email, profilePicture: $profilePicture, fcmToken: $fcmToken, phone: $phone, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -73,7 +100,10 @@ class OwnerModel {
         other.name == name &&
         other.email == email &&
         other.profilePicture == profilePicture &&
-        other.phone == phone;
+        other.fcmToken == fcmToken &&
+        other.phone == phone &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
   }
 
   @override
@@ -82,6 +112,9 @@ class OwnerModel {
         name.hashCode ^
         email.hashCode ^
         profilePicture.hashCode ^
-        phone.hashCode;
+        fcmToken.hashCode ^
+        phone.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
   }
 }

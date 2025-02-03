@@ -37,6 +37,7 @@ class CheckTimeWidgetForAddProperty extends StatelessWidget {
                   final pickedTime = await customTimePicker(
                       context: context, hour: 7, minute: 0);
                   if (pickedTime != null) {
+                    // ignore: use_build_context_synchronously
                     checkInTimeController.text = pickedTime.format(context);
                   }
                 },
@@ -69,6 +70,7 @@ class CheckTimeWidgetForAddProperty extends StatelessWidget {
                   final pickedTime = await customTimePicker(
                       context: context, hour: 22, minute: 0);
                   if (pickedTime != null) {
+                    // ignore: use_build_context_synchronously
                     checkOutTimeController.text = pickedTime.format(context);
                   }
                 },
