@@ -123,11 +123,9 @@ class UserProfileCard extends StatelessWidget {
                       context: context,
                       builder: (context) => EditableUserDialog(
                         name: user.name,
-                        // email: user.email,
                         phone: user.phone,
                         profilePicture: user.profilePicture,
                         onSave: (name, phone, profilePicture) async {
-                          //TODO: add edit propfile
 
                           await context.read<OwnerDataCubit>().updateOwnerData(
                                 OwnerModel(

@@ -13,57 +13,6 @@ import 'package:owner_resort_booking_app/features/my_bookings/views/components/b
 import 'package:owner_resort_booking_app/features/my_bookings/views/components/booked_property_card_shimmer.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
 
-// final ownerId = context.read<OwnerDataCubit>().state!.uid!;
-// WidgetsBinding.instance.addPostFrameCallback(
-//   (_) {
-//     context
-//         .read<BookedPropertyListBloc>()
-//         .add(BookedPropertyListEvent.fetchMyBookings(ownerId: ownerId));
-//   },
-// );
-
-// SizedBox(
-//                   height: MyScreenSize.height * middle,
-//                   child: ListView.builder(
-//                     itemCount: 5,
-//                     itemBuilder: (context, index) {
-//                       return BookedPropertyCardShimmer();
-//                     },
-//                   ),
-//                 ),
-// ListView.builder(
-//                           shrinkWrap: true,
-//                           physics: NeverScrollableScrollPhysics(),
-//                           itemCount: bookedModelList.length,
-//                           itemBuilder: (context, index) {
-//                             final model = bookedModelList[index];
-//                             return GestureDetector(
-//                               onTap: () async {
-//                                 context
-//                                     .read<BookedPropertyDetailsBloc>()
-//                                     .add(BookedPropertyDetailsEvent
-//                                         .fetchBookedDetails(
-//                                       ownerId: ownerId,
-//                                       bookingId: model.bookingId,
-//                                     ));
-
-//                                 context.push(
-//                                     '/${AppRoutes.bookedPropertyDetails}');
-//                               },
-//                               child: BookedPropertyCard(
-//                                 bookingId: model.bookingId,
-//                                 propertyName: model.propertyName,
-//                                 bookingDates:
-//                                     '${customDateFormat(model.startDate)} - ${customDateFormat(model.endDate)}',
-//                                 price: model.price,
-//                                 imageUrl: model.imageUrl,
-//                                 status: getBookingStatus(model.status),
-//                                 onStatusPressed: () {},
-//                               ),
-//                             );
-//                           },
-//                         );
-
 class ScreenMyBookings extends StatelessWidget {
   const ScreenMyBookings({super.key});
   final middle = 0.75;
@@ -89,12 +38,6 @@ class ScreenMyBookings extends StatelessWidget {
             style: MyTextStyles.titleLargeSemiBoldBlack,
           ),
           actionsIconTheme: IconThemeData(size: 30),
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.only(right: 10),
-          //     child: PopupMenuForMyBookings(),
-          //   ),
-          // ],
           bottom: const TabBar(
             indicatorColor: MyColors.orange,
             labelColor: MyColors.orange,
@@ -149,13 +92,6 @@ class ScreenMyBookings extends StatelessWidget {
     List<BookedPropertyCardModel> bookings,
     BuildContext context,
   ) {
-    if (bookings.isEmpty) {
-      return SizedBox(
-        height: MyScreenSize.height * middle,
-        child: Center(child: Text('No bookings found')),
-      );
-    }
-
     final ownerId = context.read<OwnerDataCubit>().state!.uid!;
     return RefreshIndicator.adaptive(
       onRefresh: () async {
@@ -163,32 +99,43 @@ class ScreenMyBookings extends StatelessWidget {
             .read<BookedPropertyListBloc>()
             .add(BookedPropertyListEvent.fetchMyBookings(ownerId: ownerId));
       },
-      child: ListView.builder(
-        itemCount: bookings.length,
-        itemBuilder: (context, index) {
-          final model = bookings[index];
-          return GestureDetector(
-            onTap: () {
-              context.read<BookedPropertyDetailsBloc>().add(
-                    BookedPropertyDetailsEvent.fetchBookedDetails(
-                      ownerId: ownerId,
-                      bookingId: model.bookingId,
-                    ),
-                  );
-              context.push('/${AppRoutes.bookedPropertyDetails}');
-            },
-            child: BookedPropertyCard(
-              bookingId: model.bookingId,
-              propertyName: model.propertyName,
-              bookingDates:
-                  '${customDateFormat(model.startDate)} - ${customDateFormat(model.endDate)}',
-              price: model.price,
-              imageUrl: model.imageUrl,
-              status: getBookingStatus(model.status),
-              onStatusPressed: () {},
-            ),
-          );
-        },
+      child: ListView(
+        children: [
+          bookings.isEmpty
+              ? SizedBox(
+                  height: MyScreenSize.height * middle,
+                  child: Center(child: Text('No bookings found')),
+                )
+              : ListView.builder(
+                  itemCount: bookings.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final model = bookings[index];
+                    return GestureDetector(
+                      onTap: () {
+                        context.read<BookedPropertyDetailsBloc>().add(
+                              BookedPropertyDetailsEvent.fetchBookedDetails(
+                                ownerId: ownerId,
+                                bookingId: model.bookingId,
+                              ),
+                            );
+                        context.push('/${AppRoutes.bookedPropertyDetails}');
+                      },
+                      child: BookedPropertyCard(
+                        bookingId: model.bookingId,
+                        propertyName: model.propertyName,
+                        bookingDates:
+                            '${customDateFormat(model.startDate)} - ${customDateFormat(model.endDate)}',
+                        price: model.price,
+                        imageUrl: model.imageUrl,
+                        status: getBookingStatus(model.status),
+                        onStatusPressed: () {},
+                      ),
+                    );
+                  },
+                ),
+        ],
       ),
     );
   }
