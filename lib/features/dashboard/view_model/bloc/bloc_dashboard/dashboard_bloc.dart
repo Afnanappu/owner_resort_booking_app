@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:owner_resort_booking_app/core/data/models/picked_date_range_model.dart';
 import 'package:owner_resort_booking_app/features/dashboard/models/dashboard_model.dart';
 import 'package:owner_resort_booking_app/features/dashboard/repository/dashboard_repository.dart';
 
@@ -18,15 +17,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       try {
         final data = await _dashboardRepository.getDashboardData(
           ownerId: event.ownerId,
-          filterDate: PickedDateRangeModel(
-            //TODO: Change this to actual date range
-            DateTime.now(),
-            DateTime.now(),
-          ),
         );
-        log('Dashboard data: $data');
         emit(_Loaded(data));
-      } catch (e) {
+      } catch (e, stack) {
+        log(e.toString(), stackTrace: stack);
         emit(_Error(e.toString()));
       }
     });

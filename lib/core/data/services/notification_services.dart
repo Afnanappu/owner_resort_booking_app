@@ -197,11 +197,12 @@ class NotificationServices {
 
   Future<List<NotificationModel>> fetchNotification() async {
     try {
-      final notificationCollection =
-          FirebaseFirestore.instance.collection('notifications');
+      final usersCollection = FirebaseFirestore.instance.collection('owners');
+      final notificationCollectionName = 'notifications';
 
-      final data = await notificationCollection
-          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      final data = await usersCollection
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .collection(notificationCollectionName)
           .get();
       final listData = data.docChanges.map((e) => e.doc.data()).toList();
 

@@ -164,7 +164,6 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
                         .toList() ??
                     [],
               );
-              // log(propertyModel.toString());
 
               if (isEdit) {
                 context.read<AddPropertyBloc>().add(
@@ -198,6 +197,8 @@ class AddPropertyFloatingActionButton extends StatelessWidget {
               context.read<RulesDetailsCubit>().clear();
               context.read<RulesDetailsCubit>().clearPreviousState();
               context.read<RoomAddCubit>().clear();
+
+              context.pop();
             },
             child: state.maybeWhen(
               loading: () => CustomCircularProgressIndicator(),

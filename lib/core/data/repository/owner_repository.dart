@@ -17,4 +17,16 @@ class OwnerRepository {
       rethrow;
     }
   }
+
+  
+  Future<void> updateOwnerData(OwnerModel ownerModel) async {
+    try {
+      await _services.updateOwnerData(ownerModel);
+    } catch (e, stack) {
+      log(e.toString(), stackTrace: stack);
+      rethrow;
+    }
+  }
+
+  Stream<bool> isOwnerBlocked()=> _services.isOwnerBlocked();
 }

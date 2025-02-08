@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:owner_resort_booking_app/core/components/custom_snack_bar.dart';
+import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
 import 'package:owner_resort_booking_app/core/data/models/owner_model.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
@@ -127,29 +129,32 @@ class UserProfileCard extends StatelessWidget {
                         onSave: (name, phone, profilePicture) async {
                           //TODO: add edit propfile
 
-                          // await context.read<OwnerDataCubit>().updateUserData(
-                          //       UserModel(
-                          //         uid: user.uid,
-                          //         name: name,
-                          //         email: email,
-                          //         phone: phone,
-                          //         profilePicture: profilePicture,
-                          //         updatedAt: DateTime.now(),
-                          //       ),
-                          //     );
-                          // if (context.mounted) {
-                          //   context.read<UserDataCubit>().fetchUserData().then(
-                          //     (value) {
-                          //       if (context.mounted) {
-                          //         showCustomSnackBar(
-                          //           context: context,
-                          //           message: 'User data updated',
-                          //           bgColor: MyColors.success,
-                          //         );
-                          //       }
-                          //     },
-                          //   );
-                          // }
+                          await context.read<OwnerDataCubit>().updateOwnerData(
+                                OwnerModel(
+                                  uid: user.uid,
+                                  name: name,
+                                  email: email,
+                                  phone: phone,
+                                  profilePicture: profilePicture,
+                                  updatedAt: DateTime.now(),
+                                ),
+                              );
+                          if (context.mounted) {
+                            context
+                                .read<OwnerDataCubit>()
+                                .fetchOwnerData()
+                                .then(
+                              (value) {
+                                if (context.mounted) {
+                                  showCustomSnackBar(
+                                    context: context,
+                                    message: 'User data updated',
+                                    bgColor: MyColors.success,
+                                  );
+                                }
+                              },
+                            );
+                          }
                           if (context.mounted) {
                             Navigator.pop(context);
                           }

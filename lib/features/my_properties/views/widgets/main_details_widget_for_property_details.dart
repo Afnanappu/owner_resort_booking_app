@@ -29,9 +29,12 @@ class MainDetailsWidgetForPropertyDetails extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              propertyModel.name,
-              style: MyTextStyles.nameStyle,
+            Expanded(
+              child: Text(
+                propertyModel.name,
+                style: MyTextStyles.nameStyle,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             CustomIconTextWidget(
               icon: Icon(

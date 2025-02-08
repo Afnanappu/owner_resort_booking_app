@@ -287,7 +287,7 @@ class _ScreenAddPropertyState extends State<ScreenAddProperty> {
       firstText: 'Yes',
       secondText: 'No',
       firstOnPressed: () {
-        //clearing the data
+        // clearing the data
 
         context.read<UploadImageForPropertyCubit>().clear();
         context.read<UploadFileCubit>().clear();

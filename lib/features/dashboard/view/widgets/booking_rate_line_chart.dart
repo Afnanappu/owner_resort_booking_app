@@ -202,7 +202,7 @@ class _BookingRateLineChartState extends State<BookingRateLineChart> {
                       dotData: FlDotData(show: true),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: MyColors.orange.withOpacity(0.3),
+                        color: MyColors.orange.withValues(alpha:0.3),
                       ),
                     ),
                   ],

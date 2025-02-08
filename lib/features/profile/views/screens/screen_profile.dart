@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:owner_resort_booking_app/core/components/custom_alert_dialog.dart';
+import 'package:owner_resort_booking_app/core/utils/user_auth_state.dart';
 import 'package:owner_resort_booking_app/features/profile/views/components/list_tile_for_profile.dart';
 import 'package:owner_resort_booking_app/features/profile/views/widgets/app_bar_for_profile.dart';
 import 'package:owner_resort_booking_app/routes/route_names.dart';
@@ -33,19 +35,19 @@ class ScreenProfile extends StatelessWidget {
                   },
                 ),
                 ListTileForProfile(
-                  icon: Icons.assessment_outlined,
+                  icon: Icons.report_gmailerrorred_outlined,
                   title: 'Report',
                   onTap: () {
-                    //TODO: Report
+                    context.push('/${AppRoutes.reportIssue}');
                   },
                 ),
-                ListTileForProfile(
-                  icon: Icons.settings_outlined,
-                  title: 'Settings',
-                  onTap: () {
-                    context.push('/${AppRoutes.settings}');
-                  },
-                ),
+                // ListTileForProfile(
+                //   icon: Icons.settings_outlined,
+                //   title: 'Settings',
+                //   onTap: () {
+                //     context.push('/${AppRoutes.settings}');
+                //   },
+                // ),
                 ListTileForProfile(
                   icon: Icons.support_agent_outlined,
                   title: 'Support',
@@ -58,6 +60,25 @@ class ScreenProfile extends StatelessWidget {
                   title: 'About',
                   onTap: () {
                     context.push('/${AppRoutes.about}');
+                  },
+                ),
+                ListTileForProfile(
+                  icon: Icons.logout_outlined,
+                  title: 'Logout',
+                  onTap: () {
+                    customAlertDialog(
+                      context: context,
+                      title: 'Logout',
+                      content: 'Do you want to logout from our app?',
+                      firstText: 'No',
+                      firstOnPressed: () {
+                        context.pop();
+                      },
+                      secondText: 'Yes',
+                      secondOnPressed: () async {
+                        await logoutFromApp(context);
+                      },
+                    );
                   },
                 ),
               ],

@@ -7,11 +7,13 @@ Future<dynamic> customAlertDialog({
   String? content,
   String? firstText = 'Yes',
   String? secondText = 'No',
+  bool barrierDismissible = true,
   void Function()? firstOnPressed,
   void Function()? secondOnPressed,
 }) {
   return showAdaptiveDialog(
     context: context,
+    barrierDismissible: barrierDismissible,
     builder: (context) => AlertDialog.adaptive(
       title: Text(title),
       content: content != null ? Text(content) : null,

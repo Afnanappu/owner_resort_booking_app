@@ -7,8 +7,11 @@ class AppRoutes {
   static const booking = 'booking';
   static const profile = 'profile';
   static const settings = 'settings';
+  static const revenueAndReport = 'revenue-and-report';
+  static const reportIssue = 'report-issue';
   static const notification = 'notification';
   static const about = 'about';
+  static const myCustomers = 'my-customers';
   static const myProperties = 'my-properties';
   static const myPropertyDetails = 'my-property-details';
   static const myPropertyRooms = 'my-property-rooms';

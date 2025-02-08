@@ -54,6 +54,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
               );
             }
             add(NotificationEvent.showNotification(notification));
+            add(NotificationEvent.updateNotification());
           },
         );
       },

@@ -21,6 +21,8 @@ class OwnerModel {
 
   final DateTime? updatedAt;
 
+  final bool isBlocked;
+
   OwnerModel({
     this.uid,
     required this.name,
@@ -30,6 +32,7 @@ class OwnerModel {
     this.phone,
     this.createdAt,
     this.updatedAt,
+    this.isBlocked = false,
   });
 
   OwnerModel copyWith({
@@ -41,6 +44,7 @@ class OwnerModel {
     String? phone,
     DateTime? createdAt,
     DateTime? updatedAt,
+    bool? isBlocked,
   }) {
     return OwnerModel(
       uid: uid ?? this.uid,
@@ -51,6 +55,7 @@ class OwnerModel {
       phone: phone ?? this.phone,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      isBlocked: isBlocked ?? this.isBlocked,
     );
   }
 
@@ -64,6 +69,7 @@ class OwnerModel {
       'phone': phone,
       'createdAt': createdAt != null ? Timestamp.fromDate(createdAt!) : null,
       'updatedAt': updatedAt != null ? Timestamp.fromDate(updatedAt!) : null,
+      'isBlocked': isBlocked
     };
   }
 
@@ -79,6 +85,7 @@ class OwnerModel {
       phone: map['phone'] != null ? map['phone'] as String : null,
       createdAt: (map['createdAt'] as Timestamp?)?.toDate(),
       updatedAt: (map['updatedAt'] as Timestamp?)?.toDate(),
+      isBlocked: map['isBlocked'] as bool,
     );
   }
 
@@ -103,7 +110,8 @@ class OwnerModel {
         other.fcmToken == fcmToken &&
         other.phone == phone &&
         other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
+        other.updatedAt == updatedAt &&
+        other.isBlocked == isBlocked;
   }
 
   @override
@@ -115,6 +123,7 @@ class OwnerModel {
         fcmToken.hashCode ^
         phone.hashCode ^
         createdAt.hashCode ^
-        updatedAt.hashCode;
+        updatedAt.hashCode ^
+        isBlocked.hashCode;
   }
 }

@@ -10,7 +10,7 @@ import 'package:owner_resort_booking_app/features/dashboard/models/total_booking
 class DashboardModel {
   final TotalBookingModel totalBookingModel;
   final List<BookingRateModel> bookingRateModel;
-  final SummaryModel? summaryModel; //TODO: Make this required
+  final SummaryModel? summaryModel; 
 
   DashboardModel({
     required this.totalBookingModel,

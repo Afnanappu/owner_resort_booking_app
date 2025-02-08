@@ -18,6 +18,7 @@ import 'package:owner_resort_booking_app/core/data/view_model/cubit/cubit_upload
 import 'package:owner_resort_booking_app/core/data/view_model/cubit/owner_data_cubit.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/cubit/user_data_cubit.dart';
 import 'package:owner_resort_booking_app/core/utils/screen_size.dart';
+import 'package:owner_resort_booking_app/core/utils/user_auth_state.dart';
 import 'package:owner_resort_booking_app/features/add_property/repository/add_property_repository.dart';
 import 'package:owner_resort_booking_app/features/add_property/services/add_property_services.dart';
 import 'package:owner_resort_booking_app/features/add_property/view_model/bloc/bloc_add_property/add_property_bloc.dart';
@@ -37,6 +38,8 @@ import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_google_m
 import 'package:owner_resort_booking_app/features/dashboard/repository/dashboard_repository.dart';
 import 'package:owner_resort_booking_app/features/dashboard/services/dashboard_service.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view_model/bloc/bloc_dashboard/dashboard_bloc.dart';
+import 'package:owner_resort_booking_app/features/dashboard/view_model/bloc/bloc_revenue_and_report/revenue_and_report_bloc.dart';
+import 'package:owner_resort_booking_app/features/dashboard/view_model/cubit/cubit/customers_cubit.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/repository/my_booking_repository.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/services/my_booking_services.dart';
 import 'package:owner_resort_booking_app/features/my_bookings/view_model/bloc/bloc_booked_property_details/booked_property_details_bloc.dart';
@@ -52,6 +55,8 @@ import 'package:owner_resort_booking_app/features/my_properties/view_model/cubit
 import 'package:owner_resort_booking_app/features/profile/repository/payment_history_repository.dart';
 import 'package:owner_resort_booking_app/features/profile/services/payment_history_services.dart';
 import 'package:owner_resort_booking_app/features/profile/view_model/bloc/payment_history_bloc.dart';
+import 'package:owner_resort_booking_app/features/profile/view_model/cubit_report_issue/report_issue_cubit.dart';
+import 'package:owner_resort_booking_app/routes/route_names.dart';
 import 'package:owner_resort_booking_app/routes/routes.dart';
 
 import 'firebase_options.dart';
@@ -61,19 +66,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // if (kDebugMode) {
-  //   try {
-  //     final deviceIp = '10.0.14.31';
-
-  //     await FirebaseAuth.instance.useAuthEmulator(deviceIp, 9099);
-  //     FirebaseFirestore.instance.useFirestoreEmulator(deviceIp, 8089);
-  //     log('Local firestore and auth is connected');
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
 
   NotificationServices().onBackgroundMessages();
+
+  final initialRoute = getInitialRoute();
 
   runApp(
     MultiRepositoryProvider(
@@ -110,6 +106,10 @@ Future<void> main() async {
             addPropertyServices: AddPropertyServices(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => ReportIssueCubit(),
+        ),
+
         RepositoryProvider(
           create: (context) => DashboardRepository(
             DashboardService(),
@@ -249,20 +249,45 @@ Future<void> main() async {
           BlocProvider(
             create: (context) => SubDetailsCubit(),
           ),
+          BlocProvider(
+            create: (context) => CustomersCubit(
+              context.read<DashboardRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => RevenueAndReportBloc(
+                context.read<DashboardRepository>(),
+                ),
+          ),
 
           //Add Property Rules Details
           BlocProvider(
             create: (context) => RulesDetailsCubit(),
           ),
         ],
-        child: const MainApp(),
+        child: MainApp(
+          initialRoute: initialRoute,
+        ),
       ),
     ),
   );
 }
 
+String getInitialRoute() {
+  if (userCurrentAuthState()) {
+    return AppRoutes.dashboard;
+  } else {
+    return AppRoutes.login;
+  }
+}
+
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  const MainApp({
+    super.key,
+    required this.initialRoute,
+  });
+
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +310,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'StayScape',
       debugShowCheckedModeBanner: false,
-      routerConfig: routes,
+      routerConfig: routes(initialRoute),
       // darkTheme: ThemeData.dark(),
       theme: customTheme,
     );
