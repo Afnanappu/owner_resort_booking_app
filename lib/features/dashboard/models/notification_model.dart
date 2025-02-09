@@ -45,9 +45,7 @@ class NotificationModel {
       title: map['title'] as String,
       body: map['body'] as String,
       sentAt: (map['sentAt'] as Timestamp).toDate(),
-      icon: map['icon'] != null
-          ? IconData(map['icon'] as int, fontFamily: 'MaterialIcons')
-          : null,
+      icon: null,
     );
   }
 
