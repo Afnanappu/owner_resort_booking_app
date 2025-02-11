@@ -12,7 +12,7 @@ part 'my_property_list_bloc.freezed.dart';
 class MyPropertyListBloc
     extends Bloc<MyPropertyListEvent, MyPropertyListState> {
   final MyPropertyRepository _repository;
-  MyPropertyListBloc(this._repository) : super(_Initial()) {
+  MyPropertyListBloc(this._repository) : super(_Loading()) {
     on<_FetchProperties>((event, emit) async {
       emit(MyPropertyListState.loading());
      

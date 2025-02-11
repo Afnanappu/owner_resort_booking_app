@@ -11,7 +11,7 @@ import 'package:owner_resort_booking_app/features/profile/views/components/payme
 
 class ScreenPaymentHistory extends StatelessWidget {
   ScreenPaymentHistory({super.key});
-  final height = MyScreenSize.height * .9;
+  final height = MyScreenSize.height * .2;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {

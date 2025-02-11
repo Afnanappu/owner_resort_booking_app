@@ -22,6 +22,7 @@ class ScreenMyProperties extends StatelessWidget {
   ScreenMyProperties({super.key});
   final searchController = SearchController();
   final height = MyScreenSize.height * .65;
+  final height2 = MyScreenSize.height * .4;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,20 +79,6 @@ class ScreenMyProperties extends StatelessWidget {
               BlocBuilder<MyPropertyListBloc, MyPropertyListState>(
                 builder: (context, state) {
                   return state.maybeWhen(
-                    initial: () => SizedBox(
-                      height: height,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search, size: 48, color: Colors.grey),
-                          SizedBox(height: 16),
-                          Text(
-                            'Welcome! Start exploring properties.',
-                            style: TextStyle(fontSize: 16, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
                     error: (message) => SizedBox(
                       height: height,
                       child: Center(
@@ -103,13 +90,25 @@ class ScreenMyProperties extends StatelessWidget {
                         ),
                       ),
                     ),
-                    loading: () => SizedBox(
-                      height: height,
-                      child: Center(
-                        child: Text(
-                          'Loading...',
+                    loading: () => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Properties (0)',
+                          style: MyTextStyles.titleMediumSemiBoldBlack,
                         ),
-                      ),
+                        MySpaces.hSpace10,
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: PropertyWidgetShimmer());
+                          },
+                        ),
+                      ],
                     ),
                     loaded: (propertyList) {
                       return Column(
@@ -121,8 +120,14 @@ class ScreenMyProperties extends StatelessWidget {
                           ),
                           MySpaces.hSpace10,
                           propertyList.isEmpty
-                              ? Center(
-                                  child: Text('No property added'),
+                              ? SizedBox(
+                                  height: MyScreenSize.height - height2,
+                                  child: Center(
+                                    child: Text(
+                                      'No property added',
+                                      style: MyTextStyles.bodyLargeNormalGrey,
+                                    ),
+                                  ),
                                 )
                               : ListView.builder(
                                   shrinkWrap: true,

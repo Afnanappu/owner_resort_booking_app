@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
-import 'package:owner_resort_booking_app/core/components/custom_circular_progress_indicator.dart';
 import 'package:owner_resort_booking_app/core/constants/my_colors.dart';
+import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/data/models/user_model.dart';
 import 'package:owner_resort_booking_app/features/dashboard/view_model/cubit/cubit/customers_cubit.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ScreenMyCustomers extends StatelessWidget {
   const ScreenMyCustomers({super.key});
@@ -29,21 +30,33 @@ class ScreenMyCustomers extends StatelessWidget {
               child: Text(error),
             ),
             loading: () => Center(
-              child: CustomCircularProgressIndicator(),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return CustomerCardShimmer();
+                },
+              ),
             ),
             orElse: () => Center(
               child: Text('An unexpected error occurred'),
             ),
             loaded: (users) {
-              return ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  final user = users[index];
-                  return CustomerCard(
-                    user: user,
-                  );
-                },
-              );
+              return users.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No Customers',
+                        style: MyTextStyles.bodyLargeNormalGrey,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        final user = users[index];
+                        return CustomerCard(
+                          user: user,
+                        );
+                      },
+                    );
             },
           );
         },
@@ -140,6 +153,73 @@ class CustomerCard extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class CustomerCardShimmer extends StatelessWidget {
+  const CustomerCardShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.1),
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Shimmer Avatar
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+            SizedBox(width: 16),
+            // Shimmer Column
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Shimmer for name and email
+                  Container(
+                    width: double.infinity,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    width: 150,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

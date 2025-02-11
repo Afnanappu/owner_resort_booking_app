@@ -19,7 +19,7 @@ final globalNavKey = GlobalKey<NavigatorState>();
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final NotificationServices _notificationServices;
-  NotificationBloc(this._notificationServices) : super(_Initial()) {
+  NotificationBloc(this._notificationServices) : super(_Loading()) {
     on<_InitNotification>(
       (event, emit) async {
         await _notificationServices.initNotification(

@@ -104,7 +104,12 @@ class ScreenMyBookings extends StatelessWidget {
           bookings.isEmpty
               ? SizedBox(
                   height: MyScreenSize.height * middle,
-                  child: Center(child: Text('No bookings found')),
+                  child: Center(
+                    child: Text(
+                      'No bookings found',
+                      style: MyTextStyles.bodyLargeNormalGrey,
+                    ),
+                  ),
                 )
               : ListView.builder(
                   itemCount: bookings.length,

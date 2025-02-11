@@ -64,7 +64,7 @@ class AppBarForDashboard extends StatelessWidget
             top: 65,
             right: 23,
             child: SizedBox(
-              width: MyScreenSize.width - 46,
+              width: MyScreenSize.width - 48,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

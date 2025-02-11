@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:owner_resort_booking_app/core/components/custom_app_bar.dart';
+import 'package:owner_resort_booking_app/core/constants/text_styles.dart';
 import 'package:owner_resort_booking_app/core/data/view_model/bloc/bloc_notification/notification_bloc.dart';
 import 'package:owner_resort_booking_app/core/utils/custom_date_formats.dart';
 import 'package:owner_resort_booking_app/features/dashboard/models/notification_model.dart';
@@ -24,28 +25,38 @@ class ScreenNotification extends StatelessWidget {
       body: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
           return state.maybeWhen(
-            initial: () => Center(
-              child: Text('Loading'),
-            ),
             loading: () => Center(
-              child: Text('Loading'),
+              child: Text(
+                'Loading...',
+                style: MyTextStyles.bodyLargeNormalGrey,
+              ),
             ),
             error: (message) => Center(
               child: Text(message),
             ),
             orElse: () => Center(
-              child: Text('An unexpected error occurred'),
+              child: Text(
+                'An unexpected error occurred',
+                style: MyTextStyles.bodyLargeNormalGrey,
+              ),
             ),
             onNotification: (notifications) {
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: notifications.length,
-                itemBuilder: (context, index) {
-                  final notification = notifications[index];
-                  return NotificationCard(notification: notification);
-                },
-              );
+              return notifications.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No notification',
+                        style: MyTextStyles.bodyLargeNormalGrey,
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: notifications.length,
+                      itemBuilder: (context, index) {
+                        final notification = notifications[index];
+                        return NotificationCard(notification: notification);
+                      },
+                    );
             },
           );
         },
